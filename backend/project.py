@@ -31,5 +31,24 @@ def create_user():
     return jsonify(status=status.HTTP_201_CREATED)
 
 
+@app.route('/api/login', methods=['POST'])
+def login():
+    """
+    POST request with user and password to login
+    :return: user_id
+    """
+    # TODO
+    pass
+
+
+@app.route('/api/post', methods=['POST'])
+def post():
+    """
+    POST request to post a user post
+    :return:
+    """
+    pass
+
+
 if __name__ == '__main__':
     app.run()

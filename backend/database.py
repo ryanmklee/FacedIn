@@ -7,6 +7,7 @@ HOST = 'stampy.db.elephantsql.com'
 
 
 INSERT_USER_SQL = '''INSERT INTO users (user_id, email, password) VALUES (DEFAULT, '{usr}', '{pwd}')'''
+VALIDATE_USER_SQL = '' # TODO
 
 
 def get_connection():
@@ -30,3 +31,32 @@ def insert_user(connection, user: str, password: str) -> None:
         connection.commit()
 
 
+def validate_user(connection, user: str, password: str) -> bool:
+    """
+    Validate user credentials and return bool if it is a match
+    :param connection:
+    :param user:
+    :param password:
+    :return:
+    """
+    pass
+
+
+def query_posts(connection, user_id: int) -> list:
+    """
+    Query posts based on users that the user_id should be able to see
+    :param connection:
+    :param user_id:
+    :return:
+    """
+    pass
+
+
+def add_post(connection, str) -> bool:
+    """
+    Adds a post for a user
+    :param connection:
+    :param str:
+    :return:
+    """
+    pass
