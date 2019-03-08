@@ -1,6 +1,8 @@
 # FacedIn
 **CPSC 304 Project - Social Media Web Application**
 
+This project is a social media web application for CPSC 304, a relational databases course. 
+
 ### Backend Pre-requisites
 
 To install Python, please download go to [Anaconda](https://www.anaconda.com/distribution/). Anaconda is a package manager for Python, but does not contain all packages.
