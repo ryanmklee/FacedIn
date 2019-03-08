@@ -13,6 +13,12 @@ pip install Flask
 
 Type the following in the terminal window. I recommend [PyCharm](https://www.jetbrains.com/pycharm/) as an IDE.
 
+If there are any missing packages when you run the Flask application. Go to the backend directory and type:
+```
+pip install requirements.txt
+```
+This will install all the current requirements to build the application.
+
 
 ### Database Pre-requisites
 
