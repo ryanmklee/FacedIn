@@ -2,7 +2,7 @@ from flask import Flask
 from flask import jsonify, request, make_response, send_from_directory
 from flask_api import status
 
-from backend import database
+from b import database
 
 app = Flask(__name__)
 

@@ -28,5 +28,5 @@ def insert_user(connection, user: str, password: str) -> None:
     with connection.cursor() as cursor:
         cursor.execute(INSERT_USER_SQL.format(usr=user, pwd=password))
         connection.commit()
-    
+
 
