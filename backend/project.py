@@ -37,8 +37,15 @@ def login():
     POST request with user and password to login
     :return: user_id
     """
-    # TODO
-    pass
+    args = request.args
+    email = args['email']
+    pwd = args['password']
+    user_id = -1
+    if email and pwd:
+        with database.get_connection() as conn:
+            user_id = database.validate_user(conn, email, pwd)
+    return jsonify(status=status.HTTP_400_BAD_REQUEST) if user_id == -1 else jsonify(status=status.HTTP_200_OK,
+                                                                                     user_id=user_id)
 
 
 @app.route('/api/post', methods=['POST'])

@@ -5,9 +5,13 @@ USER = 'lxjvzzed'
 PASSWORD = '8XaKBKymJa295Ej28nnXiYFnUlDWkApM'
 HOST = 'stampy.db.elephantsql.com'
 
-
 INSERT_USER_SQL = '''INSERT INTO users (user_id, email, password) VALUES (DEFAULT, '{usr}', '{pwd}')'''
-VALIDATE_USER_SQL = '' # TODO
+QUERY_USER_ID = '''
+select user_id
+from users
+where email = '{email}'
+and password = '{pwd}'
+'''
 
 
 def get_connection():
@@ -31,15 +35,19 @@ def insert_user(connection, user: str, password: str) -> None:
         connection.commit()
 
 
-def validate_user(connection, user: str, password: str) -> bool:
+def validate_user(connection, email: str, password: str) -> int:
     """
     Validate user credentials and return bool if it is a match
     :param connection:
-    :param user:
+    :param email:
     :param password:
     :return:
     """
-    pass
+    with connection.cursor() as cursor:
+        cursor.execute(QUERY_USER_ID.format(email=email, pwd=password))
+        rows = cursor.fetchall()
+        user_id = rows[0][0] if len(rows) == 1 else -1
+    return user_id
 
 
 def query_posts(connection, user_id: int) -> list:
