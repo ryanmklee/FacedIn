@@ -27,3 +27,7 @@ Make sure you have a database visualization tool. I recommend [DataGrip](https:/
 ### Testing API Calls
 
 I recommend using [Postman](https://www.getpostman.com/downloads/) to test the API calls to the backend. 
+
+### API Documentation
+
+Please go to the backend folder's [README.md](https://github.com/ryanmklee/FacedIn/blob/master/backend/README.md) for a full description on the API endpoints.
