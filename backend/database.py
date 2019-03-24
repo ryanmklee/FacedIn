@@ -1,17 +1,12 @@
 import psycopg2
 
+from backend.queries import INSERT_USER_SQL, QUERY_USER_ID, INSERT_POST_SQL, QUERY_FRIEND_POST_SQL, \
+    INSERT_USER_DATA_SQL, QUERY_USER_DATA, INSERT_FRIEND_REQUEST, QUERY_FRIEND_REQUESTS
+
 DBNAME = 'lxjvzzed'
 USER = 'lxjvzzed'
 PASSWORD = '8XaKBKymJa295Ej28nnXiYFnUlDWkApM'
 HOST = 'stampy.db.elephantsql.com'
-
-INSERT_USER_SQL = '''INSERT INTO users (user_id, email, password) VALUES (DEFAULT, '{usr}', '{pwd}')'''
-QUERY_USER_ID = '''
-select user_id
-from users
-where email = '{email}'
-and password = '{pwd}'
-'''
 
 
 def get_connection():
@@ -38,10 +33,10 @@ def insert_user(connection, user: str, password: str) -> None:
 def validate_user(connection, email: str, password: str) -> int:
     """
     Validate user credentials and return bool if it is a match
-    :param connection:
-    :param email:
-    :param password:
-    :return:
+    :param connection: Database connection
+    :param email: email
+    :param password: password
+    :return: int, user_id
     """
     with connection.cursor() as cursor:
         cursor.execute(QUERY_USER_ID.format(email=email, pwd=password))
@@ -53,18 +48,78 @@ def validate_user(connection, email: str, password: str) -> int:
 def query_posts(connection, user_id: int) -> list:
     """
     Query posts based on users that the user_id should be able to see
-    :param connection:
-    :param user_id:
-    :return:
+    :param connection: Database connection
+    :param user_id: int
+    :return: list of posts
     """
-    pass
+    with connection.cursor() as cursor:
+        cursor.execute(QUERY_FRIEND_POST_SQL.format(user_id=user_id))
+        rows = cursor.fetchall()
+
+    # TODO: return a list not all return from the database
+    return rows
 
 
-def add_post(connection, str) -> bool:
+def add_post(connection, user_id: int, post: str) -> None:
     """
     Adds a post for a user
-    :param connection:
-    :param str:
+    :param user_id: user_id
+    :param connection: Database connection
+    :param post: user post
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(INSERT_POST_SQL).format(user_id=user_id, post=post)
+        connection.commit()
+
+
+def insert_user_data(connection, user_id: int, age: int, sex: str, location: str) -> None:
+    """
+    Inserts user data to the user_data table
+    :param connection: database connection
+    :param user_id: user_id
+    :param age: int
+    :param sex: str
+    :param location: str
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(INSERT_USER_DATA_SQL.format(user_id=user_id, age=age, sex=sex, location=location))
+        connection.commit()
+
+
+def send_friend_request(connection, user_id: int, friend_id: int) -> None:
+    """
+    Insert into friend request table
+    :param connection: Database connection
+    :param user_id: int
+    :param friend_id: int
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(INSERT_FRIEND_REQUEST.format(user_id=user_id, friend_id=friend_id))
+        connection.commit()
+
+
+def query_user_data(connection, user_id: int) -> list:
+    """
+    Queries user profile based on user_id
+    :param connection: database connection
+    :param user_id: user_id
     :return:
     """
-    pass
+    with connection.cursor() as cursor:
+        cursor.execute(QUERY_USER_DATA.format(user_id=user_id))
+        rows = cursor.fetchall()
+    # TODO: return a proper list
+    return rows
+
+
+def query_friend_requests(connection, user_id: int) -> list:
+    """
+    Query all friend requests from user_id
+    :param connection: Database connection
+    :param user_id: int
+    :return: list of friend requests
+    """
+    with connection.cursor as cursor:
+        cursor.execute(QUERY_FRIEND_REQUESTS.format(user_id))
+        rows = cursor.fetchall()
+    return rows

@@ -47,10 +47,44 @@ def login():
     return jsonify(status=status.HTTP_200_OK, user_id=user_id)
 
 
-@app.route('/api/post', methods=['POST'])
-def post():
+@app.route('/api/user/post', methods=['POST'])
+def user_post():
     """
     POST request to post a user post
+    :return:
+    """
+    args = request.args
+    user_id = args['user_id']
+    post = args['post']
+    if user_id and post:
+        with database.get_connection() as conn:
+            database.add_post(conn, user_id, post)
+    return jsonify(status=status.HTTP_201_CREATED)
+
+
+@app.route('/api/user/view_posts', methods=['GET'])
+def query_posts():
+    """
+    GET request to view all posts based on a user_id
+    :return:
+    """
+    # TODO
+    pass
+
+
+@app.route('/api/user/send_friend_request', methods=['POST'])
+def send_friend_request():
+    """
+    POST request to send a friend request to another user
+    :return:
+    """
+    pass
+
+
+@app.route('/api/user/view_friend_requests', methods=['GET'])
+def query_friend_requests():
+    """
+    Queries friend requests pertaining to a user
     :return:
     """
     pass
