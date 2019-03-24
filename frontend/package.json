@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "cross-fetch": "^3.0.1",
     "react": "^16.8.3",
     "react-bootstrap": "^1.0.0-beta.5",
     "react-dom": "^16.8.3",
-    "react-scripts": "^2.1.8"
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "^2.1.8",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -24,6 +27,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "react-redux": "^6.0.1",
     "redux": "^4.0.1"
   }
 }
