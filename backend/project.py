@@ -31,13 +31,14 @@ def create_user():
     return jsonify(status=status.HTTP_201_CREATED)
 
 
-@app.route('/api/login', methods=['POST'])
+@app.route('/api/login', methods=['GET'])
 def login():
     """
     POST request with user and password to login
     :return: user_id
     """
     args = request.args
+    print(args)
     email = args['email']
     pwd = args['password']
     user_id = -1
