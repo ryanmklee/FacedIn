@@ -62,6 +62,20 @@ def user_post():
     return jsonify(status=status.HTTP_201_CREATED)
 
 
+@app.route('/api/user/info', methods=['GET'])
+def query_user():
+    """
+    GET request user_id for user data
+    :return:
+    """
+    args = request.args
+    user_id = args['user_id']
+    if user_id:
+        with database.get_connection() as conn:
+            user_data = database.query_user_data(conn, user_id)
+        return jsonify(status=status.HTTP_200_OK, user_data=user_data)
+
+
 @app.route('/api/user/view_posts', methods=['GET'])
 def query_posts():
     """

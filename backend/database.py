@@ -108,7 +108,6 @@ def query_user_data(connection, user_id: int) -> list:
     with connection.cursor() as cursor:
         cursor.execute(QUERY_USER_DATA.format(user_id=user_id))
         rows = cursor.fetchall()
-    # TODO: return a proper list
     return rows
 
 
