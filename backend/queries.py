@@ -13,7 +13,7 @@ INSERT INTO user_posts ("post_id", "user_id", "post")
   VALUES (DEFAULT, '{user_id}', '{post}')
 '''
 QUERY_FRIEND_POST_SQL = '''
-select user_posts.user_id, name, post, time_posted
+select post_id, user_posts.user_id, name, post, time_posted
 from user_posts
 join user_data ud on ud.user_id = user_posts.user_id
 where user_posts.user_id = '{user_id}'
@@ -40,7 +40,7 @@ INSERT INTO post_comments ("comment_id", "post_id", "user_id", "comment_text", "
   VALUES (DEFAULT, '{post_id}', '{user_id}','{comment_text}', DEFAULT)
 '''
 QUERY_COMMENTS_SQL = '''
-select * from post_comments where post_id = {};
+select * from post_comments where post_id = '{post_id}';
 '''
 DELETE_FRIEND_REQUEST_SQL = '''
 DELETE FROM friend_requests WHERE "from_user" = '{user_id}' AND "to_user" = '{friend_id}'

@@ -89,13 +89,18 @@ def query_posts():
     GET request to view all posts based on a user_id
     :return:
     """
-    # TODO: Also get comments at this endpoint so there won't be multiple calls to create another comment endpoint
     args = request.args
     user_id = args['user_id']
     if user_id:
+        res = []
         with database.get_connection() as conn:
-            posts = database.query_posts(conn, user_id)
-        return jsonify(status=status.HTTP_200_OK, posts=posts)
+            for post in database.query_posts(conn, user_id):
+                ret = {
+                    'post': post,
+                    'comments': database.query_comments(conn, post[0])
+                }
+                res.append(ret)
+        return jsonify(status=status.HTTP_200_OK, posts=res)
 
 
 @app.route('/api/user/send_friend_request', methods=['POST'])
