@@ -58,3 +58,37 @@ select group_id, groups.user_id, name as admin, activity, group_name
 from groups
        join user_data ud on ud.user_id = groups.user_id;
 '''
+
+QUERY_USER_GROUPS_SQL = '''
+select groups.group_id, group_name
+from group_list_table
+       join groups on group_list_table.group_id = groups.group_id
+where groups.user_id = '{user_id}';
+'''
+
+INSERT_GROUP_REQUEST = '''
+INSERT INTO group_requests ("from_user", "to_user")
+  VALUES ('{user_id}', '{friend_id}');
+'''
+
+QUERY_GROUP_REQUESTS = '''
+select from_user, ud.name
+from group_requests
+       join user_data ud on ud.user_id = group_requests.from_user
+where to_user = '{user_id}'
+'''
+
+INSERT_EVENT_SQL = '''
+INSERT INTO "events" ("event_id", "group_id", "event_name", "location", "time")
+ VALUES (DEFAULT, '{group_id}', '{event_name}', '{location}', '{timestamp}')
+'''
+
+QUERY_GROUP_EVENTS_SQL = '''
+select * from events where group_id = '{group_id}';
+'''
+
+INSERT_GROUP_LIST_SQL = '''
+INSERT INTO "group_list_table" ("group_id", "user_id")
+ VALUES ('{group_id}', '{user_id}')
+'''
+
