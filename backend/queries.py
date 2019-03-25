@@ -35,4 +35,16 @@ select name, to_user from friend_requests
 join user_data ud on ud.user_id = to_user
 where from_user = {'user_id'};
 '''
-
+INSERT_COMMENT_SQL = '''
+INSERT INTO post_comments ("comment_id", "post_id", "user_id", "comment_text", "time_posted")
+  VALUES (DEFAULT, '{post_id}', '{user_id}','{comment_text}', DEFAULT)
+'''
+QUERY_COMMENTS_SQL = '''
+select * from post_comments where post_id = {};
+'''
+DELETE_FRIEND_REQUEST_SQL = '''
+DELETE FROM friend_requests WHERE "from_user" = '{user_id}' AND "to_user" = '{friend_id}'
+'''
+INSERT_FRIEND_LIST_SQL = '''
+INSERT INTO "friend_list_table" ("user_id", "friend_id") VALUES ('{user_id}', '{friend_id}')
+'''

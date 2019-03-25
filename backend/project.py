@@ -82,6 +82,7 @@ def query_posts():
     GET request to view all posts based on a user_id
     :return:
     """
+    # TODO: Also get comments at this endpoint so there won't be multiple calls to create another comment endpoint
     args = request.args
     user_id = args['user_id']
     if user_id:
@@ -116,7 +117,25 @@ def query_friend_requests():
     if user_id:
         with database.get_connection() as conn:
             friend_ids = database.query_friend_requests(conn, user_id)
-    return jsonify(status=status.HTTP_200_OK, friends=friend_ids)
+        return jsonify(status=status.HTTP_200_OK, friends=friend_ids)
+
+
+@app.route('/api/user/friend_request', methods=['POST'])
+def modify_friend_request():
+    """
+    Accepts/Declines a friend request and moves the request to the friend list table
+    :return:
+    """
+    args = request.args
+    user_id = args['user_id']
+    friend_id = args['friend_id']
+    is_accepted = args['is_accepted']
+    with database.get_connection() as conn:
+        if is_accepted:
+            database.accept_friend_request(conn, user_id, friend_id)
+        else:
+            database.decline_friend_request(conn, user_id, friend_id)
+    return jsonify(status=status.HTTP_200_OK)
 
 
 if __name__ == '__main__':
