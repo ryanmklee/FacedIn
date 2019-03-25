@@ -31,6 +31,8 @@ INSERT INTO friend_requests ("from_user", "to_user")
  VALUES ('{user_id}', '{friend_id}')
 '''
 QUERY_FRIEND_REQUESTS = '''
-select to_user from friend_requests where from_user = '{user_id}';
+select name, to_user from friend_requests
+join user_data ud on ud.user_id = to_user
+where from_user = {'user_id'};
 '''
 

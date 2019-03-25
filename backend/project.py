@@ -38,7 +38,6 @@ def login():
     :return: user_id
     """
     args = request.args
-    print(args)
     email = args['email']
     pwd = args['password']
     user_id = -1
@@ -83,7 +82,13 @@ def send_friend_request():
     POST request to send a friend request to another user
     :return:
     """
-    pass
+    args = request.args
+    user_id = args['user_id']
+    friend_id = args['friend_id']
+    if user_id and friend_id:
+        with database.get_connection() as conn:
+            database.send_friend_request(conn, user_id, friend_id)
+    return jsonify(status=status.HTTP_200_OK)
 
 
 @app.route('/api/user/view_friend_requests', methods=['GET'])
@@ -92,7 +97,12 @@ def query_friend_requests():
     Queries friend requests pertaining to a user
     :return:
     """
-    pass
+    args = request.args
+    user_id = args['user_id']
+    if user_id:
+        with database.get_connection() as conn:
+            friend_ids = database.query_friend_requests(conn, user_id)
+    return jsonify(status=status.HTTP_200_OK, friends=friend_ids)
 
 
 if __name__ == '__main__':

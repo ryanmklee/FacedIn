@@ -123,3 +123,26 @@ def query_friend_requests(connection, user_id: int) -> list:
         cursor.execute(QUERY_FRIEND_REQUESTS.format(user_id))
         rows = cursor.fetchall()
     return rows
+
+
+def accept_friend_request(connection, user_id: int, friend_id: int) -> bool:
+    """
+    Accept a friend request. Delete entry from friend_request table and insert into friend_list_table
+    :param connection:
+    :param user_id:
+    :param friend_id:
+    :return: bool for success
+    """
+    pass
+
+
+def decline_friend_request(connection, user_id: int, friend_id: int) -> bool:
+    """
+    Declines a friend request. Delete entry from friend_request table.
+    :param connection:
+    :param user_id:
+    :param friend_id:
+    :return:
+    """
+    pass
+
