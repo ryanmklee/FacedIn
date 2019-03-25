@@ -124,7 +124,7 @@ def query_friend_requests():
     if user_id:
         with database.get_connection() as conn:
             friend_ids = database.query_friend_requests(conn, user_id)
-        return jsonify(status=status.HTTP_200_OK, friends=friend_ids)
+        return jsonify(status=status.HTTP_200_OK, friend_requests=friend_ids)
 
 
 @app.route('/api/user/friend_request', methods=['POST'])

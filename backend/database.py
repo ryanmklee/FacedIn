@@ -81,7 +81,7 @@ def insert_user_data(connection, user_id: int, age: int, sex: str, location: str
     """
     with connection.cursor() as cursor:
         cursor.execute(INSERT_USER_DATA_SQL.format(user_id=user_id, age=age, sex=sex, location=location,
-                                                   occupatiton=occupation))
+                                                   occupation=occupation))
         connection.commit()
 
 
@@ -118,7 +118,7 @@ def query_friend_requests(connection, user_id: int) -> list:
     :return: list of friend requests
     """
     with connection.cursor() as cursor:
-        cursor.execute(QUERY_FRIEND_REQUESTS.format(user_id))
+        cursor.execute(QUERY_FRIEND_REQUESTS.format(user_id=user_id))
         rows = cursor.fetchall()
     return rows
 
