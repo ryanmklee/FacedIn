@@ -2,14 +2,17 @@ import React from "react";
 import {connect} from "react-redux"
 import {LOGIN_ACTION, PASSWORD_INPUT, USERNAME_INPUT} from "../constants/actionTypes";
 import {tryLogin} from "../actions/actions";
+import store from "../store/index"
 class Login extends React.Component {
 
     render() {
     return (
         <form onSubmit={()=>{
-            const temp = document.getElementById(USERNAME_INPUT).value;
-            const temp2 = document.getElementById(PASSWORD_INPUT).value;
-            tryLogin(temp, temp2);
+            const username = document.getElementById(USERNAME_INPUT).value;
+            const password = document.getElementById(PASSWORD_INPUT).value;
+            console.log("Hello");
+            const webcallPromise = store.dispatch(tryLogin(username, password));
+            webcallPromise.then(() => {console.log("Done")});
         }}>
           <h3>Sign in</h3>
           <input id = {USERNAME_INPUT} type="text" ref="username" placeholder="enter you username" />
