@@ -1,8 +1,6 @@
 import psycopg2
 
-from backend.queries import INSERT_USER_SQL, QUERY_USER_ID, INSERT_POST_SQL, QUERY_FRIEND_POST_SQL, \
-    INSERT_USER_DATA_SQL, QUERY_USER_DATA, INSERT_FRIEND_REQUEST, QUERY_FRIEND_REQUESTS, INSERT_COMMENT_SQL, \
-    QUERY_COMMENTS_SQL, DELETE_FRIEND_REQUEST_SQL, INSERT_FRIEND_LIST_SQL
+from backend.queries import *
 
 DBNAME = 'lxjvzzed'
 USER = 'lxjvzzed'
@@ -71,7 +69,7 @@ def add_post(connection, user_id: int, post: str) -> None:
         connection.commit()
 
 
-def insert_user_data(connection, user_id: int, age: int, sex: str, location: str) -> None:
+def insert_user_data(connection, user_id: int, age: int, sex: str, location: str, occupation: str) -> None:
     """
     Inserts user data to the user_data table
     :param connection: database connection
@@ -79,9 +77,11 @@ def insert_user_data(connection, user_id: int, age: int, sex: str, location: str
     :param age: int
     :param sex: str
     :param location: str
+    :param occupation: str
     """
     with connection.cursor() as cursor:
-        cursor.execute(INSERT_USER_DATA_SQL.format(user_id=user_id, age=age, sex=sex, location=location))
+        cursor.execute(INSERT_USER_DATA_SQL.format(user_id=user_id, age=age, sex=sex, location=location,
+                                                   occupatiton=occupation))
         connection.commit()
 
 
