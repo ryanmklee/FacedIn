@@ -71,6 +71,12 @@ INSERT INTO group_requests ("group_id", "to_user")
   VALUES ('{group_id}', '{friend_id}');
 '''
 
+QUERY_SPECIFIC_GROUP_SQL = '''
+select * from groups 
+  where user_id = '{user_id}' and group_id = '{group_id}';
+'''
+
+
 DELETE_GROUP_REQUEST_SQL = '''
 DELETE FROM "public"."group_requests" 
   WHERE "group_id" = '{group_id}' AND "to_user" = '{user_id}'
@@ -95,5 +101,10 @@ select * from events where group_id = '{group_id}';
 INSERT_GROUP_LIST_SQL = '''
 INSERT INTO "group_list_table" ("group_id", "user_id")
  VALUES ('{group_id}', '{user_id}')
+'''
+
+QUERY_GROUP_MEMBERS = '''
+select * from group_list_table
+  where group_id = '{group_id}' and user_id = '{user_id}'
 '''
 
