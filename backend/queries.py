@@ -13,10 +13,11 @@ INSERT INTO user_posts ("post_id", "user_id", "post")
   VALUES (DEFAULT, '{user_id}', '{post}')
 '''
 QUERY_FRIEND_POST_SQL = '''
-select *
+select user_posts.user_id, name, post, time_posted
 from user_posts
-where user_id = '{user_id}'
-   or user_id in (select friend_id from friend_list_table where user_id = '{user_id}');
+join user_data ud on ud.user_id = user_posts.user_id
+where user_posts.user_id = '{user_id}'
+   or user_posts.user_id in (select friend_id from friend_list_table where friend_list_table.user_id = '{user_id}');
 '''
 INSERT_USER_DATA_SQL = '''
 INSERT INTO user_data("user_id", "age", "sex", "location")

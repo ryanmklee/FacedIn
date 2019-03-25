@@ -68,8 +68,12 @@ def query_posts():
     GET request to view all posts based on a user_id
     :return:
     """
-    # TODO
-    pass
+    args = request.args
+    user_id = args['user_id']
+    if user_id:
+        with database.get_connection() as conn:
+            posts = database.query_posts(conn, user_id)
+        return jsonify(status=status.HTTP_200_OK, posts=posts)
 
 
 @app.route('/api/user/send_friend_request', methods=['POST'])
