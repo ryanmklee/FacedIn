@@ -176,3 +176,95 @@ def decline_friend_request(connection, user_id: int, friend_id: int) -> None:
         cursor.commit()
 
 
+def insert_group(connection, user_id: str, activity: str, group_name: str) -> None:
+    """
+    Inserts a group into the database.
+    :param connection: Database connection
+    :param user_id: int
+    :param activity: str
+    :param group_name: str
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(INSERT_GROUP_SQL.format(user_id=user_id, activity=activity, group_name=group_name))
+        cursor.commit()
+
+
+def send_group_request(connection, group_id: int, user_id: int) -> None:
+    """
+    Sends a group request to a user
+    :param connection: Database connection
+    :param group_id: int
+    :param user_id: int
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(INSERT_GROUP_REQUEST_SQL.format(group_id=group_id, user_id=user_id))
+        cursor.commit()
+
+
+def query_group_requests(connection, user_id: int) -> list:
+    """
+    Queries all group requests associated to the user_id
+    :param connection: Database connection
+    :param user_id: int
+    :return: list of groups
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(QUERY_GROUP_REQUESTS_SQL.format(user_id=user_id))
+        rows = cursor.fetchall()
+    return rows
+
+
+def accept_group_request(connection, group_id: int, user_id: int) -> None:
+    """
+    Accepts a group request and adds to the group_list_table
+    :param connection:
+    :param group_id:
+    :param user_id:
+    :return:
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(DELETE_GROUP_REQUEST_SQL.format(group_id=group_id, user_id=user_id))
+        cursor.execute(INSERT_GROUP_LIST_SQL.format(group_id=group_id, user_id=user_id))
+        cursor.commit()
+
+
+def decline_group_request(connection, group_id: int, user_id: int) -> None:
+    """
+    Declines a group request and deletes its' entry from group_list
+    :param connection:
+    :param group_id:
+    :param user_id:
+    :return:
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(DELETE_GROUP_REQUEST_SQL.format(group_id=group_id))
+        cursor.commit()
+
+
+def insert_event(connection, group_id: int, event_name: str, location: str, timestamp: str) -> None:
+    """
+    Inserts an event to the events table based on a group_id
+    :param connection:
+    :param timestamp:
+    :param location:
+    :param event_name:
+    :param group_id:
+    :return:
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(INSERT_EVENT_SQL.format(group_id=group_id, event_name=event_name, location=location,
+                                               timestamp=timestamp))
+        cursor.commit()
+
+
+def query_group_events(connection, group_id: int) -> list:
+    """
+    Returns a list of group events
+    :param connection:
+    :param group_id:
+    :return:
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(QUERY_GROUP_EVENTS_SQL.format(group_id))
+        rows = cursor.fetchall()
+    return rows

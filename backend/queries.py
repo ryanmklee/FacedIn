@@ -66,12 +66,17 @@ from group_list_table
 where groups.user_id = '{user_id}';
 '''
 
-INSERT_GROUP_REQUEST = '''
-INSERT INTO group_requests ("from_user", "to_user")
-  VALUES ('{user_id}', '{friend_id}');
+INSERT_GROUP_REQUEST_SQL = '''
+INSERT INTO group_requests ("group_id", "to_user")
+  VALUES ('{group_id}', '{friend_id}');
 '''
 
-QUERY_GROUP_REQUESTS = '''
+DELETE_GROUP_REQUEST_SQL = '''
+DELETE FROM "public"."group_requests" 
+  WHERE "group_id" = '{group_id}' AND "to_user" = '{user_id}'
+'''
+
+QUERY_GROUP_REQUESTS_SQL = '''
 select from_user, ud.name
 from group_requests
        join user_data ud on ud.user_id = group_requests.from_user
