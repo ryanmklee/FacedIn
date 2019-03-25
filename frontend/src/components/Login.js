@@ -1,18 +1,26 @@
 import React from "react";
 import {connect} from "react-redux"
-import {LOGIN_ACTION, PASSWORD_INPUT, USERNAME_INPUT} from "../constants/actionTypes";
-import {tryLogin} from "../actions/actions";
+import {PASSWORD_INPUT, USERNAME_INPUT} from "../constants/actionTypes";
+import {tryLogin} from "../actions/login";
 import store from "../store/index"
 class Login extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.handleClick = this.handleClick.bind(this)
+    }
+
+    handleClick = (username, password) => {
+        console.log("Attempting to login.");
+        store.dispatch(tryLogin(username, password))
+    };
 
     render() {
     return (
         <form onSubmit={()=>{
             const username = document.getElementById(USERNAME_INPUT).value;
             const password = document.getElementById(PASSWORD_INPUT).value;
-            console.log("Hello");
-            const webcallPromise = store.dispatch(tryLogin(username, password));
-            webcallPromise.then(() => {console.log("Done")});
+            this.handleClick(username, password)
         }}>
           <h3>Sign in</h3>
           <input id = {USERNAME_INPUT} type="text" ref="username" placeholder="enter you username" />
@@ -25,18 +33,8 @@ class Login extends React.Component {
 
 function mapStateToProps(state){
               return {
-                  username: state.username,
-                  password: state.password
+                  isLoading: state.loading
               }
 }
-function mapDispatchToProps (dispatch) {
-    return {
-        changeUsername: (text) => dispatch({type:'CHANGE_USERNAME', text}),
-        changePassword: (text) => dispatch({type:'CHANGE_PASSWORD', text}),
-        tryLogin: () => {
-            dispatch({type:LOGIN_ACTION})
-        }
-    }
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps)(Login)
 
