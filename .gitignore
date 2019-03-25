@@ -1,4 +1,4 @@
 .idea/project.iml
 frontend/package-lock.json
 frontend/.idea/workspace.xml
-backend/_pycache_/*
+backend/__pycache__/database.cpython-36.pyc
