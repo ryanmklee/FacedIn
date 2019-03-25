@@ -3,6 +3,8 @@
 
 This project is a social media web application for CPSC 304, a relational databases course. 
 
+[**Project Proposal**](https://docs.google.com/document/d/1s-EJMM2r10Qx-NSbQNjjGp-DTfZpu_CVRXk0d137Uh4/edit)
+
 ### Backend Pre-requisites
 
 To install Python, please download go to [Anaconda](https://www.anaconda.com/distribution/). Anaconda is a package manager for Python, but does not contain all packages.
