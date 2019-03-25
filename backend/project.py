@@ -34,7 +34,7 @@ def create_user():
 @app.route('/api/login', methods=['GET'])
 def login():
     """
-    POST request with user and password to login
+    GET request with user and password to login
     :return: user_id
     """
     args = request.args
@@ -117,7 +117,7 @@ def send_friend_request():
 def query_friend_requests():
     """
     Queries friend requests pertaining to a user
-    :return:
+    :return: friend_requests
     """
     args = request.args
     user_id = args['user_id']
