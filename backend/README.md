@@ -343,4 +343,37 @@ Decline group request
     "status": 200
 }
 ```
-#### User attends an event
+#### Event attendance
+User attends an event
+###### POST: /api/groups/event/attend
+```angularjs
+{
+    "event_id": 2,
+    "user_id": 8,
+}
+```
+###### Successful Response
+```angular2html
+{
+    "status": 200
+}
+```
+
+###### GET: /api/groups/event/attend
+```angularjs
+{
+    "event_id": 2,
+}
+```
+###### Successful Response
+```angular2html
+{
+    "attendees": [
+        {
+            "name": "Lucy MacDonald",
+            "user_id": 8
+        }
+    ],
+    "status": 200
+}
+```
