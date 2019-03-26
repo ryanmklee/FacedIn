@@ -135,7 +135,7 @@ def insert_comment(connection, user_id: int, post_id: int, comment_text: str) ->
     """
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
         cursor.execute(INSERT_COMMENT_SQL.format(user_id=user_id, post_id=post_id, comment_text=comment_text))
-        cursor.commit()
+        connection.commit()
 
 
 def query_comments(connection, post_id: int) -> list:
