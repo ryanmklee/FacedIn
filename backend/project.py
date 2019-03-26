@@ -1,13 +1,12 @@
 from flask import Flask
-from flask import jsonify, request, make_response, send_from_directory
+from flask import jsonify, request, send_from_directory
 from flask_api import status
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 
 from backend import database
 
 app = Flask(__name__)
-CORS(app)
-# cors = CORS(app, resources={r"/api/create": {"origins": "http://localhost:3000"}})
+CORS(app, resources=r'/api/*')
 
 
 @app.route('/')
@@ -15,16 +14,13 @@ def hello_world():
     return send_from_directory('templates', 'login.html')
 
 
-@app.route('/api/create', methods=['OPTIONS', 'POST'])
-# @cross_origin(automatic_options=False)
+@app.route('/api/create', methods=['POST'])
 def create_user():
     """
     POST request to create user
     PARAMS: user, password
     :return: status code
     """
-    if request.method == 'OPTIONS':
-        return jsonify(stauts=status.HTTP_200_OK)
     # GAVIN THE DATA YOU ARE PASSING IS THE REQUEST.DATA
     print(request.data)
     # '{"user":"gavin@gmail.com","password":"ilovejs"}'
