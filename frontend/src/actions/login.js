@@ -26,18 +26,17 @@ export function tryLogin(username, password) {
         dispatch(setLoginPending());
         return axios.get("http://127.0.0.1:5000/api/login",
             {
-            params: {email: username,
-                password: password
-            }
-        })
+                params: {email: username,
+                    password: password
+                }
+            })
             .then(response => {
-                const data = response.data;
                 console.log(response.data)
                 dispatch(setLoginSuccess(response.data))
             })
             .catch(error => {
                 console.log("Login Error!" + error)
-                setLoginError()
-            });
+                dispatch(setLoginError())
+            })
     }
-    }
+}
