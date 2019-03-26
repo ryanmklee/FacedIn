@@ -215,7 +215,7 @@ Decline friend request
     "group_name": "Rock climbing heroes"
 }
 ```
-##### Successful Response
+###### Successful Response
 ```angular2html
 {
     "status": 201
@@ -223,6 +223,7 @@ Decline friend request
 ```
 
 #### Send group request
+###### POST: /api/groups/send_request
 ```angular2html
 {
     "user_id": 1,
@@ -230,7 +231,7 @@ Decline friend request
     "group_id": 3
 }
 ```
-##### Successful Response
+###### Successful Response
 ```angular2html
 {
     "status": 200
