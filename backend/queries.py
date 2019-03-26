@@ -108,3 +108,8 @@ select * from group_list_table
   where group_id = '{group_id}' and user_id = '{user_id}'
 '''
 
+QUERY_USER_ASSOCIATED_EVENTS = '''
+select *
+from events
+where group_id in (select group_id from groups where user_id = '{user_id}');
+'''

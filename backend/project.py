@@ -1,10 +1,12 @@
 from flask import Flask
 from flask import jsonify, request, make_response, send_from_directory
 from flask_api import status
+from flask_cors import CORS
 
 from backend import database
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/')
@@ -132,7 +134,7 @@ def query_friend_requests():
         return jsonify(status=status.HTTP_200_OK, friend_requests=friend_ids)
 
 
-@app.route('/api/user/friend_request', methods=['POST'])
+@app.route('/api/user/friend_request', methods=['POST', 'DELETE'])
 def modify_friend_request():
     """
     Accepts/Declines a friend request and moves the request to the friend list table
@@ -141,9 +143,8 @@ def modify_friend_request():
     args = request.args
     user_id = args['user_id']
     friend_id = args['friend_id']
-    is_accepted = args['is_accepted']
     with database.get_connection() as conn:
-        if is_accepted:
+        if request.method == 'POST':
             database.accept_friend_request(conn, user_id, friend_id)
         else:
             database.decline_friend_request(conn, user_id, friend_id)
@@ -183,7 +184,7 @@ def send_group_request():
     return jsonify(status=status.HTTP_200_OK, message='Sent group request to friend_id: {}'.format(friend_id))
 
 
-@app.route('/api/groups/group_request', methods=['POST'])
+@app.route('/api/groups/group_request', methods=['POST', 'DELETE'])
 def modify_group_request():
     """
     Accepts or declines group requests
@@ -191,9 +192,8 @@ def modify_group_request():
     args = request.args
     group_id = args['user_id']
     user_id = args['user_id']
-    is_accepted = args['is_accepted']
     with database.get_connection() as conn:
-        if is_accepted:
+        if request.method == 'POST':
             database.accept_group_request(conn, group_id, user_id)
         else:
             database.decline_group_request(conn, group_id, user_id)
@@ -235,7 +235,11 @@ def view_events():
     View all events given an event_id and an user_id associated to the user_id
     :return:
     """
-    pass
+    args = request.args
+    group_id = args['group_id']
+    with database.get_connection() as conn:
+        events = database.query_group_events(conn, group_id)
+    return jsonify(status=status.HTTP_200_OK, events=events)
 
 
 if __name__ == '__main__':

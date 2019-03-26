@@ -297,3 +297,16 @@ def validate_group_member(connection, group_id: int, user_id: int) -> bool:
         cursor.execute(QUERY_GROUP_MEMBERS.format(group_id=group_id, user_id=user_id))
         rows = cursor.fetchall()
     return True if len(rows) == 1 else False
+
+
+def query_associated_events(connection, user_id: int) -> list:
+    """
+    Queries events associated to a user
+    :param connection: Database connection
+    :param user_id: int
+    :return: list of associated events
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(QUERY_USER_ASSOCIATED_EVENTS.format(user_id=user_id))
+        rows = cursor.fetchall()
+    return rows
