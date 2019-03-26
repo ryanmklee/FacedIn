@@ -290,7 +290,7 @@ def query_group_events(connection, group_id: int) -> list:
     :return:
     """
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
-        cursor.execute(QUERY_GROUP_EVENTS_SQL.format(group_id))
+        cursor.execute(QUERY_GROUP_EVENTS_SQL.format(group_id=group_id))
         rows = cursor.fetchall()
     return rows
 
@@ -402,3 +402,16 @@ def create_update_postal_code(connection, postal_code: str, city: str, province:
                                                             city=city,
                                                             province=province[0:2]))
         connection.commit()
+
+
+def query_group_info(connection, group_id: int):
+    """
+    Queries a group for information
+    :param connection: Database connection
+    :param group_id: int
+    :return: list of group information
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(QUERY_GROUP_INFO_SQL.format(group_id=group_id))
+        rows = cursor.fetchall()
+    return rows

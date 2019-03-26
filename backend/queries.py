@@ -91,7 +91,7 @@ where to_user = '{user_id}'
 
 INSERT_EVENT_SQL = '''
 INSERT INTO "events" ("event_id", "group_id", "event_name", "location", "time")
- VALUES (DEFAULT, '{group_id}', '{event_name}', '{location}', '{timestamp}') retuning event_id
+ VALUES (DEFAULT, '{group_id}', '{event_name}', '{location}', '{timestamp}') returning event_id
 '''
 
 QUERY_GROUP_EVENTS_SQL = '''
@@ -144,3 +144,12 @@ CREATE_LOCATION_SQL = '''
     values (default, '{location_name}', '{address}', '{postal_code}')
 '''
 
+INSERT_GROUP_POST_SQL = '''
+'''
+
+QUERY_GROUP_POST_SQL = '''
+'''
+
+QUERY_GROUP_INFO_SQL = '''
+select * from groups where group_id = '{group_id}';
+'''

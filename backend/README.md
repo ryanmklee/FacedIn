@@ -280,4 +280,67 @@ Decline group request
     "status": 200
 }
 ```
+#### Query group information
+###### GET: /api/groups/info
+```angularjs
+{
+    "group_id": 4
+}
+```
+###### Successful Response
+```angularjs
+{
+    "groups": [
+        {
+            "activity": "Writing English papers",
+            "group_id": 4,
+            "group_name": "Writing Club",
+            "user_id": 8
+        }
+    ],
+    "status": 200
+}
+```
+#### Create event for a group
+##### POST: /api/groups/event/create
+```angularjs
+{
+    "group_id": 4,
+    "event_name": "Monday Writing Session",
+    "location": "Vancouver, BC",
+    "timestamp": '2/3/2016 12:05'
+}
+```
+###### Successful Response
+```angularjs
+{
+    "event_id": {
+        "event_id": 2
+    },
+    "status": 200
+}
+```
 
+#### View all events for a group
+###### GET: /api/groups/event/view
+```angularjs
+{
+    "group_id": 4
+}
+```
+###### Successful Response
+```angularjs
+{
+    "events": [
+        {
+            "event_id": 2,
+            "event_name": "Monday Writing Session",
+            "group_id": 4,
+            "location": "Vancouver, BC",
+            "time": "Wed, 03 Feb 2016 12:05:00 GMT"
+        }
+    ],
+    "status": 200
+}
+```
+#### User attends an event

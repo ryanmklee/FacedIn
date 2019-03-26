@@ -249,7 +249,7 @@ def query_group():
     args = request.args
     group_id = args['group_id']
     with database.get_connection() as conn:
-        groups = database.query_group_events(conn, group_id)
+        groups = database.query_group_info(conn, group_id)
     return jsonify(status=status.HTTP_200_OK, groups=groups)
 
 
@@ -272,7 +272,7 @@ def create_event():
 @app.route('/api/groups/event/view', methods=['GET'])
 def view_events():
     """
-    View all events given an event_id and an user_id associated to the user_id
+    View all events given a group_id for the group
     :return:
     """
     args = request.args
