@@ -6,8 +6,8 @@ All queries are to be done on [localhost:5000](localhost:5000)
 ###### POST: /api/create
 ```angular2html
 {
-"user": "d3a1b@ugrad.cs.ubc.ca"
-"password": "ilove304"
+    "user": "d3a1b@ugrad.cs.ubc.ca"
+    "password": "ilove304"
 }
 ```
 ###### Successful Response
