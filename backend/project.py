@@ -179,6 +179,16 @@ def create_group():
     return jsonify(status=status.HTTP_201_CREATED)
 
 
+@app.route('/api/groups/', methods=['GET'])
+def query_created_groups():
+    """
+    Queries all groups that the user_id created.
+    :return:
+    """
+    # TODO: implement
+    pass
+
+
 @app.route('/api/groups/send_request', methods=['POST'])
 def send_group_request():
     """
@@ -280,6 +290,7 @@ def query_location():
     with database.get_connection() as conn:
         location_details = database.query_location(conn, location_id)
         return jsonify(location_details)
+
 
 if __name__ == '__main__':
     app.run()

@@ -191,3 +191,48 @@ Accept friend request
     "status": 200
 }
 ```
+Decline friend request
+###### DELETE: /api/user/friend_request
+```angular2html
+{
+    "user_id": 1,
+    "friend_id": 7
+}
+```
+###### Successful Response
+```angular2html
+{
+    "status": 200
+}
+```
+
+#### Create group
+###### POST: /api/groups/create
+```angular2html
+{
+    "user_id": 1,
+    "activity": "Rock climbing",
+    "group_name": "Rock climbing heroes"
+}
+```
+##### Successful Response
+```angular2html
+{
+    "status": 201
+}
+```
+
+#### Send group request
+```angular2html
+{
+    "user_id": 1,
+    "friend_id": 7,
+    "group_id": 3
+}
+```
+##### Successful Response
+```angular2html
+{
+    "status": 200
+}
+```
