@@ -61,7 +61,7 @@ All queries are to be done on [localhost:5000](localhost:5000)
 }
 ```
 
-##### Successful Response
+###### Successful Response
 ```angular2html
 {
     "status": 201
@@ -89,3 +89,19 @@ All queries are to be done on [localhost:5000](localhost:5000)
     ]
 }
 ``` 
+
+##### User post comment
+###### POST: /api/user/comment
+```angular2html
+{
+    "user_id": 1,
+    "post_id": 4,
+    "comment_text": "Wow! I also truly enjoy 304. It is almost as great as CPSC 311 and MATH 200. They are all so enjoyable!"
+}
+```
+###### Successful Response
+```angular2html
+{
+    "status": 200
+}
+```
