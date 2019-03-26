@@ -112,9 +112,12 @@ def post_comment():
     """
     args = request.args
     post_id = args['post_id']
-    comment_text = args['comment']
-    # TODO: implement
+    user_id = args['user_id']
+    comment_text = args['comment_text']
+    with database.get_connection() as conn:
+        database.insert_comment(conn, user_id, post_id, comment_text)
     return jsonify(status=status.HTTP_200_OK)
+
 
 @app.route('/api/user/send_friend_request', methods=['POST'])
 def send_friend_request():
