@@ -336,3 +336,15 @@ def insert_event_attendance(connection, event_id: int, user_id: int) -> None:
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
         cursor.execute(INSERT_EVENT_ATTENDANCE_SQL.format(user_id=user_id, event_id=event_id))
         cursor.commit()
+
+def query_location(connection, location_id: int) -> dict:
+    """
+    Queries event attendance and returns a list of user_ids and names
+    :param connection: Database connection
+    :param event_id: int
+    :return: list of user_ids and names
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(QUERY_LOCATION_SQL.format(location_id=location_id))
+        rows = cursor.fetchall()
+    return rows[0]

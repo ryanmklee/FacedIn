@@ -273,5 +273,13 @@ def attend_event():
     return jsonify(status=status.HTTP_200_OK)
 
 
+@app.route('/api/location/view', methods=['GET'])
+def query_location():
+    args = request.args
+    location_id = args['location_id']
+    with database.get_connection() as conn:
+        location_details = database.query_location(conn, location_id)
+        return jsonify(location_details)
+
 if __name__ == '__main__':
     app.run()

@@ -125,3 +125,9 @@ from event_attendance
        join user_data ud on ud.user_id = event_attendance.user_id
 where event_id = '{event_id}';
 '''
+
+QUERY_LOCATION_SQL = '''
+    select * from locations inner join postal_code pc 
+                on locations.postal_code = pc.postal_code
+    where location_id = '{location_id}'
+'''
