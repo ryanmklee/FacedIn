@@ -66,7 +66,7 @@ def add_post(connection, user_id: int, post: str) -> None:
     :param post: user post
     """
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
-        cursor.execute(INSERT_POST_SQL).format(user_id=user_id, post=post)
+        cursor.execute(INSERT_POST_SQL.format(user_id=user_id, post=post))
         connection.commit()
 
 

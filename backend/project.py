@@ -242,7 +242,7 @@ def view_events():
     return jsonify(status=status.HTTP_200_OK, events=events)
 
 
-@app.route('/api/groups/event/attend', method=['GET', 'POST'])
+@app.route('/api/groups/event/attend', methods=['GET', 'POST'])
 def attend_event():
     """
     User attends event given a user_id and an event_id

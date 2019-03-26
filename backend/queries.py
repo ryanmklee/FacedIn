@@ -9,8 +9,8 @@ where email = '{email}'
 and password = '{pwd}'
 '''
 INSERT_POST_SQL = '''
-INSERT INTO user_posts ("post_id", "user_id", "post")
-  VALUES (DEFAULT, '{user_id}', '{post}')
+INSERT INTO user_posts ("post_id", "user_id", "post", "time_posted")
+  VALUES (DEFAULT, '{user_id}', '{post}', DEFAULT)
 '''
 QUERY_FRIEND_POST_SQL = '''
 select post_id, user_posts.user_id, name, post, time_posted
