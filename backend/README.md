@@ -280,6 +280,67 @@ Decline group request
     "status": 200
 }
 ```
+#### Group posts
+###### POST: /api/groups/post
+```angularjs
+{
+    "group_id": 4,
+    "user_id": 8,
+    "group_post": "It is almost time for us to go to our writing session. I cannot wait! I love papers"
+}
+```
+###### Successful Response
+```angularjs
+{
+    "gpost_id": {
+        "gpost_id": 4
+    },
+    "status": 200
+}
+```
+###### GET: /api/groups/post
+```angularjs
+{
+    "group_id": 4
+}
+```
+###### Successful Response
+```angularjs
+{
+    "posts": [
+        {
+            "group_id": 4,
+            "group_post": "I'm so excited to go see everyone at the writing session!",
+            "name": "Lucy MacDonald",
+            "time_posted": "Tue, 26 Mar 2019 21:29:00 GMT",
+            "user_id": 8
+        },
+        {
+            "group_id": 4,
+            "group_post": "I'm so excited to go see everyone at the writing session!",
+            "name": "Lucy MacDonald",
+            "time_posted": "Tue, 26 Mar 2019 21:32:26 GMT",
+            "user_id": 8
+        },
+        {
+            "group_id": 4,
+            "group_post": "It is almost time for us to go to our writing session. I cannot wait! I love papers",
+            "name": "Lucy MacDonald",
+            "time_posted": "Tue, 26 Mar 2019 21:42:34 GMT",
+            "user_id": 8
+        },
+        {
+            "group_id": 4,
+            "group_post": "It is almost time for us to go to our writing session. I cannot wait! I love papers",
+            "name": "Lucy MacDonald",
+            "time_posted": "Tue, 26 Mar 2019 21:42:56 GMT",
+            "user_id": 8
+        }
+    ],
+    "status": 200
+}
+```
+
 #### Query group information
 ###### GET: /api/groups/info
 ```angularjs

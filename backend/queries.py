@@ -145,9 +145,15 @@ CREATE_LOCATION_SQL = '''
 '''
 
 INSERT_GROUP_POST_SQL = '''
+INSERT INTO "group_posts" ("gpost_id", "group_id", "user_id", "group_post", "time_posted")
+ VALUES (DEFAULT, '{group_id}', '{user_id}', '{group_post}', DEFAULT) returning gpost_id
 '''
 
 QUERY_GROUP_POST_SQL = '''
+select group_id, ud.user_id, group_post, name, time_posted
+from group_posts
+            join user_data ud on ud.user_id = group_posts.user_id
+where group_id = '{group_id}';
 '''
 
 QUERY_GROUP_INFO_SQL = '''

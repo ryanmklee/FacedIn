@@ -201,8 +201,15 @@ def query_created_groups():
 
 @app.route('/api/groups/post', methods=['GET', 'POST'])
 def group_post():
-    # TODO:
-    pass
+    args = request.args
+    group_id = args['group_id']
+    with database.get_connection() as conn:
+        if request.method == 'GET':
+            posts = database.query_group_posts(conn, group_id)
+            return jsonify(status=status.HTTP_200_OK, posts=posts)
+        else:
+            gpost_id = database.insert_group_post(conn, group_id, args['user_id'], args['group_post'])
+            return jsonify(status=status.HTTP_200_OK, gpost_id=gpost_id)
 
 
 @app.route('/api/groups/send_request', methods=['POST'])

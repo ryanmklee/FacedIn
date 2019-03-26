@@ -361,6 +361,35 @@ def insert_event_attendance(connection, event_id: int, user_id: int) -> None:
         connection.commit()
 
 
+def insert_group_post(connection, group_id: int, user_id: int, group_post: str) -> dict:
+    """
+    Inserts group_id, user_id and group_post to group_list table
+    :param connection: Database connection
+    :param group_id: int
+    :param user_id: int
+    :param group_post: str
+    :return:
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(INSERT_GROUP_POST_SQL.format(group_id=group_id, user_id=user_id, group_post=group_post))
+        connection.commit()
+        gpost_id = cursor.fetchone()
+    return gpost_id
+
+
+def query_group_posts(connection, group_id: int) -> list:
+    """
+    Queries all posts associated to a group_id
+    :param connection: Database connection
+    :param group_id: int
+    :return:
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(QUERY_GROUP_POST_SQL.format(group_id=group_id))
+        rows = cursor.fetchall()
+    return rows
+
+
 def query_location(connection, location_id: int) -> dict:
     """
     Queries event attendance and returns a dict that is the table entry for the
