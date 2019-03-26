@@ -5,6 +5,9 @@ export default function formatDateString(dateString) {
   if (!dateObj) {
     return '';
   }
-  return dateObj.toISOString().slice(0,10) + ' at ' 
-  + dateObj.getHours() + ':' + dateObj.getMinutes(); 
+  const hourInt = dateObj.getHours();
+  const minuteInt = dateObj.getMinutes();
+  const hour = hourInt < 10 ? '0' + hourInt : hourInt;
+  const minute = minuteInt < 10 ? '0' + minuteInt : minuteInt;
+  return dateObj.toISOString().slice(0,10) + ' at ' + hour + ':' + minute; 
 }

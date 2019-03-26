@@ -58,9 +58,20 @@ const posts = [
 ];
 
 const events = [
-  {name: 'BBQ Party', date: new Date(), location: "UBC"},
-  {name: 'Valentine\'s day', date: new Date(), location: "Vancouver"},
-  {name: 'Christmas party', date: new Date(), location: "Coquitlam"}
+  {
+    "event_id": 2,
+    "event_name": "Monday Writing Session",
+    "group_id": 4,
+    "location": "Vancouver, BC",
+    "time": "Wed, 03 Feb 2016 12:05:00 GMT"
+  },
+  {
+    "event_id": 2,
+    "event_name": "Monday Writing Session",
+    "group_id": 4,
+    "location": "Vancouver, BC",
+    "time": "Wed, 03 Feb 2016 12:05:00 GMT"
+  }
 ];
 
 export default class Group extends Component {
