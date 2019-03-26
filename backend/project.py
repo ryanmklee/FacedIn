@@ -34,11 +34,10 @@ def create_user():
 @app.route('/api/login', methods=['GET'])
 def login():
     """
-    POST request with user and password to login
+    GET request with user and password to login
     :return: user_id
     """
     args = request.args
-    print(args)
     email = args['email']
     pwd = args['password']
     user_id = -1
@@ -63,14 +62,45 @@ def user_post():
     return jsonify(status=status.HTTP_201_CREATED)
 
 
+@app.route('/api/user/info', methods=['GET', 'POST'])
+def query_user():
+    """
+    GET request user_id for user data
+    :return:
+    """
+    args = request.args
+    user_id = args['user_id']
+    if user_id != -1:
+        if request.method == 'GET':
+            with database.get_connection() as conn:
+                user_data = database.query_user_data(conn, user_id)
+            return jsonify(status=status.HTTP_200_OK, user_data=user_data)
+        else:
+            with database.get_connection() as conn:
+                database.insert_user_data(conn, user_id, age=args['age'], sex=args['sex'], location=args['location'],
+                                          occupation=args['occupation'])
+            return jsonify(status=status.HTTP_200_OK)
+    return jsonify(status=status.HTTP_400_BAD_REQUEST, error_message='user_id cannot be -1')
+
+
 @app.route('/api/user/view_posts', methods=['GET'])
 def query_posts():
     """
     GET request to view all posts based on a user_id
     :return:
     """
-    # TODO
-    pass
+    args = request.args
+    user_id = args['user_id']
+    if user_id:
+        res = []
+        with database.get_connection() as conn:
+            for post in database.query_posts(conn, user_id):
+                ret = {
+                    'post': post,
+                    'comments': database.query_comments(conn, post['post_id'])
+                }
+                res.append(ret)
+        return jsonify(status=status.HTTP_200_OK, posts=res)
 
 
 @app.route('/api/user/send_friend_request', methods=['POST'])
@@ -79,13 +109,110 @@ def send_friend_request():
     POST request to send a friend request to another user
     :return:
     """
-    pass
+    args = request.args
+    user_id = args['user_id']
+    friend_id = args['friend_id']
+    if user_id and friend_id:
+        with database.get_connection() as conn:
+            database.send_friend_request(conn, user_id, friend_id)
+    return jsonify(status=status.HTTP_200_OK)
 
 
 @app.route('/api/user/view_friend_requests', methods=['GET'])
 def query_friend_requests():
     """
     Queries friend requests pertaining to a user
+    :return: friend_requests
+    """
+    args = request.args
+    user_id = args['user_id']
+    if user_id:
+        with database.get_connection() as conn:
+            friend_ids = database.query_friend_requests(conn, user_id)
+        return jsonify(status=status.HTTP_200_OK, friend_requests=friend_ids)
+
+
+@app.route('/api/user/friend_request', methods=['POST'])
+def modify_friend_request():
+    """
+    Accepts/Declines a friend request and moves the request to the friend list table
+    :return:
+    """
+    args = request.args
+    user_id = args['user_id']
+    friend_id = args['friend_id']
+    is_accepted = args['is_accepted']
+    with database.get_connection() as conn:
+        if is_accepted:
+            database.accept_friend_request(conn, user_id, friend_id)
+        else:
+            database.decline_friend_request(conn, user_id, friend_id)
+    return jsonify(status=status.HTTP_200_OK)
+
+
+@app.route('/api/groups/create', methods=['POST'])
+def create_group():
+    """
+    Creates a group given an admin, activity and group_name
+    """
+    args = request.args
+    user_id = args['user_id']
+    activity = args['activity']
+    group_name = args['group_name']
+    with database.get_connection() as conn:
+        database.insert_group(conn, user_id, activity, group_name)
+    return jsonify(status=status.HTTP_201_CREATED)
+
+
+@app.route('/api/groups/send_request', methods=['POST'])
+def send_group_request():
+    """
+    Sends a group request from a group member to another user
+    """
+    args = request.args
+    user_id = args['user_id']
+    friend_id = args['friend_id']
+    group_id = args['group_id']
+    with database.get_connection() as conn:
+        if database.validate_group_member(conn, group_id, user_id):
+            database.send_group_request(conn, group_id, friend_id)
+        else:
+            return jsonify(status=status.HTTP_400_BAD_REQUEST, error_message='The user is not a member of the group, '
+                                                                             'you may not add them to a group that a '
+                                                                             'person is not associated in.')
+    return jsonify(status=status.HTTP_200_OK, message='Sent group request to friend_id: {}'.format(friend_id))
+
+
+@app.route('/api/groups/group_request', methods=['GET', 'POST'])
+def modify_group_request():
+    """
+    Accepts or declines group requests
+    """
+    pass
+
+
+@app.route('/api/groups/info', methods=['GET'])
+def query_group():
+    """
+    Queries a group given a group_id to get their information
+    :return:
+    """
+    pass
+
+
+@app.route('/api/groups/event/create', methods=['POST'])
+def create_event():
+    """
+    Creates an event given a group_id, event_name, location and timestamp
+    :return:
+    """
+    pass
+
+
+@app.route('/api/groups/event/view', methods=['GET'])
+def view_events():
+    """
+    View all events given an event_id and an user_id associated to the user_id
     :return:
     """
     pass

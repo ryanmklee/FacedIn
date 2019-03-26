@@ -1,2 +1,5 @@
 .idea/project.iml
 frontend/package-lock.json
+frontend/.idea/workspace.xml
+backend/__pycache__/database.cpython-36.pyc
+frontend/.idea/workspace.xml
