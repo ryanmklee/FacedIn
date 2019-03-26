@@ -341,7 +341,8 @@ def insert_event_attendance(connection, event_id: int, user_id: int) -> None:
 
 def query_location(connection, location_id: int) -> dict:
     """
-    Queries event attendance and returns a list of user_ids and names
+    Queries event attendance and returns a dict that is the table entry for the
+    given location_id
     :param connection: Database connection
     :param location_id: int
     :return: list of user_ids and names
@@ -350,3 +351,30 @@ def query_location(connection, location_id: int) -> dict:
         cursor.execute(QUERY_LOCATION_SQL.format(location_id=location_id))
         rows = cursor.fetchall()
     return rows[0]
+
+def create_location(connection, location_name: str, address: str, postal_code: str) -> None:
+    '''
+    Creates a location.
+    :param connection:
+    :param location_name:
+    :param address:
+    :param postal_code:
+    :return:
+    '''
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(CREATE_LOCATION_SQL.format(location_name=location_name,
+                                                  address=address, postal_code=postal_code))
+        connection.commit()
+
+def create_update_postal_code(connection, postal_code: str, city: str, province: str) -> None:
+    """
+    Creates a postal code if it does not exist, else update it.
+    :param connection:
+    :param postal_code:
+    :return:
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(CREATE_UPDATE_POSTAL_CODE_SQL.format(postal_code=postal_code,
+                                                            city=city,
+                                                            province=province[0:2]))
+        connection.commit()
