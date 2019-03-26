@@ -129,5 +129,17 @@ where event_id = '{event_id}';
 QUERY_LOCATION_SQL = '''
     select * from locations inner join postal_code pc 
                 on locations.postal_code = pc.postal_code
-    where location_id = '{location_id}'
+    where location_id = '{location_id}';
+'''
+
+CREATE_UPDATE_POSTAL_CODE_SQL = '''
+    insert into "postal_code" (postal_code, city, province) 
+    values ('{postal_code}', '{city}', '{province}')
+    on conflict (postal_code) do update 
+        set city = EXCLUDED.city, province = EXCLUDED.province;
+'''
+
+CREATE_LOCATION_SQL = '''
+    insert into "locations" (location_id, location_name, address, postal_code) 
+    values (default, '{location_name}', '{address}', '{postal_code}')
 '''

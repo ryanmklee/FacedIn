@@ -294,5 +294,22 @@ def query_location():
         return jsonify(location_details)
 
 
+@app.route('/api/location/create', methods=['POST'])
+def create_location():
+    args = request.args
+    location_name = args["location_name"]
+    address = args["address"]
+    postal_code = args["postal_code"]
+    province = args["province"]
+    city = args["city"]
+    with database.get_connection() as conn:
+        database.create_update_postal_code(conn, postal_code, city, province)
+
+    with database.get_connection() as conn:
+        database.create_location(conn, location_name, address, postal_code)
+
+    return jsonify(status=status.HTTP_200_OK)
+
+
 if __name__ == '__main__':
     app.run()
