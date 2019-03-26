@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="35d54d82-b821-443e-bd70-f7ced1776ce6" name="Default Changelist" comment="Login webcall working">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../backend/project.py" afterPath="$PROJECT_DIR$/../backend/project.py" />
-    </list>
+    <list default="true" id="35d54d82-b821-443e-bd70-f7ced1776ce6" name="Default Changelist" comment="Login webcall working" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />

@@ -6,8 +6,8 @@ All queries are to be done on [localhost:5000](localhost:5000)
 ###### POST: /api/create
 ```angular2html
 {
-"user": "d3a1b@ugrad.cs.ubc.ca"
-"password": "ilove304"
+    "user": "d3a1b@ugrad.cs.ubc.ca"
+    "password": "ilove304"
 }
 ```
 ###### Successful Response
@@ -280,4 +280,161 @@ Decline group request
     "status": 200
 }
 ```
+#### Group posts
+###### POST: /api/groups/post
+```angularjs
+{
+    "group_id": 4,
+    "user_id": 8,
+    "group_post": "It is almost time for us to go to our writing session. I cannot wait! I love papers"
+}
+```
+###### Successful Response
+```angularjs
+{
+    "gpost_id": {
+        "gpost_id": 4
+    },
+    "status": 200
+}
+```
+###### GET: /api/groups/post
+```angularjs
+{
+    "group_id": 4
+}
+```
+###### Successful Response
+```angularjs
+{
+    "posts": [
+        {
+            "group_id": 4,
+            "group_post": "I'm so excited to go see everyone at the writing session!",
+            "name": "Lucy MacDonald",
+            "time_posted": "Tue, 26 Mar 2019 21:29:00 GMT",
+            "user_id": 8
+        },
+        {
+            "group_id": 4,
+            "group_post": "I'm so excited to go see everyone at the writing session!",
+            "name": "Lucy MacDonald",
+            "time_posted": "Tue, 26 Mar 2019 21:32:26 GMT",
+            "user_id": 8
+        },
+        {
+            "group_id": 4,
+            "group_post": "It is almost time for us to go to our writing session. I cannot wait! I love papers",
+            "name": "Lucy MacDonald",
+            "time_posted": "Tue, 26 Mar 2019 21:42:34 GMT",
+            "user_id": 8
+        },
+        {
+            "group_id": 4,
+            "group_post": "It is almost time for us to go to our writing session. I cannot wait! I love papers",
+            "name": "Lucy MacDonald",
+            "time_posted": "Tue, 26 Mar 2019 21:42:56 GMT",
+            "user_id": 8
+        }
+    ],
+    "status": 200
+}
+```
 
+#### Query group information
+###### GET: /api/groups/info
+```angularjs
+{
+    "group_id": 4
+}
+```
+###### Successful Response
+```angularjs
+{
+    "groups": [
+        {
+            "activity": "Writing English papers",
+            "group_id": 4,
+            "group_name": "Writing Club",
+            "user_id": 8
+        }
+    ],
+    "status": 200
+}
+```
+#### Create event for a group
+##### POST: /api/groups/event/create
+```angularjs
+{
+    "group_id": 4,
+    "event_name": "Monday Writing Session",
+    "location": "Vancouver, BC",
+    "timestamp": '2/3/2016 12:05'
+}
+```
+###### Successful Response
+```angularjs
+{
+    "event_id": {
+        "event_id": 2
+    },
+    "status": 200
+}
+```
+
+#### View all events for a group
+###### GET: /api/groups/event/view
+```angularjs
+{
+    "group_id": 4
+}
+```
+###### Successful Response
+```angularjs
+{
+    "events": [
+        {
+            "event_id": 2,
+            "event_name": "Monday Writing Session",
+            "group_id": 4,
+            "location": "Vancouver, BC",
+            "time": "Wed, 03 Feb 2016 12:05:00 GMT"
+        }
+    ],
+    "status": 200
+}
+```
+#### Event attendance
+User attends an event
+###### POST: /api/groups/event/attend
+```angularjs
+{
+    "event_id": 2,
+    "user_id": 8,
+}
+```
+###### Successful Response
+```angular2html
+{
+    "status": 200
+}
+```
+
+###### GET: /api/groups/event/attend
+```angularjs
+{
+    "event_id": 2,
+}
+```
+###### Successful Response
+```angular2html
+{
+    "attendees": [
+        {
+            "name": "Lucy MacDonald",
+            "user_id": 8
+        }
+    ],
+    "status": 200
+}
+```
