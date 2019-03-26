@@ -162,7 +162,8 @@ def accept_friend_request(connection, user_id: int, friend_id: int) -> None:
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
         cursor.execute(DELETE_FRIEND_REQUEST_SQL.format(user_id=user_id, friend_id=friend_id))
         cursor.execute(INSERT_FRIEND_LIST_SQL.format(user_id=user_id, friend_id=friend_id))
-        cursor.commit()
+        cursor.execute(INSERT_FRIEND_LIST_SQL.format(user_id=friend_id, friend_id=user_id))
+        connection.commit()
 
 
 def decline_friend_request(connection, user_id: int, friend_id: int) -> None:
@@ -175,7 +176,7 @@ def decline_friend_request(connection, user_id: int, friend_id: int) -> None:
     """
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
         cursor.execute(DELETE_FRIEND_REQUEST_SQL.format(user_id=user_id, friend_id=friend_id))
-        cursor.commit()
+        connection.commit()
 
 
 def insert_group(connection, user_id: str, activity: str, group_name: str) -> None:
@@ -188,7 +189,7 @@ def insert_group(connection, user_id: str, activity: str, group_name: str) -> No
     """
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
         cursor.execute(INSERT_GROUP_SQL.format(user_id=user_id, activity=activity, group_name=group_name))
-        cursor.commit()
+        connection.commit()
 
 
 def send_group_request(connection, group_id: int, user_id: int) -> None:
@@ -200,7 +201,7 @@ def send_group_request(connection, group_id: int, user_id: int) -> None:
     """
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
         cursor.execute(INSERT_GROUP_REQUEST_SQL.format(group_id=group_id, user_id=user_id))
-        cursor.commit()
+        connection.commit()
 
 
 def query_group_requests(connection, user_id: int) -> list:
@@ -256,7 +257,7 @@ def insert_event(connection, group_id: int, event_name: str, location: str, time
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
         cursor.execute(INSERT_EVENT_SQL.format(group_id=group_id, event_name=event_name, location=location,
                                                timestamp=timestamp))
-        cursor.commit()
+        connection.commit()
 
 
 def query_group_events(connection, group_id: int) -> list:
@@ -335,13 +336,14 @@ def insert_event_attendance(connection, event_id: int, user_id: int) -> None:
     """
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
         cursor.execute(INSERT_EVENT_ATTENDANCE_SQL.format(user_id=user_id, event_id=event_id))
-        cursor.commit()
+        connection.commit()
+
 
 def query_location(connection, location_id: int) -> dict:
     """
     Queries event attendance and returns a list of user_ids and names
     :param connection: Database connection
-    :param event_id: int
+    :param location_id: int
     :return: list of user_ids and names
     """
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:

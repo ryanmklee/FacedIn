@@ -176,4 +176,18 @@ Queries friend requests for a certain user_id.
     "status": 200
 }
 ```
-
+#### Accept/Decline friend requests
+Accept friend request
+###### POST: /api/user/friend_request
+```angular2html
+{
+    "user_id": 1,
+    "friend_id": 7
+}
+```
+###### Successful Response
+```angular2html
+{
+    "status": 200
+}
+```

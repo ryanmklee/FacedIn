@@ -5,7 +5,7 @@ INSERT INTO users (user_id, email, password)
 QUERY_USER_ID = '''
 select user_id
 from users
-where email = '{email}'
+where email = '{email}'   
 and password = '{pwd}'
 '''
 INSERT_POST_SQL = '''
@@ -43,7 +43,7 @@ QUERY_COMMENTS_SQL = '''
 select * from post_comments where post_id = '{post_id}';
 '''
 DELETE_FRIEND_REQUEST_SQL = '''
-DELETE FROM friend_requests WHERE "from_user" = '{user_id}' AND "to_user" = '{friend_id}'
+DELETE FROM friend_requests WHERE "from_user" = '{friend_id}' AND "to_user" = '{user_id}'
 '''
 INSERT_FRIEND_LIST_SQL = '''
 INSERT INTO "friend_list_table" ("user_id", "friend_id") 
