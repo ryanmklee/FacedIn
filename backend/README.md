@@ -13,7 +13,12 @@ All queries are to be done on [localhost:5000](localhost:5000)
 ###### Successful Response
 ```angular2html
 {
-    "status": 201
+    "status": 201,
+    "user_id": [
+        {
+            "user_id": 1
+        }
+    ]
 }
 ```
 
@@ -21,8 +26,8 @@ All queries are to be done on [localhost:5000](localhost:5000)
 ###### GET: /api/login
 ```angular2html
 {
-"email": "d3a1b@ugrad.cs.ubc.ca"
-"password": "ilove304"
+    "email": "d3a1b@ugrad.cs.ubc.ca"
+    "password": "ilove304"
 }
 ```
 ###### Successful Response
@@ -44,6 +49,9 @@ All queries are to be done on [localhost:5000](localhost:5000)
 ##### Successful Response
 ```angular2html
 {
+    "post_id": {
+        "post_id": 5
+    },
     "status": 201
 }
 ```
@@ -87,7 +95,7 @@ All queries are to be done on [localhost:5000](localhost:5000)
             "user_id": 1
         }
     ]
-}}
+}
 ``` 
 
 ##### User post comment
@@ -102,6 +110,9 @@ All queries are to be done on [localhost:5000](localhost:5000)
 ###### Successful Response
 ```angular2html
 {
+    "comment_id": {
+        "comment_id": 5
+    },
     "status": 200
 }
 ```
@@ -218,6 +229,9 @@ Decline friend request
 ###### Successful Response
 ```angular2html
 {
+    "group_id": {
+        "group_id": 4
+    },
     "status": 201
 }
 ```
@@ -237,3 +251,33 @@ Decline friend request
     "status": 200
 }
 ```
+#### Accept/Decline group request
+Accept group request
+###### POST: /api/user/group_request
+```angular2html
+{
+    "group_id": 1,
+    "friend_id": 7
+}
+```
+###### Successful Response
+```angular2html
+{
+    "status": 200
+}
+```
+Decline group request
+###### DELETE: /api/user/group_request
+```angular2html
+{
+    "group_id": 1,
+    "friend_id": 7
+}
+```
+###### Successful Response
+```angular2html
+{
+    "status": 200
+}
+```
+

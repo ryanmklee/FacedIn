@@ -18,7 +18,7 @@ def get_connection():
     return conn if conn else psycopg2.Error
 
 
-def insert_user(connection, user: str, password: str) -> None:
+def insert_user(connection, user: str, password: str) -> dict:
     """
     Insert user into database with password
     :param connection: Database connection
@@ -28,6 +28,8 @@ def insert_user(connection, user: str, password: str) -> None:
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
         cursor.execute(INSERT_USER_SQL.format(usr=user, pwd=password))
         connection.commit()
+        user_id = cursor.fetchone()
+    return user_id
 
 
 def validate_user(connection, email: str, password: str) -> int:
@@ -58,7 +60,7 @@ def query_posts(connection, user_id: int) -> list:
     return rows
 
 
-def add_post(connection, user_id: int, post: str) -> None:
+def add_post(connection, user_id: int, post: str) -> dict:
     """
     Adds a post for a user
     :param user_id: user_id
@@ -68,6 +70,8 @@ def add_post(connection, user_id: int, post: str) -> None:
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
         cursor.execute(INSERT_POST_SQL.format(user_id=user_id, post=post))
         connection.commit()
+        post_id = cursor.fetchone()
+    return post_id
 
 
 def insert_user_data(connection, user_id: int, age: int, sex: str, location: str, occupation: str, name: str) -> None:
@@ -125,7 +129,7 @@ def query_friend_requests(connection, user_id: int) -> list:
     return rows
 
 
-def insert_comment(connection, user_id: int, post_id: int, comment_text: str) -> None:
+def insert_comment(connection, user_id: int, post_id: int, comment_text: str) -> list:
     """
     Insert comment into the post_id
     :param connection: Database connection
@@ -136,6 +140,8 @@ def insert_comment(connection, user_id: int, post_id: int, comment_text: str) ->
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
         cursor.execute(INSERT_COMMENT_SQL.format(user_id=user_id, post_id=post_id, comment_text=comment_text))
         connection.commit()
+        comment_id = cursor.fetchone()
+    return comment_id
 
 
 def query_comments(connection, post_id: int) -> list:
@@ -179,7 +185,7 @@ def decline_friend_request(connection, user_id: int, friend_id: int) -> None:
         connection.commit()
 
 
-def insert_group(connection, user_id: str, activity: str, group_name: str) -> None:
+def insert_group(connection, user_id: int, activity: str, group_name: str) -> dict:
     """
     Inserts a group into the database.
     :param connection: Database connection
@@ -190,6 +196,20 @@ def insert_group(connection, user_id: str, activity: str, group_name: str) -> No
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
         cursor.execute(INSERT_GROUP_SQL.format(user_id=user_id, activity=activity, group_name=group_name))
         connection.commit()
+        group_id = cursor.fetchone()
+        cursor.execute(INSERT_GROUP_LIST_SQL.format(group_id=group_id['group_id'], user_id=user_id))
+    return group_id
+
+
+def query_groups(connection, user_id: int) -> list:
+    """
+    Queries groups where user is assoicated in
+    :param connection: Database connection
+    :param user_id: int
+    :return: list of groups associated to the user
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        pass
 
 
 def send_group_request(connection, group_id: int, user_id: int) -> None:
@@ -244,7 +264,7 @@ def decline_group_request(connection, group_id: int, user_id: int) -> None:
         cursor.commit()
 
 
-def insert_event(connection, group_id: int, event_name: str, location: str, timestamp: str) -> None:
+def insert_event(connection, group_id: int, event_name: str, location: str, timestamp: str) -> dict:
     """
     Inserts an event to the events table based on a group_id
     :param connection:
@@ -258,6 +278,8 @@ def insert_event(connection, group_id: int, event_name: str, location: str, time
         cursor.execute(INSERT_EVENT_SQL.format(group_id=group_id, event_name=event_name, location=location,
                                                timestamp=timestamp))
         connection.commit()
+        event_id = cursor.fetchone()
+    return event_id
 
 
 def query_group_events(connection, group_id: int) -> list:
@@ -341,7 +363,8 @@ def insert_event_attendance(connection, event_id: int, user_id: int) -> None:
 
 def query_location(connection, location_id: int) -> dict:
     """
-    Queries event attendance and returns a list of user_ids and names
+    Queries event attendance and returns a dict that is the table entry for the
+    given location_id
     :param connection: Database connection
     :param location_id: int
     :return: list of user_ids and names
@@ -350,3 +373,32 @@ def query_location(connection, location_id: int) -> dict:
         cursor.execute(QUERY_LOCATION_SQL.format(location_id=location_id))
         rows = cursor.fetchall()
     return rows[0]
+
+
+def create_location(connection, location_name: str, address: str, postal_code: str) -> None:
+    """
+    Creates a location.
+    :param connection:
+    :param location_name:
+    :param address:
+    :param postal_code:
+    :return:
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(CREATE_LOCATION_SQL.format(location_name=location_name,
+                                                  address=address, postal_code=postal_code))
+        connection.commit()
+
+
+def create_update_postal_code(connection, postal_code: str, city: str, province: str) -> None:
+    """
+    Creates a postal code if it does not exist, else update it.
+    :param connection:
+    :param postal_code:
+    :return:
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(CREATE_UPDATE_POSTAL_CODE_SQL.format(postal_code=postal_code,
+                                                            city=city,
+                                                            province=province[0:2]))
+        connection.commit()

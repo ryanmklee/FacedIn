@@ -26,11 +26,11 @@ def create_user():
     pwd = args['password']
     if user and pwd:
         with database.get_connection() as conn:
-            database.insert_user(conn, user, pwd)
+            user_id = database.insert_user(conn, user, pwd)
     else:
         return jsonify(status=status.HTTP_400_BAD_REQUEST)
 
-    return jsonify(status=status.HTTP_201_CREATED)
+    return jsonify(status=status.HTTP_201_CREATED, user_id=user_id)
 
 
 @app.route('/api/login', methods=['GET'])
@@ -60,8 +60,8 @@ def user_post():
     post = args['post']
     if user_id and post:
         with database.get_connection() as conn:
-            database.add_post(conn, user_id, post)
-    return jsonify(status=status.HTTP_201_CREATED)
+            post_id = database.add_post(conn, user_id, post)
+    return jsonify(status=status.HTTP_201_CREATED, post_id=post_id)
 
 
 @app.route('/api/user/info', methods=['GET', 'POST'])
@@ -115,8 +115,8 @@ def post_comment():
     user_id = args['user_id']
     comment_text = args['comment_text']
     with database.get_connection() as conn:
-        database.insert_comment(conn, user_id, post_id, comment_text)
-    return jsonify(status=status.HTTP_200_OK)
+        comment_id = database.insert_comment(conn, user_id, post_id, comment_text)
+    return jsonify(status=status.HTTP_200_OK, comment_id=comment_id)
 
 
 @app.route('/api/user/send_friend_request', methods=['POST'])
@@ -175,17 +175,27 @@ def create_group():
     activity = args['activity']
     group_name = args['group_name']
     with database.get_connection() as conn:
-        database.insert_group(conn, user_id, activity, group_name)
-    return jsonify(status=status.HTTP_201_CREATED)
+        group_id = database.insert_group(conn, user_id, activity, group_name)
+    return jsonify(status=status.HTTP_201_CREATED, group_id=group_id)
 
 
-@app.route('/api/groups/', methods=['GET'])
+@app.route('/api/groups/user', methods=['GET'])
 def query_created_groups():
     """
     Queries all groups that the user_id created.
     :return:
     """
-    # TODO: implement
+    args = request.args
+    with database.get_connection() as conn:
+        if 'user_id' in args:
+            groups = database.query_groups(conn, user_id=args['user_id'])
+    # TODO
+    return jsonify(status=status.HTTP_200_OK)
+
+
+@app.route('/api/groups/post', methods=['GET', 'POST'])
+def group_post():
+    # TODO:
     pass
 
 
@@ -214,7 +224,7 @@ def modify_group_request():
     Accepts or declines group requests
     """
     args = request.args
-    group_id = args['user_id']
+    group_id = args['group_id']
     user_id = args['user_id']
     with database.get_connection() as conn:
         if request.method == 'POST':
@@ -249,8 +259,8 @@ def create_event():
     location = args['location']
     timestamp = args['timestamp']
     with database.get_connection() as conn:
-        database.insert_event(conn, group_id, event_name, location, timestamp)
-    return jsonify(status=status.HTTP_200_OK)
+        event_id = database.insert_event(conn, group_id, event_name, location, timestamp)
+    return jsonify(status=status.HTTP_200_OK, event_id=event_id)
 
 
 @app.route('/api/groups/event/view', methods=['GET'])
@@ -290,6 +300,23 @@ def query_location():
     with database.get_connection() as conn:
         location_details = database.query_location(conn, location_id)
         return jsonify(location_details)
+
+
+@app.route('/api/location/create', methods=['POST'])
+def create_location():
+    args = request.args
+    location_name = args["location_name"]
+    address = args["address"]
+    postal_code = args["postal_code"]
+    province = args["province"]
+    city = args["city"]
+    with database.get_connection() as conn:
+        database.create_update_postal_code(conn, postal_code, city, province)
+
+    with database.get_connection() as conn:
+        database.create_location(conn, location_name, address, postal_code)
+
+    return jsonify(status=status.HTTP_200_OK)
 
 
 if __name__ == '__main__':
