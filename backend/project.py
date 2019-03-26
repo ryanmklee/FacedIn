@@ -183,12 +183,21 @@ def send_group_request():
     return jsonify(status=status.HTTP_200_OK, message='Sent group request to friend_id: {}'.format(friend_id))
 
 
-@app.route('/api/groups/group_request', methods=['GET', 'POST'])
+@app.route('/api/groups/group_request', methods=['POST'])
 def modify_group_request():
     """
     Accepts or declines group requests
     """
-    pass
+    args = request.args
+    group_id = args['user_id']
+    user_id = args['user_id']
+    is_accepted = args['is_accepted']
+    with database.get_connection() as conn:
+        if is_accepted:
+            database.accept_group_request(conn, group_id, user_id)
+        else:
+            database.decline_group_request(conn, group_id, user_id)
+    return jsonify(status=status.HTTP_200_OK)
 
 
 @app.route('/api/groups/info', methods=['GET'])
@@ -197,7 +206,11 @@ def query_group():
     Queries a group given a group_id to get their information
     :return:
     """
-    pass
+    args = request.args
+    group_id = args['group_id']
+    with database.get_connection() as conn:
+        groups = database.query_group_events(conn, group_id)
+    return jsonify(status=status.HTTP_200_OK, groups=groups)
 
 
 @app.route('/api/groups/event/create', methods=['POST'])
@@ -206,7 +219,14 @@ def create_event():
     Creates an event given a group_id, event_name, location and timestamp
     :return:
     """
-    pass
+    args = request.args
+    group_id = args['group_id']
+    event_name = args['event_name']
+    location = args['location']
+    timestamp = args['timestamp']
+    with database.get_connection() as conn:
+        database.insert_event(conn, group_id, event_name, location, timestamp)
+    return jsonify(status=status.HTTP_200_OK)
 
 
 @app.route('/api/groups/event/view', methods=['GET'])

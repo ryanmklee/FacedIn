@@ -41,7 +41,7 @@ def validate_user(connection, email: str, password: str) -> int:
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
         cursor.execute(QUERY_USER_ID.format(email=email, pwd=password))
         rows = cursor.fetchall()
-        user_id = rows[0][0] if len(rows) == 1 else -1
+        user_id = rows[0]['user_id'] if len(rows) == 1 else -1
     return user_id
 
 
@@ -238,7 +238,7 @@ def decline_group_request(connection, group_id: int, user_id: int) -> None:
     :return:
     """
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
-        cursor.execute(DELETE_GROUP_REQUEST_SQL.format(group_id=group_id))
+        cursor.execute(DELETE_GROUP_REQUEST_SQL.format(group_id=group_id, user_id=user_id))
         cursor.commit()
 
 
