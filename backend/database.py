@@ -18,7 +18,7 @@ def get_connection():
     return conn if conn else psycopg2.Error
 
 
-def insert_user(connection, user: str, password: str) -> None:
+def insert_user(connection, user: str, password: str) -> list:
     """
     Insert user into database with password
     :param connection: Database connection
@@ -28,6 +28,8 @@ def insert_user(connection, user: str, password: str) -> None:
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
         cursor.execute(INSERT_USER_SQL.format(usr=user, pwd=password))
         connection.commit()
+        user_id = cursor.fetchall()
+    return user_id
 
 
 def validate_user(connection, email: str, password: str) -> int:
@@ -179,7 +181,7 @@ def decline_friend_request(connection, user_id: int, friend_id: int) -> None:
         connection.commit()
 
 
-def insert_group(connection, user_id: str, activity: str, group_name: str) -> None:
+def insert_group(connection, user_id: int, activity: str, group_name: str) -> None:
     """
     Inserts a group into the database.
     :param connection: Database connection
@@ -190,6 +192,15 @@ def insert_group(connection, user_id: str, activity: str, group_name: str) -> No
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
         cursor.execute(INSERT_GROUP_SQL.format(user_id=user_id, activity=activity, group_name=group_name))
         connection.commit()
+
+
+def query_groups(connection, user_id: int) -> list:
+    """
+    Queries groups assoicated where user_id is a
+    :param connection:
+    :param user_id:
+    :return:
+    """
 
 
 def send_group_request(connection, group_id: int, user_id: int) -> None:
