@@ -113,3 +113,15 @@ select *
 from events
 where group_id in (select group_id from groups where user_id = '{user_id}');
 '''
+
+INSERT_EVENT_ATTENDANCE_SQL = '''
+INSERT INTO "event_attendance" ("event_id", "user_id")
+ VALUES ('{event_id}', '{user_id}')
+'''
+
+QUERY_USER_EVENT_ATTENDANCE_SQL = '''
+select event_attendance.user_id, name
+from event_attendance
+       join user_data ud on ud.user_id = event_attendance.user_id
+where event_id = '{event_id}';
+'''

@@ -242,5 +242,22 @@ def view_events():
     return jsonify(status=status.HTTP_200_OK, events=events)
 
 
+@app.route('/api/groups/event/attend', method=['GET', 'POST'])
+def attend_event():
+    """
+    User attends event given a user_id and an event_id
+    """
+    args = request.args
+    event_id = args['event_id']
+    with database.get_connection() as conn:
+        if request.method == 'POST':
+            user_id = args['user_id']
+            database.insert_event_attendance(conn, event_id, user_id)
+        else:
+            attendees = database.query_event_attendance(conn, event_id)
+            return jsonify(status=status.HTTP_200_OK, attendees=attendees)
+    return jsonify(status=status.HTTP_200_OK)
+
+
 if __name__ == '__main__':
     app.run()

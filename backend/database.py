@@ -310,3 +310,28 @@ def query_associated_events(connection, user_id: int) -> list:
         cursor.execute(QUERY_USER_ASSOCIATED_EVENTS.format(user_id=user_id))
         rows = cursor.fetchall()
     return rows
+
+
+def query_event_attendance(connection, event_id: int) -> list:
+    """
+    Queries event attendance and returns a list of user_ids and names
+    :param connection: Database connection
+    :param event_id: int
+    :return: list of user_ids and names
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(QUERY_USER_EVENT_ATTENDANCE_SQL.format(event_id=event_id))
+        rows = cursor.fetchall()
+    return rows
+
+
+def insert_event_attendance(connection, event_id: int, user_id: int) -> None:
+    """
+    Inserts user_id and event_id to the event attendance table
+    :param connection: Database connection
+    :param event_id: int
+    :param user_id: int
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(INSERT_EVENT_ATTENDANCE_SQL.format(user_id=user_id, event_id=event_id))
+        cursor.commit()
