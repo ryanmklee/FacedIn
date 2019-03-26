@@ -32,8 +32,8 @@ INSERT INTO friend_requests ("from_user", "to_user")
 '''
 QUERY_FRIEND_REQUESTS = '''
 select name, to_user from friend_requests
-join user_data ud on ud.user_id = to_user
-where from_user = '{user_id}';
+join user_data ud on ud.user_id = from_user
+where to_user = '{user_id}';
 '''
 INSERT_COMMENT_SQL = '''
 INSERT INTO post_comments ("comment_id", "post_id", "user_id", "comment_text", "time_posted")

@@ -82,12 +82,12 @@ All queries are to be done on [localhost:5000](localhost:5000)
             "age": 18,
             "location": "Seattle, WA",
             "name": "Dr. Strange",
-            "occupation": "Auditior",
+            "occupation": "Auditor",
             "sex": "Male",
             "user_id": 1
         }
     ]
-}
+}}
 ``` 
 
 ##### User post comment
@@ -105,3 +105,75 @@ All queries are to be done on [localhost:5000](localhost:5000)
     "status": 200
 }
 ```
+
+#### Query posts
+Posts include all posts associated to user_id to include friends posts as well as comments.
+###### GET: /api/user/view_posts
+```angular2html
+{
+    "user_id": 1
+}
+```
+###### Successful Respnse
+```angular2html
+{
+    "posts": [
+        {
+            "comments": [
+                {
+                    "comment_id": 4,
+                    "comment_text": "\"Wow! I also truly enjoy 304. It is almost as great as CPSC 311 and MATH 200. They are all so enjoyable!\"",
+                    "post_id": 4,
+                    "time_posted": "Tue, 26 Mar 2019 03:20:20 GMT",
+                    "user_id": 1
+                }
+            ],
+            "post": {
+                "name": "Dr. Strange",
+                "post": "I truly do enjoy this course. I truly have learned a lot from this class.",
+                "post_id": 4,
+                "time_posted": "Tue, 26 Mar 2019 02:48:28 GMT",
+                "user_id": 1
+            }
+        }
+    ],
+    "status": 200
+}
+```
+#### Sending friend requests
+Requires two user_id(s). One pertaining to the user whom is sending the request and the user who is being sent the request.
+###### POST: /api/user/send_friend_request
+```angular2html
+{
+    "user_id": 7,
+    "friend_id": 1
+}
+```
+###### Successful Response
+```angular2html
+{
+    "status": 200
+}
+```
+
+#### Querying friend requests
+Queries friend requests for a certain user_id.
+###### GET: /api/user/view_friend_requests
+```angular2html
+{
+    "user_id": 1
+}
+```
+###### Successful Response
+```angular2html
+{
+    "friend_requests": [
+        {
+            "name": "Ryan Lee",
+            "to_user": 1
+        }
+    ],
+    "status": 200
+}
+```
+
