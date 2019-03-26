@@ -41,7 +41,7 @@ def validate_user(connection, email: str, password: str) -> int:
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
         cursor.execute(QUERY_USER_ID.format(email=email, pwd=password))
         rows = cursor.fetchall()
-        user_id = rows[0]['user_id'] if len(rows) == 1 else -1
+        user_id = rows[0][0] if len(rows) == 1 else -1
     return user_id
 
 
