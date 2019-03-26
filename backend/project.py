@@ -60,8 +60,8 @@ def user_post():
     post = args['post']
     if user_id and post:
         with database.get_connection() as conn:
-            database.add_post(conn, user_id, post)
-    return jsonify(status=status.HTTP_201_CREATED)
+            post_id = database.add_post(conn, user_id, post)
+    return jsonify(status=status.HTTP_201_CREATED, post_id=post_id)
 
 
 @app.route('/api/user/info', methods=['GET', 'POST'])
@@ -115,8 +115,8 @@ def post_comment():
     user_id = args['user_id']
     comment_text = args['comment_text']
     with database.get_connection() as conn:
-        database.insert_comment(conn, user_id, post_id, comment_text)
-    return jsonify(status=status.HTTP_200_OK)
+        comment_id = database.insert_comment(conn, user_id, post_id, comment_text)
+    return jsonify(status=status.HTTP_200_OK, comment_id=comment_id)
 
 
 @app.route('/api/user/send_friend_request', methods=['POST'])
@@ -175,8 +175,8 @@ def create_group():
     activity = args['activity']
     group_name = args['group_name']
     with database.get_connection() as conn:
-        database.insert_group(conn, user_id, activity, group_name)
-    return jsonify(status=status.HTTP_201_CREATED)
+        group_id = database.insert_group(conn, user_id, activity, group_name)
+    return jsonify(status=status.HTTP_201_CREATED, group_id=group_id)
 
 
 @app.route('/api/groups/user', methods=['GET'])
@@ -186,9 +186,17 @@ def query_created_groups():
     :return:
     """
     args = request.args
-    group_id = args['user_id']
     with database.get_connection() as conn:
-        database.query_groups(conn, group_id)
+        if 'user_id' in args:
+            groups = database.query_groups(conn, user_id=args['user_id'])
+    # TODO
+    return jsonify(status=status.HTTP_200_OK)
+
+
+@app.route('/api/groups/post', methods=['GET', 'POST'])
+def group_post():
+    # TODO:
+    pass
 
 
 @app.route('/api/groups/send_request', methods=['POST'])
@@ -251,8 +259,8 @@ def create_event():
     location = args['location']
     timestamp = args['timestamp']
     with database.get_connection() as conn:
-        database.insert_event(conn, group_id, event_name, location, timestamp)
-    return jsonify(status=status.HTTP_200_OK)
+        event_id = database.insert_event(conn, group_id, event_name, location, timestamp)
+    return jsonify(status=status.HTTP_200_OK, event_id=event_id)
 
 
 @app.route('/api/groups/event/view', methods=['GET'])

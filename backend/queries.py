@@ -10,7 +10,7 @@ and password = '{pwd}'
 '''
 INSERT_POST_SQL = '''
 INSERT INTO user_posts ("post_id", "user_id", "post", "time_posted")
-  VALUES (DEFAULT, '{user_id}', '{post}', DEFAULT)
+  VALUES (DEFAULT, '{user_id}', '{post}', DEFAULT) returning post_id
 '''
 QUERY_FRIEND_POST_SQL = '''
 select post_id, user_posts.user_id, name, post, time_posted
@@ -37,7 +37,7 @@ where to_user = '{user_id}';
 '''
 INSERT_COMMENT_SQL = '''
 INSERT INTO post_comments ("comment_id", "post_id", "user_id", "comment_text", "time_posted")
-  VALUES (DEFAULT, '{post_id}', '{user_id}','{comment_text}', DEFAULT)
+  VALUES (DEFAULT, '{post_id}', '{user_id}','{comment_text}', DEFAULT) returning comment_id
 '''
 QUERY_COMMENTS_SQL = '''
 select * from post_comments where post_id = '{post_id}';
@@ -51,7 +51,7 @@ INSERT INTO "friend_list_table" ("user_id", "friend_id")
 '''
 INSERT_GROUP_SQL = '''
 INSERT INTO groups ("group_id", "user_id", "activity", "group_name") 
-  VALUES (DEFAULT, '{user_id}', '{activity}', '{group_name}')
+  VALUES (DEFAULT, '{user_id}', '{activity}', '{group_name}') returning group_id
 '''
 QUERY_ALL_GROUPS_SQL = '''
 select group_id, groups.user_id, name as admin, activity, group_name
@@ -91,7 +91,7 @@ where to_user = '{user_id}'
 
 INSERT_EVENT_SQL = '''
 INSERT INTO "events" ("event_id", "group_id", "event_name", "location", "time")
- VALUES (DEFAULT, '{group_id}', '{event_name}', '{location}', '{timestamp}')
+ VALUES (DEFAULT, '{group_id}', '{event_name}', '{location}', '{timestamp}') retuning event_id
 '''
 
 QUERY_GROUP_EVENTS_SQL = '''
@@ -143,3 +143,4 @@ CREATE_LOCATION_SQL = '''
     insert into "locations" (location_id, location_name, address, postal_code) 
     values (default, '{location_name}', '{address}', '{postal_code}')
 '''
+
