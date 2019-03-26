@@ -1,0 +1,11 @@
+.no-padding {
+  padding-left: 0;
+}
+
+.date {
+  color: gray;
+}
+
+.post-image {
+  height: 3.5em !important;
+}

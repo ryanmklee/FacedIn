@@ -1,0 +1,12 @@
+.no-padding {
+  padding-left: 0;
+}
+
+.date {
+  color: gray;
+  font-size: 0.8em;
+}
+
+.comment-image {
+  height: 2.5em !important;
+}
