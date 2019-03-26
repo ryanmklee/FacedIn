@@ -238,7 +238,7 @@ def decline_group_request(connection, group_id: int, user_id: int) -> None:
     :return:
     """
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
-        cursor.execute(DELETE_GROUP_REQUEST_SQL.format(group_id=group_id))
+        cursor.execute(DELETE_GROUP_REQUEST_SQL.format(group_id=group_id, user_id=user_id))
         cursor.commit()
 
 
