@@ -1,4 +1,4 @@
-import {SET_LOGIN_ERROR, SET_LOGIN_PENDING, SET_LOGIN_SUCCESS} from "../constants/actionTypes";
+import {SET_LOGIN_ERROR, SET_LOGIN_PENDING, SET_LOGIN_SUCCESS, SET_LOGOUT} from "../constants/actionTypes";
 import axios from 'axios'
 
 
@@ -18,6 +18,12 @@ export function setLoginSuccess(data) {
 export function setLoginError() {
     return {
         type: SET_LOGIN_ERROR
+    }
+}
+
+export function setLogout() {
+    return {
+        type: SET_LOGOUT
     }
 }
 

@@ -25,7 +25,7 @@ class Login extends React.Component {
     return (
         <div>
           <h3>Sign in</h3>
-          <input id = {USERNAME_INPUT} type="text" ref="username" placeholder="Email" />
+          <input id = {USERNAME_INPUT} type="text" ref="username" placeholder={this.props.user_id} />
           <input id = {PASSWORD_INPUT} type="password" ref="password" placeholder="Password" />
             <button type="button" onClick={()=> {
                 const username = document.getElementById(USERNAME_INPUT).value;
@@ -42,7 +42,7 @@ class Login extends React.Component {
 
 function mapStateToProps(state){
               return {
-                  user_id: state.user_id,
+                  user_id: state.login.user_id,
               }
 }
 export default connect(mapStateToProps)(Login)

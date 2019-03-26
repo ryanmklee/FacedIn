@@ -3,7 +3,7 @@ import {connect} from "react-redux"
 import constant, {PASSWORD_INPUT, USERNAME_INPUT} from "../constants/actionTypes";
 import store from "../store/index"
 import axios from 'axios'
-import {tryLogin} from "../actions/login";
+import {setLogout, tryLogin} from "../actions/login";
 import HomeNavigation from "./HomeNavigation";
 import {Link} from "react-router-dom";
 
@@ -14,6 +14,11 @@ class Home extends React.Component {
 
     constructor(props) {
         super(props);
+        this.logoutOnClick = this.logoutOnClick.bind(this);
+    }
+
+    logoutOnClick() {
+        store.dispatch(setLogout())
     }
 
 
@@ -23,9 +28,7 @@ class Home extends React.Component {
                 <h3>Home</h3>
                 <HomeNavigation/>
                 <Link to={"/"}>
-                    <button type="button" onClick={() => {
-                    }
-                    }>Logout</button>
+                    <button type="button" onClick={this.logoutOnClick}>Logout</button>
                 </Link>
             </div>
 

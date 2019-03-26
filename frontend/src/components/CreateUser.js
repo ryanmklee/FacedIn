@@ -20,7 +20,8 @@ class CreateUser extends React.Component {
 
 
     render() {
-        if (this.props.createdUser) {
+        console.log("RerenderCreateUser")
+        if (this.props.createdUser === true) {
             return <Redirect push to="/home"/>
         }
         return (
@@ -40,7 +41,7 @@ class CreateUser extends React.Component {
 
 function mapStateToProps(state){
     return {
-        createdUser: state.createdUser
+        createdUser: state.login.createdUser
     }
 }
 export default connect(mapStateToProps)(CreateUser)

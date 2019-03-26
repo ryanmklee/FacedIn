@@ -18,16 +18,13 @@ export function setCreateUserError() {
 
 export function createUser(username, password) {
     return function (dispatch) {
-        return axios({
-            method: 'post',
-            url: "http://127.0.0.1:5000/api/create",
-            data: {
+        return axios.post("http://127.0.0.1:5000/api/create", null, {
+            params: {
                 user: username,
                 password: password
-            },
+            }
         })
             .then(response => {
-                console.log(response.data);
                 dispatch(setCreateUserSuccess())
             })
             .catch(error => {
