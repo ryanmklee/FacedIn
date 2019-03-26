@@ -1,6 +1,6 @@
 INSERT_USER_SQL = '''
 INSERT INTO users (user_id, email, password)
- VALUES (DEFAULT, '{usr}', '{pwd}')
+ VALUES (DEFAULT, '{usr}', '{pwd}') RETURNING user_id
  '''
 QUERY_USER_ID = '''
 select user_id

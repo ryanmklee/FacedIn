@@ -26,11 +26,11 @@ def create_user():
     pwd = args['password']
     if user and pwd:
         with database.get_connection() as conn:
-            database.insert_user(conn, user, pwd)
+            user_id = database.insert_user(conn, user, pwd)
     else:
         return jsonify(status=status.HTTP_400_BAD_REQUEST)
 
-    return jsonify(status=status.HTTP_201_CREATED)
+    return jsonify(status=status.HTTP_201_CREATED, user_id=user_id)
 
 
 @app.route('/api/login', methods=['GET'])
@@ -179,14 +179,16 @@ def create_group():
     return jsonify(status=status.HTTP_201_CREATED)
 
 
-@app.route('/api/groups/', methods=['GET'])
+@app.route('/api/groups/user', methods=['GET'])
 def query_created_groups():
     """
     Queries all groups that the user_id created.
     :return:
     """
-    # TODO: implement
-    pass
+    args = request.args
+    group_id = args['user_id']
+    with database.get_connection() as conn:
+        database.query_groups(conn, group_id)
 
 
 @app.route('/api/groups/send_request', methods=['POST'])
@@ -214,7 +216,7 @@ def modify_group_request():
     Accepts or declines group requests
     """
     args = request.args
-    group_id = args['user_id']
+    group_id = args['group_id']
     user_id = args['user_id']
     with database.get_connection() as conn:
         if request.method == 'POST':

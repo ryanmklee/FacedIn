@@ -1,27 +1,18 @@
-import {LOGIN_ACTION, SET_LOGIN_ERROR, SET_LOGIN_PENDING, SET_LOGIN_SUCCESS} from "../constants/actionTypes";
+import {SET_LOGIN_ERROR, SET_LOGIN_PENDING, SET_LOGIN_SUCCESS} from "../constants/actionTypes";
 
 const initialState = {
     user_id: -1,
-    loading: true
 };
 export default (state = initialState, action) => {
     switch (action.type) {
         case SET_LOGIN_PENDING:
-            return {
-                ...state,
-                loading: true
-            };
+            return state;
         case SET_LOGIN_SUCCESS:
-            return {
-                ...state,
-                user_id: action.payload,
-                loading: false
-            };
+            console.log(action.payload.user_id)
+            state.user_id = action.payload.user_id;
+            return state;
         case SET_LOGIN_ERROR:
-            return {
-                ...state,
-                loading: false
-            };
+            return state;
         default:
             return state
     }

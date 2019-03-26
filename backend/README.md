@@ -13,7 +13,12 @@ All queries are to be done on [localhost:5000](localhost:5000)
 ###### Successful Response
 ```angular2html
 {
-    "status": 201
+    "status": 201,
+    "user_id": [
+        {
+            "user_id": 1
+        }
+    ]
 }
 ```
 
@@ -229,6 +234,35 @@ Decline friend request
     "user_id": 1,
     "friend_id": 7,
     "group_id": 3
+}
+```
+###### Successful Response
+```angular2html
+{
+    "status": 200
+}
+```
+#### Accept/Decline group request
+Accept group request
+###### POST: /api/user/friend_request
+```angular2html
+{
+    "group_id": 1,
+    "friend_id": 7
+}
+```
+###### Successful Response
+```angular2html
+{
+    "status": 200
+}
+```
+Decline friend request
+###### DELETE: /api/user/friend_request
+```angular2html
+{
+    "user_id": 1,
+    "friend_id": 7
 }
 ```
 ###### Successful Response
