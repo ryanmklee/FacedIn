@@ -244,7 +244,7 @@ Decline friend request
 ```
 #### Accept/Decline group request
 Accept group request
-###### POST: /api/user/friend_request
+###### POST: /api/user/group_request
 ```angular2html
 {
     "group_id": 1,
@@ -257,11 +257,11 @@ Accept group request
     "status": 200
 }
 ```
-Decline friend request
-###### DELETE: /api/user/friend_request
+Decline group request
+###### DELETE: /api/user/group_request
 ```angular2html
 {
-    "user_id": 1,
+    "group_id": 1,
     "friend_id": 7
 }
 ```
