@@ -3,7 +3,7 @@ import {connect} from "react-redux"
 import {PASSWORD_INPUT, USERNAME_INPUT} from "../constants/actionTypes";
 import {tryLogin} from "../actions/login";
 import store from "../store/index"
-import {Link, Redirect} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 class Login extends React.Component {
 
 
@@ -13,37 +13,38 @@ class Login extends React.Component {
     }
 
     loginButtonClick = (username, password) => {
-        store.dispatch(tryLogin(username, password)).then(() => {
-            this.render()
+        this.props.dispatch(tryLogin(username, password)).then(() => {
+            if (store.getState().login.user_id !== -1) {
+                this.props.history.push('/home')
+            }
         });
     };
 
     render() {
-        if (this.props.user_id !== -1) {
-            return <Redirect push to="/home"/>
-        }
-    return (
-        <div>
-          <h3>Sign in</h3>
-          <input id = {USERNAME_INPUT} type="text" ref="username" placeholder={this.props.user_id} />
-          <input id = {PASSWORD_INPUT} type="password" ref="password" placeholder="Password" />
-            <button type="button" onClick={()=> {
-                const username = document.getElementById(USERNAME_INPUT).value;
-                const password = document.getElementById(PASSWORD_INPUT).value;
-                this.loginButtonClick(username, password)
-            }}>Login</button>
-            <Link to={"/create-user"}>
-                <button type="button">Create New User</button>
-            </Link>
-        </div>
-    );
-  }
+        return (
+            <div>
+                <h3>Sign in</h3>
+                <input id={USERNAME_INPUT} type="text" ref="username" placeholder={this.props.user_id}/>
+                <input id={PASSWORD_INPUT} type="password" ref="password" placeholder="Password"/>
+                <button type="button" onClick={() => {
+                    const username = document.getElementById(USERNAME_INPUT).value;
+                    const password = document.getElementById(PASSWORD_INPUT).value;
+                    this.loginButtonClick(username, password)
+                }}>Login
+                </button>
+                <Link to={"/create-user"}>
+                    <button type="button">Create New User</button>
+                </Link>
+            </div>
+        );
+    }
 }
 
-function mapStateToProps(state){
-              return {
-                  user_id: state.login.user_id,
-              }
-}
+const mapStateToProps = state =>
+{
+    return {
+        user_id: state.login.user_id,
+    }
+};
 export default connect(mapStateToProps)(Login)
 

@@ -20,8 +20,6 @@ class Home extends React.Component {
     logoutOnClick() {
         store.dispatch(setLogout())
     }
-
-
     render() {
         return (
             <div>

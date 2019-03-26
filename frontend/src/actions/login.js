@@ -37,7 +37,6 @@ export function tryLogin(username, password) {
                 }
             })
             .then(response => {
-                console.log(response.data)
                 dispatch(setLoginSuccess(response.data))
             })
             .catch(error => {
