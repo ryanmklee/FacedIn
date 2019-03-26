@@ -70,10 +70,11 @@ def add_post(connection, user_id: int, post: str) -> None:
         connection.commit()
 
 
-def insert_user_data(connection, user_id: int, age: int, sex: str, location: str, occupation: str) -> None:
+def insert_user_data(connection, user_id: int, age: int, sex: str, location: str, occupation: str, name: str) -> None:
     """
     Inserts user data to the user_data table
     :param connection: database connection
+    :param name: str
     :param user_id: user_id
     :param age: int
     :param sex: str
@@ -82,7 +83,7 @@ def insert_user_data(connection, user_id: int, age: int, sex: str, location: str
     """
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
         cursor.execute(INSERT_USER_DATA_SQL.format(user_id=user_id, age=age, sex=sex, location=location,
-                                                   occupation=occupation))
+                                                   occupation=occupation, name=name))
         connection.commit()
 
 

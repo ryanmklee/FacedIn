@@ -80,8 +80,8 @@ def query_user():
         else:
             with database.get_connection() as conn:
                 database.insert_user_data(conn, user_id, age=args['age'], sex=args['sex'], location=args['location'],
-                                          occupation=args['occupation'])
-            return jsonify(status=status.HTTP_200_OK)
+                                          occupation=args['occupation'], name=args['name'])
+            return jsonify(status=status.HTTP_201_CREATED)
     return jsonify(status=status.HTTP_400_BAD_REQUEST, error_message='user_id cannot be -1')
 
 
@@ -104,6 +104,17 @@ def query_posts():
                 res.append(ret)
         return jsonify(status=status.HTTP_200_OK, posts=res)
 
+
+@app.route('/api/user/comment', methods=['POST'])
+def post_comment():
+    """
+    POST request to post a comment on a post_id (post)
+    """
+    args = request.args
+    post_id = args['post_id']
+    comment_text = args['comment']
+    # TODO: implement
+    return jsonify(status=status.HTTP_200_OK)
 
 @app.route('/api/user/send_friend_request', methods=['POST'])
 def send_friend_request():

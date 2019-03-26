@@ -54,8 +54,9 @@ All queries are to be done on [localhost:5000](localhost:5000)
 {
     "user_id": 1,
     "age": 18,
+    "name": "Dr. Strange",
     "sex": Male,
-    "location": "Seattle, WA"
+    "location": "Seattle, WA",
     "occupation": Auditor
 }
 ```
@@ -80,7 +81,7 @@ All queries are to be done on [localhost:5000](localhost:5000)
         {
             "age": 18,
             "location": "Seattle, WA",
-            "name": null,
+            "name": "Dr. Strange",
             "occupation": "Auditior",
             "sex": "Male",
             "user_id": 1
