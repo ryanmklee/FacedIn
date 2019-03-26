@@ -80,8 +80,8 @@ def query_user():
         else:
             with database.get_connection() as conn:
                 database.insert_user_data(conn, user_id, age=args['age'], sex=args['sex'], location=args['location'],
-                                          occupation=args['occupation'])
-            return jsonify(status=status.HTTP_200_OK)
+                                          occupation=args['occupation'], name=args['name'])
+            return jsonify(status=status.HTTP_201_CREATED)
     return jsonify(status=status.HTTP_400_BAD_REQUEST, error_message='user_id cannot be -1')
 
 
@@ -103,6 +103,20 @@ def query_posts():
                 }
                 res.append(ret)
         return jsonify(status=status.HTTP_200_OK, posts=res)
+
+
+@app.route('/api/user/comment', methods=['POST'])
+def post_comment():
+    """
+    POST request to post a comment on a post_id (post)
+    """
+    args = request.args
+    post_id = args['post_id']
+    user_id = args['user_id']
+    comment_text = args['comment_text']
+    with database.get_connection() as conn:
+        database.insert_comment(conn, user_id, post_id, comment_text)
+    return jsonify(status=status.HTTP_200_OK)
 
 
 @app.route('/api/user/send_friend_request', methods=['POST'])
@@ -163,6 +177,16 @@ def create_group():
     with database.get_connection() as conn:
         database.insert_group(conn, user_id, activity, group_name)
     return jsonify(status=status.HTTP_201_CREATED)
+
+
+@app.route('/api/groups/', methods=['GET'])
+def query_created_groups():
+    """
+    Queries all groups that the user_id created.
+    :return:
+    """
+    # TODO: implement
+    pass
 
 
 @app.route('/api/groups/send_request', methods=['POST'])
@@ -240,6 +264,32 @@ def view_events():
     with database.get_connection() as conn:
         events = database.query_group_events(conn, group_id)
     return jsonify(status=status.HTTP_200_OK, events=events)
+
+
+@app.route('/api/groups/event/attend', methods=['GET', 'POST'])
+def attend_event():
+    """
+    User attends event given a user_id and an event_id
+    """
+    args = request.args
+    event_id = args['event_id']
+    with database.get_connection() as conn:
+        if request.method == 'POST':
+            user_id = args['user_id']
+            database.insert_event_attendance(conn, event_id, user_id)
+        else:
+            attendees = database.query_event_attendance(conn, event_id)
+            return jsonify(status=status.HTTP_200_OK, attendees=attendees)
+    return jsonify(status=status.HTTP_200_OK)
+
+
+@app.route('/api/location/view', methods=['GET'])
+def query_location():
+    args = request.args
+    location_id = args['location_id']
+    with database.get_connection() as conn:
+        location_details = database.query_location(conn, location_id)
+        return jsonify(location_details)
 
 
 if __name__ == '__main__':

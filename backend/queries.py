@@ -5,12 +5,12 @@ INSERT INTO users (user_id, email, password)
 QUERY_USER_ID = '''
 select user_id
 from users
-where email = '{email}'
+where email = '{email}'   
 and password = '{pwd}'
 '''
 INSERT_POST_SQL = '''
-INSERT INTO user_posts ("post_id", "user_id", "post")
-  VALUES (DEFAULT, '{user_id}', '{post}')
+INSERT INTO user_posts ("post_id", "user_id", "post", "time_posted")
+  VALUES (DEFAULT, '{user_id}', '{post}', DEFAULT)
 '''
 QUERY_FRIEND_POST_SQL = '''
 select post_id, user_posts.user_id, name, post, time_posted
@@ -20,8 +20,8 @@ where user_posts.user_id = '{user_id}'
    or user_posts.user_id in (select friend_id from friend_list_table where friend_list_table.user_id = '{user_id}');
 '''
 INSERT_USER_DATA_SQL = '''
-INSERT INTO user_data("user_id", "age", "sex", "location", "occupation")
-VALUES ('{user_id}', '{age}', '{sex}', '{location}', '{occupation}')
+INSERT INTO user_data("user_id", "age", "sex", "location", "occupation", "name")
+VALUES ('{user_id}', '{age}', '{sex}', '{location}', '{occupation}', '{name}')
 '''
 QUERY_USER_DATA = '''
 select * from user_data where user_id = '{user_id}';
@@ -32,8 +32,8 @@ INSERT INTO friend_requests ("from_user", "to_user")
 '''
 QUERY_FRIEND_REQUESTS = '''
 select name, to_user from friend_requests
-join user_data ud on ud.user_id = to_user
-where from_user = '{user_id}';
+join user_data ud on ud.user_id = from_user
+where to_user = '{user_id}';
 '''
 INSERT_COMMENT_SQL = '''
 INSERT INTO post_comments ("comment_id", "post_id", "user_id", "comment_text", "time_posted")
@@ -43,7 +43,7 @@ QUERY_COMMENTS_SQL = '''
 select * from post_comments where post_id = '{post_id}';
 '''
 DELETE_FRIEND_REQUEST_SQL = '''
-DELETE FROM friend_requests WHERE "from_user" = '{user_id}' AND "to_user" = '{friend_id}'
+DELETE FROM friend_requests WHERE "from_user" = '{friend_id}' AND "to_user" = '{user_id}'
 '''
 INSERT_FRIEND_LIST_SQL = '''
 INSERT INTO "friend_list_table" ("user_id", "friend_id") 
@@ -112,4 +112,22 @@ QUERY_USER_ASSOCIATED_EVENTS = '''
 select *
 from events
 where group_id in (select group_id from groups where user_id = '{user_id}');
+'''
+
+INSERT_EVENT_ATTENDANCE_SQL = '''
+INSERT INTO "event_attendance" ("event_id", "user_id")
+ VALUES ('{event_id}', '{user_id}')
+'''
+
+QUERY_USER_EVENT_ATTENDANCE_SQL = '''
+select event_attendance.user_id, name
+from event_attendance
+       join user_data ud on ud.user_id = event_attendance.user_id
+where event_id = '{event_id}';
+'''
+
+QUERY_LOCATION_SQL = '''
+    select * from locations inner join postal_code pc 
+                on locations.postal_code = pc.postal_code
+    where location_id = '{location_id}'
 '''
