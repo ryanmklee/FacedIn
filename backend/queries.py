@@ -168,7 +168,7 @@ INSERT INTO "group_posts" ("gpost_id", "group_id", "user_id", "group_post", "tim
 '''
 
 QUERY_GROUP_POST_SQL = '''
-select group_id, ud.user_id, group_post, name, time_posted
+select gpost_id, group_id, ud.user_id, group_post, name, time_posted
 from group_posts
             join user_data ud on ud.user_id = group_posts.user_id
 where group_id = '{group_id}';
@@ -224,4 +224,14 @@ where user_id in
 group by pc.city, l.location_id;
 
 '''
+
+INSERT_GROUP_POST_COMMENT_SQL = '''
+INSERT INTO group_post_comments ("comment_id", "gpost_id", "user_id", "group_id", "comment_text", "time_posted")
+ VALUES (DEFAULT, '{gpost_id}', '{user_id}', '{group_id}', '{comment_text}', DEFAULT) returning comment_id
+'''
+
+QUERY_GROUP_POST_COMMENT_SQL = '''
+select * from group_post_comments where gpost_id = '{gpost_id}'
+'''
+
 

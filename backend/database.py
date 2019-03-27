@@ -404,6 +404,37 @@ def query_group_posts(connection, group_id: int) -> list:
     return rows
 
 
+def insert_group_post_comment(connection, group_id: int, gpost_id: int, user_id: int, comment_text: str) -> dict:
+    """
+    Insert a comment to a group post
+    :param connection:
+    :param group_id:
+    :param gpost_id:
+    :param user_id:
+    :param comment_text:
+    :return:
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(INSERT_GROUP_POST_COMMENT_SQL.format(group_id=group_id, gpost_id=gpost_id,
+                                                            user_id=user_id, comment_text=comment_text))
+        connection.commit()
+        comment_id = cursor.fetchone()
+    return comment_id
+
+
+def query_group_post_comment(connection, gpost_id: int) -> list:
+    """
+    Queries all comments associated to the group post given the gpost_id
+    :param connection: Database connection
+    :param gpost_id: int
+    :return: list of comments
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(QUERY_GROUP_POST_COMMENT_SQL.format(gpost_id=gpost_id))
+        rows = cursor.fetchall()
+    return rows
+
+
 def query_location(connection, location_id: int) -> dict:
     """
     Queries location_id and returns a dict that is the table entry for the
