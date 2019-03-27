@@ -363,7 +363,7 @@ Decline group request
 }
 ```
 #### Create event for a group
-##### POST: /api/groups/event/create
+###### POST: /api/groups/event/create
 ```angularjs
 {
     "group_id": 4,
