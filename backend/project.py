@@ -14,7 +14,7 @@ def hello_world():
     return send_from_directory('templates', 'login.html')
 
 
-@app.route('/api/create', methods=['POST'])
+@app.route('/api/create', methods=['POST', 'PUT'])
 def create_user():
     """
     POST request to create user
@@ -26,11 +26,15 @@ def create_user():
     pwd = args['password']
     if user and pwd:
         with database.get_connection() as conn:
-            user_id = database.insert_user(conn, user, pwd)
+            if request.method == 'POST':
+                user_id = database.insert_user(conn, user, pwd)
+                return jsonify(status=status.HTTP_201_CREATED, user_id=user_id)
+            else:
+                user_id = args['user_id']
+                database.update_user(conn, user_id, user, pwd)
+                return jsonify(status=status.HTTP_200_OK)
     else:
         return jsonify(status=status.HTTP_400_BAD_REQUEST)
-
-    return jsonify(status=status.HTTP_201_CREATED, user_id=user_id)
 
 
 @app.route('/api/login', methods=['GET'])

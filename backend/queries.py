@@ -23,6 +23,13 @@ INSERT_USER_DATA_SQL = '''
 INSERT INTO user_data("user_id", "age", "sex", "location", "occupation", "name")
 VALUES ('{user_id}', '{age}', '{sex}', '{location}', '{occupation}', '{name}')
 '''
+
+UPDATE_USER_DATA_SQL = '''
+update users set email = '{email}',
+                 password = '{password}'
+where user_id = '{user_id}'
+'''
+
 QUERY_USER_DATA = '''
 select * from user_data where user_id = '{user_id}';
 '''

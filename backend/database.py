@@ -32,6 +32,20 @@ def insert_user(connection, user: str, password: str) -> dict:
     return user_id
 
 
+def update_user(connection, user_id: int, user: str, password: str) -> None:
+    """
+    Update user into database with user_id, user, password.
+    :param connection: Database connection
+    :param user_id: int
+    :param user: str
+    :param password: str
+    :return:
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(UPDATE_USER_DATA_SQL.format(user_id=user_id, email=user, password=password))
+        connection.commit()
+
+
 def validate_user(connection, email: str, password: str) -> int:
     """
     Validate user credentials and return bool if it is a match

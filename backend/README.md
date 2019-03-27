@@ -21,7 +21,20 @@ All queries are to be done on [localhost:5000](localhost:5000)
     ]
 }
 ```
-
+####### PUT: /api/create
+```angularjs
+{
+    "user_id": 11,
+    "user": "cpsc121@ugrad.cs.ubc.ca",
+    "password": "ilovelogic"
+}
+```
+###### Successful Response
+```angularjs
+{
+    "status": 200
+}
+```
 #### Login user
 ###### GET: /api/login
 ```angular2html
