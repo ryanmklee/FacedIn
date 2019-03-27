@@ -17,6 +17,7 @@ export function setCreateUserError() {
     }
 }
 
+
 export function createUser(username, password) {
     return function (dispatch) {
         let config = {

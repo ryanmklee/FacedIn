@@ -115,16 +115,22 @@ export function postToGroup(groupId, userId, postText) {
     }
 }
 
-export function createEventForGroup(groupId, eventName, location, timestamp) {
+export function createEventForGroup(groupId, eventName, locationName, address, postalCode, city, province, timestamp) {
     return function (dispatch) {
         let config = {
             params: {
                 group_id: groupId,
                 event_name: eventName,
-                location: location,
+                location_name: locationName,
+                address: address,
+                postal_code: postalCode,
+                city: city,
+                province: province,
                 timestamp: timestamp
             }
         };
         return axiosPostRequestHelper(dispatch, "http://127.0.0.1:5000/api/groups/event/create", config, setCreateEventToGroupSuccess, setCreateEventToGroupError)
     }
 }
+
+

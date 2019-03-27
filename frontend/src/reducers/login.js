@@ -8,14 +8,17 @@ export default (state = initialState, action) => {
         case SET_LOGIN_PENDING:
             return state;
         case SET_LOGIN_SUCCESS:
-            let userId = action.payload.user_id;
-            state.user_id = userId;
-            return state;
+            return {
+                ...state,
+                user_id: action.payload.data.user_id
+            };
         case SET_LOGIN_ERROR:
             return state;
         case SET_LOGOUT:
-            state.user_id = -1;
-            return state;
+            return {
+                ...state,
+                user_id: -1
+            };
         default:
             return state
     }

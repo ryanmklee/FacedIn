@@ -4,7 +4,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import ListGroup from 'react-bootstrap/ListGroup';
-
 import CommentSection from './CommentSection';
 import formatDateString from '../../utils/date';
 
@@ -13,7 +12,9 @@ import './Post.css';
 export default class Post extends Component {
   constructor(props) {
     super(props);
-    this.date = formatDateString(this.props.post.time_posted);
+    console.log(this.props);
+    let temp = this.props;
+    // this.date = formatDateString(this.props.time_posted);
   }
  
   render() {
@@ -25,14 +26,14 @@ export default class Post extends Component {
           </Col>
           <Col>
             <Row className="name"><h6>{this.props.post.name}</h6></Row>
-            <Row className="date">{this.date}</Row>
+            <Row className="date">{this.props.post.time_posted}</Row>
           </Col>
         </Row>
         <Row className="mt-3">
-          <p>{this.props.post.post}</p>
+          <p>{this.props.post.group_post}</p>
         </Row>
         <hr/>
-        <CommentSection comments={this.props.comments} postId={this.props.post.post_id}/>
+        {/*<CommentSection comments={this.props.comments} postId={this.props.post.post_id}/>*/}
       </Container>
     );
   }

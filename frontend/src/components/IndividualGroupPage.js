@@ -20,6 +20,14 @@ import {
     getIGroupPosts,
     postToGroup
 } from "../actions/individualGroupPage";
+import {
+    EVENT_ADDRESS_INPUT, EVENT_CITY,
+    EVENT_LOCATION_NAME_INPUT,
+    EVENT_NAME_INPUT, EVENT_POSTALCODE, EVENT_PROVINCE, EVENT_TIMESTAMP,
+    USERNAME_INPUT,
+    WRITE_GROUP_POST_INPUT
+} from "../constants/actionTypes";
+import {acceptGroupRequest, sendGroupRequest} from "../actions/general";
 
 const posts = [
   {
@@ -83,61 +91,73 @@ const events = [
     "time": "Wed, 03 Feb 2016 12:05:00 GMT"
   }
 ];
-
+const tempGroupId = 4;
+const tempUserId = 8;
 class IndividualGroupPage extends React.Component {
 
+    componentWillMount() {
+        this.props.getGroupInfo(tempGroupId)
+    }
+
     componentDidMount() {
-        const tempGroupId = 4;
-        const tempUserId = 8;
+        this.props.getGroupPosts(tempGroupId);
+        this.props.getGroupEvents(tempGroupId);
 
-        // this.props.dispatch(getIGroupPosts(tempGroupId)).then(() => {
-        //
-        // });
-
-        this.props.dispatch(getIGroupEvents(tempGroupId)).then(() => {
-
-        });
-        //
-        // this.props.dispatch(getIGroupInformation(tempGroupId)).then(() => {
-        //
-        // });
-
-        // this.props.dispatch(postToGroup(tempGroupId, tempUserId, "Hello World!")).then(() => {
-        //
-        // });
-        //
-        // this.props.dispatch(createEventForGroup(tempGroupId, "Say Hello to the world", "Somewhere", '2/3/2016 12:05')).then(() => {
-        //
-        // });
     }
 
     render() {
     return (
       <Container className="mt-3 mb-3 group">
         <Jumbotron className="groupTitle">
-          <h2>CPSC 304 Group</h2>
-          <p>This is a placeholder for group description.</p>
-          <Button>Join Group</Button>
+          <h2>{this.props.groupName}</h2>
+          <p>{this.props.groupDesc}</p>
+            {!this.props.acceptedToGroup &&<Button onClick={() => {
+              let tempFriendId = 7;
+              this.props.joinGroup(tempUserId, tempFriendId, tempGroupId)
+          }}>Join Group</Button>}
         </Jumbotron>
         <Row>
           <Col><h4>Group posts</h4></Col>
-          <Col md="auto"><Button variant="primary">Add Post</Button></Col>
+            <input id={WRITE_GROUP_POST_INPUT} type="text" placeholder="Write a post..."/>
+            <Col md="auto"><Button variant="primary" onClick={() => {
+                let postText = document.getElementById(WRITE_GROUP_POST_INPUT).value;
+                this.props.createPost(tempGroupId, tempUserId, postText)
+            }}>Add Post</Button></Col>
         </Row>
         <hr/>
         <ListGroup className="mb-3">
           {
-            posts.map((postObj) =>
+            this.props.posts.map((postObj) =>
               <ListGroup.Item>
-                <Post post={postObj.post} comments={postObj.comments}/>
+                <Post post={postObj} comments={postObj.comments}/>
               </ListGroup.Item>
             )
           }
         </ListGroup>
         <Row>
           <Col><h4>Events</h4></Col>
-          <Col md="auto"><Button variant="primary">Add Event</Button></Col>
+          <Col md="auto"><Button variant="primary" onClick={() => {
+              let eName = document.getElementById(EVENT_NAME_INPUT).value;
+              let eLName = document.getElementById(EVENT_LOCATION_NAME_INPUT).value;
+              let eAddress = document.getElementById(EVENT_ADDRESS_INPUT).value;
+              let ePostal = document.getElementById(EVENT_POSTALCODE).value;
+              let eCity = document.getElementById(EVENT_CITY).value;
+              let eProvince = document.getElementById(EVENT_PROVINCE).value;
+              let eTS = document.getElementById(EVENT_TIMESTAMP).value;
+              this.props.createEvent(tempGroupId, eName, eLName, eAddress, ePostal, eCity, eProvince, eTS)
+          }}>Add Event</Button></Col>
         </Row>
-        <hr/>
+          <Row>
+              <input id={EVENT_NAME_INPUT} type="text" placeholder="Event name..."/>
+              <input id={EVENT_LOCATION_NAME_INPUT} type="text" placeholder="Location Name..."/>
+              <input id={EVENT_ADDRESS_INPUT} type="text" placeholder="Address..."/>
+              <input id={EVENT_POSTALCODE} type="text" placeholder="Postal Code..."/>
+              <input id={EVENT_CITY} type="text" placeholder="City..."/>
+              <input id={EVENT_PROVINCE} type="text" placeholder="Province..."/>
+              <input id={EVENT_TIMESTAMP} type="text" placeholder="Tstamp...2/3/2016 12:05"/>
+          </Row>
+
+          <hr/>
         <ListGroup>
           {
             this.props.events.map((event) =>
@@ -153,9 +173,36 @@ class IndividualGroupPage extends React.Component {
 }
 function mapStateToProps(state){
     return {
+        userId: state.login.user_id,
         posts: state.individualGroupPage.posts,
         events: state.individualGroupPage.events,
-        size: state.individualGroupPage.events.size
+        groupName: state.individualGroupPage.groupName,
+        groupDesc: state.individualGroupPage.groupDesc,
+        acceptedToGroup: state.individualGroupPage.acceptedToGroup
     }
 }
-export default connect(mapStateToProps)(IndividualGroupPage)
+
+const mapDispatchToProps = (dispatch) => ({
+    getGroupInfo: (groupId) => {
+        dispatch(getIGroupInformation(groupId))
+    },
+    getGroupPosts: (groupId) => {
+        dispatch(getIGroupPosts(groupId))
+    },
+    getGroupEvents: (groupId) => {
+        dispatch(getIGroupEvents(groupId))
+    },
+    createPost: (groupId, userId, postText) => {
+        dispatch(postToGroup(groupId, userId, postText))
+    },
+    createEvent : (groupId, eventName, locationName, address, postalCode, city, province, timestamp) => {
+        dispatch(createEventForGroup(groupId, eventName, locationName, address, postalCode, city, province, timestamp))
+    },
+    joinGroup: (userId, friendId, groupId) => {
+        dispatch(sendGroupRequest(userId, friendId, groupId)).then(() => {
+            dispatch(acceptGroupRequest(friendId, groupId))
+        })
+    }
+
+});
+export default connect(mapStateToProps, mapDispatchToProps)(IndividualGroupPage)

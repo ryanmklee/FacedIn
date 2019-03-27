@@ -24,7 +24,8 @@ class Event extends Component {
               <h6>{this.props.event.event_name}</h6>
             </Row>
             <Row>
-              Location: {this.props.event.location}
+              Location: {this.props.event.location_name + " at " +
+            this.props.event.address + " " + this.props.event.city + ", " + this.props.event.province}
             </Row>
           </Col>
         </Row>
@@ -34,7 +35,6 @@ class Event extends Component {
 }
 function mapStateToProps(state){
   return {
-
   }
 }
 export default connect(mapStateToProps)(Event)

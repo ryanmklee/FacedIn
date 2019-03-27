@@ -79,8 +79,8 @@ export function acceptGroupRequest(friendId, groupId) {
     return function (dispatch) {
         let config = {
             params: {
-                friend_id: friendId,
-                group_id: groupId
+                group_id: groupId,
+                friend_id: friendId
             }
         };
         return axiosPostRequestHelper(dispatch,"http://127.0.0.1:5000/api/user/group_request", config, setAcceptGroupRequestSuccess, setAcceptGroupRequestErrpr)

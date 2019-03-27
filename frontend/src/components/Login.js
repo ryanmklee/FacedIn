@@ -6,10 +6,9 @@ import {Link, Redirect} from 'react-router-dom'
 class Login extends React.Component {
 
     render() {
-        console.log(this.props.user_id)
-        // if (this.props.user_id !== -1) {
-        //     return <Redirect push to={"/home"}/>
-        // }
+        if (this.props.user_id !== -1) {
+            return <Redirect push to={"/home"}/>
+        }
         return (
             <div>
                 <h3>Sign in</h3>
@@ -22,7 +21,7 @@ class Login extends React.Component {
                 }}>Login
                 </button>
                 <Link to={"/create-user"}>
-                    <button type="button">{this.props.user_id}</button>
+                    <button type="button">Create New Account</button>
                 </Link>
             </div>
         );

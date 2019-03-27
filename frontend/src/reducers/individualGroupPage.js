@@ -1,4 +1,10 @@
-import {SET_RETRIEVE_POSTS_IGROUP_SUCCESS} from "../constants/actionTypes";
+import {
+    SET_ACCEPT_GROUP_REQ_ERROR,
+    SET_ACCEPT_GROUP_REQ_SUCCESS,
+    SET_JOIN_GROUP_SUCCESS,
+    SET_RETRIEVE_POSTS_IGROUP_SUCCESS, SET_SEND_GROUP_REQ_ERROR,
+    SET_SEND_GROUP_REQ_SUCCESS
+} from "../constants/actionTypes";
 import {SET_RETRIEVE_POSTS_IGROUP_ERROR} from "../constants/actionTypes";
 import {SET_RETRIEVE_EVENTS_IGROUP_ERROR} from "../constants/actionTypes";
 import {SET_RETRIEVE_EVENTS_IGROUP_SUCCESS} from "../constants/actionTypes";
@@ -12,36 +18,59 @@ import {SET_CREATE_EVENT_ERROR} from "../constants/actionTypes";
 const initialState = {
     posts: [],
     events:[],
-    shouldReloadPage: false
+    groupName: "",
+    groupDesc: "",
+    acceptedToGroup: false,
 };
 export default (state = initialState, action) => {
     switch (action.type) {
         case SET_RETRIEVE_POSTS_IGROUP_SUCCESS:
-            let posts = action.payload.data.posts;
-            console.log(posts);
-            return state;
+            return {
+                ...state,
+                posts: action.payload.data.posts
+            };
         case SET_RETRIEVE_POSTS_IGROUP_ERROR:
             return state;
         case SET_RETRIEVE_EVENTS_IGROUP_ERROR:
             return state;
         case SET_RETRIEVE_EVENTS_IGROUP_SUCCESS:
-            let events = action.payload.data.events
-            console.log(events)
-            state.events = events
-            console.log(state)
-            return state;
+            return {
+                ...state,
+                events: action.payload.data.events
+            };
         case SET_POST_GROUP_SUCCESS:
             return state;
         case SET_POST_GROUOP_ERROR:
             return state;
         case SET_RETRIEVE_GROUP_INFO_SUCCESS:
-            return state;
+            return {
+                ...state,
+                groupName: action.payload.data.groups[0].group_name,
+                groupDesc: action.payload.data.groups[0].activity
+            };
         case SET_RETRIEVE_GROUP_INFO_ERROR:
             return state;
         case SET_CREATE_EVENT_SUCCESS:
             return state;
         case SET_CREATE_EVENT_ERROR:
             return state;
+        case SET_SEND_GROUP_REQ_SUCCESS:
+            return {
+                ...state,
+                acceptedToGroup: true
+            };
+        case SET_SEND_GROUP_REQ_ERROR:
+            return {
+                ...state,
+                acceptedToGroup: false
+            }
+        case SET_ACCEPT_GROUP_REQ_SUCCESS:
+            return state;
+        case SET_ACCEPT_GROUP_REQ_ERROR:
+            return {
+                ...state,
+                acceptedToGroup: false
+            };
         default:
             return state
     }

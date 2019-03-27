@@ -36,19 +36,5 @@ export function tryLogin(username, password) {
             }
         };
         return axiosGetRequestHelper(dispatch, "http://127.0.0.1:5000/api/login", params, setLoginSuccess, setLoginError)
-        // dispatch(setLoginPending());
-        // return axios.get("http://127.0.0.1:5000/api/login",
-        //     {
-        //         params: {email: username,
-        //             password: password
-        //         }
-        //     })
-        //     .then(response => {
-        //         dispatch(setLoginSuccess(response.data))
-        //     })
-        //     .catch(error => {
-        //         console.log("Login Error!" + error)
-        //         dispatch(setLoginError())
-        //     })
     }
 }
