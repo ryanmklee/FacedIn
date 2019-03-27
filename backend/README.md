@@ -21,7 +21,7 @@ All queries are to be done on [localhost:5000](localhost:5000)
     ]
 }
 ```
-####### PUT: /api/create
+###### PUT: /api/create
 ```angularjs
 {
     "user_id": 11,
@@ -446,6 +446,49 @@ User attends an event
         {
             "name": "Lucy MacDonald",
             "user_id": 8
+        }
+    ],
+    "status": 200
+}
+```
+#### Get user who joined all the groups (SQL Division Endpoint)
+###### GET: /api/groups/most_joined
+###### Successful Response
+```angularjs
+{
+    "status": 200,
+    "users": [
+        {
+            "age": 14,
+            "location": "Vancouver, BC",
+            "name": "Lucy MacDonald",
+            "occupation": "Student",
+            "sex": "Female",
+            "user_id": 8
+        }
+    ]
+}
+```
+
+#### Count and query all events this month in a group (Aggregate query)
+###### GET: api/groups/monthly_events
+```angularjs
+{
+    "group_id": 4
+}
+```
+```angularjs
+{
+    "count": {
+        "count": 1
+    },
+    "events": [
+        {
+            "event_id": 3,
+            "event_name": "Tuesday Writing Session",
+            "group_id": 4,
+            "location": "New Zealand",
+            "time": "Wed, 27 Mar 2019 02:03:28 GMT"
         }
     ],
     "status": 200

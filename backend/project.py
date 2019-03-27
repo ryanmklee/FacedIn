@@ -304,6 +304,31 @@ def attend_event():
     return jsonify(status=status.HTTP_200_OK)
 
 
+@app.route('/api/groups/most_joined', methods=['GET'])
+def most_joined_groups():
+    """
+    Returns the users who have joined all the groups
+    :return:
+    """
+    with database.get_connection() as conn:
+        users = database.query_users_all_groups(conn)
+    return jsonify(status=status.HTTP_200_OK, users=users)
+
+
+@app.route('/api/groups/monthly_events', methods=['GET'])
+def monthly_events():
+    """
+    Query monthly events for a group
+    :return: list of events
+    """
+    args = request.args
+    group_id = args['group_id']
+    with database.get_connection() as conn:
+        events = database.query_monthly_events(conn, group_id)
+        count = database.count_monthly_events(conn, group_id)
+    return jsonify(status=status.HTTP_200_OK, count=count, events=events)
+
+
 @app.route('/api/location/view', methods=['GET'])
 def query_location():
     args = request.args
