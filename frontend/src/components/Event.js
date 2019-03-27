@@ -4,8 +4,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import formatDateString from '../utils/date';
+import connect from "react-redux/es/connect/connect";
 
-export default class Event extends Component {
+class Event extends Component {
   constructor(props) {
     super(props);
     this.date = formatDateString(this.props.event.time);
@@ -31,3 +32,9 @@ export default class Event extends Component {
     );
   }
 }
+function mapStateToProps(state){
+  return {
+
+  }
+}
+export default connect(mapStateToProps)(Event)

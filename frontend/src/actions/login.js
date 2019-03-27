@@ -1,5 +1,6 @@
 import {SET_LOGIN_ERROR, SET_LOGIN_PENDING, SET_LOGIN_SUCCESS, SET_LOGOUT} from "../constants/actionTypes";
 import axios from 'axios'
+import {axiosGetRequestHelper} from "./webcallUtil";
 
 
 export function setLoginPending() {
@@ -29,19 +30,25 @@ export function setLogout() {
 
 export function tryLogin(username, password) {
     return function (dispatch) {
-        dispatch(setLoginPending());
-        return axios.get("http://127.0.0.1:5000/api/login",
-            {
-                params: {email: username,
-                    password: password
-                }
-            })
-            .then(response => {
-                dispatch(setLoginSuccess(response.data))
-            })
-            .catch(error => {
-                console.log("Login Error!" + error)
-                dispatch(setLoginError())
-            })
+        let params = {
+            params: {email: username,
+                password: password
+            }
+        };
+        return axiosGetRequestHelper(dispatch, "http://127.0.0.1:5000/api/login", params, setLoginSuccess, setLoginError)
+        // dispatch(setLoginPending());
+        // return axios.get("http://127.0.0.1:5000/api/login",
+        //     {
+        //         params: {email: username,
+        //             password: password
+        //         }
+        //     })
+        //     .then(response => {
+        //         dispatch(setLoginSuccess(response.data))
+        //     })
+        //     .catch(error => {
+        //         console.log("Login Error!" + error)
+        //         dispatch(setLoginError())
+        //     })
     }
 }

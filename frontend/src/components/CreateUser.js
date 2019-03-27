@@ -14,16 +14,14 @@ class CreateUser extends React.Component {
 
     submitUserClick = (username, password) => {
         store.dispatch(createUser(username, password)).then(() => {
-            this.render()
+            if (store.getState().createuser.createdUser) {
+                this.props.history.push('/')
+            }
         });
     };
 
 
     render() {
-        console.log("RerenderCreateUser")
-        if (this.props.createdUser === true) {
-            return <Redirect push to="/home"/>
-        }
         return (
             <div>
                 <h3>Create User</h3>

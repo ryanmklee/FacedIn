@@ -10,6 +10,16 @@ import Event from './Event';
 import Post from './post/Post';
 
 import './Group.css';
+import connect from "react-redux/es/connect/connect";
+import {tryLogin} from "../actions/login";
+import store from "../store";
+import {
+    createEventForGroup,
+    getIGroupEvents,
+    getIGroupInformation,
+    getIGroupPosts,
+    postToGroup
+} from "../actions/individualGroupPage";
 
 const posts = [
   {
@@ -74,8 +84,34 @@ const events = [
   }
 ];
 
-export default class Group extends Component {
-  render() {
+class IndividualGroupPage extends React.Component {
+
+    componentDidMount() {
+        const tempGroupId = 4;
+        const tempUserId = 8;
+
+        this.props.dispatch(getIGroupPosts(tempGroupId)).then(() => {
+
+        });
+
+        this.props.dispatch(getIGroupEvents(tempGroupId)).then(() => {
+
+        });
+
+        this.props.dispatch(getIGroupInformation(tempGroupId)).then(() => {
+
+        });
+
+        this.props.dispatch(postToGroup(tempGroupId, tempUserId, "Hello World!")).then(() => {
+
+        });
+
+        this.props.dispatch(createEventForGroup(tempGroupId, "Say Hello to the world", "Somewhere", "Sometime")).then(() => {
+
+        });
+    }
+
+    render() {
     return (
       <Container className="mt-3 mb-3 group">
         <Jumbotron className="groupTitle">
@@ -115,3 +151,9 @@ export default class Group extends Component {
     );
   }
 }
+function mapStateToProps(state){
+    return {
+
+    }
+}
+export default connect(mapStateToProps)(IndividualGroupPage)

@@ -2,6 +2,7 @@ import {} from "../constants/actionTypes";
 import axios from 'axios'
 import {SET_CREATE_USER_SUCCESS} from "../constants/actionTypes";
 import {SET_CREATE_USER_ERROR} from "../constants/actionTypes";
+import {axiosPostRequestHelper} from "./webcallUtil";
 
 
 export function setCreateUserSuccess() {
@@ -18,18 +19,12 @@ export function setCreateUserError() {
 
 export function createUser(username, password) {
     return function (dispatch) {
-        return axios.post("http://127.0.0.1:5000/api/create", null, {
+        let config = {
             params: {
                 user: username,
                 password: password
             }
-        })
-            .then(response => {
-                dispatch(setCreateUserSuccess())
-            })
-            .catch(error => {
-                console.log("Create User Error!" + error)
-                dispatch(setCreateUserError())
-            })
+        };
+        return axiosPostRequestHelper(dispatch, "http://127.0.0.1:5000/api/create", config, setCreateUserSuccess, setCreateUserError);
     }
 }
