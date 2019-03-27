@@ -32,6 +32,20 @@ def insert_user(connection, user: str, password: str) -> dict:
     return user_id
 
 
+def update_user(connection, user_id: int, user: str, password: str) -> None:
+    """
+    Update user into database with user_id, user, password.
+    :param connection: Database connection
+    :param user_id: int
+    :param user: str
+    :param password: str
+    :return:
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(UPDATE_USER_DATA_SQL.format(user_id=user_id, email=user, password=password))
+        connection.commit()
+
+
 def validate_user(connection, email: str, password: str) -> int:
     """
     Validate user credentials and return bool if it is a match
@@ -444,3 +458,41 @@ def query_group_info(connection, group_id: int):
         cursor.execute(QUERY_GROUP_INFO_SQL.format(group_id=group_id))
         rows = cursor.fetchall()
     return rows
+
+
+def query_users_all_groups(connection):
+    """
+    Queries users which are in all the groups
+    :param connection:
+    :return:
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(USERS_IN_ALL_GROUPS)
+        rows = cursor.fetchall()
+    return rows
+
+
+def query_monthly_events(connection, group_id: int) -> list:
+    """
+    Queries monthly events given a group_id
+    :param connection:
+    :param group_id:
+    :return:
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(QUERY_EVENTS_MONTHLY.format(group_id=group_id))
+        rows = cursor.fetchall()
+    return rows
+
+
+def count_monthly_events(connection, group_id: int) -> dict:
+    """
+    Counts the monthly events given a group_id
+    :param connection:
+    :param group_id:
+    :return:
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(COUNT_EVENTS_MONTHLY.format(group_id=group_id))
+        count = cursor.fetchone()
+    return count

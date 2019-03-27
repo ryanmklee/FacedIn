@@ -23,6 +23,13 @@ INSERT_USER_DATA_SQL = '''
 INSERT INTO user_data("user_id", "age", "sex", "location", "occupation", "name")
 VALUES ('{user_id}', '{age}', '{sex}', '{location}', '{occupation}', '{name}')
 '''
+
+UPDATE_USER_DATA_SQL = '''
+update users set email = '{email}',
+                 password = '{password}'
+where user_id = '{user_id}'
+'''
+
 QUERY_USER_DATA = '''
 select * from user_data where user_id = '{user_id}';
 '''
@@ -159,3 +166,31 @@ where group_id = '{group_id}';
 QUERY_GROUP_INFO_SQL = '''
 select * from groups where group_id = '{group_id}';
 '''
+
+COUNT_EVENTS_MONTHLY = '''
+select count(*)
+from events
+where group_id = '{group_id}'
+  and EXTRACT(MONTH FROM time) = EXTRACT(MONTH from now())
+  and EXTRACT(YEAR from time) = EXTRACT(YEAR from now());
+'''
+
+QUERY_EVENTS_MONTHLY = '''
+select *
+from events
+where group_id = '{group_id}'
+  and EXTRACT(MONTH FROM time) = EXTRACT(MONTH from now())
+  and EXTRACT(YEAR from time) = EXTRACT(YEAR from now());
+'''
+
+USERS_IN_ALL_GROUPS = '''
+SELECT * from user_data where user_id in
+(SELECT distinct user_id FROM group_list_table as sx
+WHERE NOT EXISTS (
+(SELECT p.group_id FROM groups as p )
+EXCEPT
+(SELECT sp.group_id FROM group_list_table as sp WHERE sp.user_id = sx.user_id )));
+'''
+
+
+

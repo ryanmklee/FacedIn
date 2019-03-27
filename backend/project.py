@@ -14,29 +14,27 @@ def hello_world():
     return send_from_directory('templates', 'login.html')
 
 
-@app.route('/api/create', methods=['POST'])
+@app.route('/api/create', methods=['POST', 'PUT'])
 def create_user():
     """
     POST request to create user
     PARAMS: user, password
     :return: status code
     """
-    # GAVIN THE DATA YOU ARE PASSING IS THE REQUEST.DATA
-    print(request.data)
-    # '{"user":"gavin@gmail.com","password":"ilovejs"}'
-    # HOWEVER WE ARE EXPECTING THE DATA TO BE IN THE REQUEST ARGUMENTS
-    print(request.args)
-    # empty dict
     args = request.args
     user = args['user']
     pwd = args['password']
     if user and pwd:
         with database.get_connection() as conn:
-            user_id = database.insert_user(conn, user, pwd)
+            if request.method == 'POST':
+                user_id = database.insert_user(conn, user, pwd)
+                return jsonify(status=status.HTTP_201_CREATED, user_id=user_id)
+            else:
+                user_id = args['user_id']
+                database.update_user(conn, user_id, user, pwd)
+                return jsonify(status=status.HTTP_200_OK)
     else:
         return jsonify(status=status.HTTP_400_BAD_REQUEST)
-
-    return jsonify(status=status.HTTP_201_CREATED, user_id=user_id)
 
 
 @app.route('/api/login', methods=['GET'])
@@ -304,6 +302,31 @@ def attend_event():
             attendees = database.query_event_attendance(conn, event_id)
             return jsonify(status=status.HTTP_200_OK, attendees=attendees)
     return jsonify(status=status.HTTP_200_OK)
+
+
+@app.route('/api/groups/most_joined', methods=['GET'])
+def most_joined_groups():
+    """
+    Returns the users who have joined all the groups
+    :return:
+    """
+    with database.get_connection() as conn:
+        users = database.query_users_all_groups(conn)
+    return jsonify(status=status.HTTP_200_OK, users=users)
+
+
+@app.route('/api/groups/monthly_events', methods=['GET'])
+def monthly_events():
+    """
+    Query monthly events for a group
+    :return: list of events
+    """
+    args = request.args
+    group_id = args['group_id']
+    with database.get_connection() as conn:
+        events = database.query_monthly_events(conn, group_id)
+        count = database.count_monthly_events(conn, group_id)
+    return jsonify(status=status.HTTP_200_OK, count=count, events=events)
 
 
 @app.route('/api/location/view', methods=['GET'])
