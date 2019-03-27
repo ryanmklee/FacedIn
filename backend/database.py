@@ -54,10 +54,10 @@ def validate_user(connection, email: str, password: str) -> int:
     :param password: password
     :return: int, user_id
     """
-    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+    with connection.cursor() as cursor:
         cursor.execute(QUERY_USER_ID.format(email=email, pwd=password))
         rows = cursor.fetchall()
-        user_id = rows[0]['user_id'] if len(rows) == 1 else -1
+        user_id = rows[0][0] if len(rows) == 1 else -1
     return user_id
 
 
@@ -88,7 +88,7 @@ def add_post(connection, user_id: int, post: str) -> dict:
     return post_id
 
 
-def insert_user_data(connection, user_id: int, age: int, sex: str, location: str, occupation: str, name: str) -> None:
+def insert_user_data(connection, user_id: int, age: int, sex: str, location_id: int, occupation: str, name: str) -> None:
     """
     Inserts user data to the user_data table
     :param connection: database connection
@@ -96,11 +96,11 @@ def insert_user_data(connection, user_id: int, age: int, sex: str, location: str
     :param user_id: user_id
     :param age: int
     :param sex: str
-    :param location: str
+    :param location_id: int
     :param occupation: str
     """
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
-        cursor.execute(INSERT_USER_DATA_SQL.format(user_id=user_id, age=age, sex=sex, location=location,
+        cursor.execute(INSERT_USER_DATA_SQL.format(user_id=user_id, age=age, sex=sex, location_id=location_id,
                                                    occupation=occupation, name=name))
         connection.commit()
 
@@ -278,18 +278,18 @@ def decline_group_request(connection, group_id: int, user_id: int) -> None:
         cursor.commit()
 
 
-def insert_event(connection, group_id: int, event_name: str, location: str, timestamp: str) -> dict:
+def insert_event(connection, group_id: int, event_name: str, location_id: int, timestamp: str) -> dict:
     """
     Inserts an event to the events table based on a group_id
     :param connection:
+    :param location_id:
     :param timestamp:
-    :param location:
     :param event_name:
     :param group_id:
     :return:
     """
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
-        cursor.execute(INSERT_EVENT_SQL.format(group_id=group_id, event_name=event_name, location=location,
+        cursor.execute(INSERT_EVENT_SQL.format(group_id=group_id, event_name=event_name, location_id=location_id,
                                                timestamp=timestamp))
         connection.commit()
         event_id = cursor.fetchone()
@@ -406,7 +406,7 @@ def query_group_posts(connection, group_id: int) -> list:
 
 def query_location(connection, location_id: int) -> dict:
     """
-    Queries event attendance and returns a dict that is the table entry for the
+    Queries location_id and returns a dict that is the table entry for the
     given location_id
     :param connection: Database connection
     :param location_id: int
@@ -418,7 +418,7 @@ def query_location(connection, location_id: int) -> dict:
     return rows[0]
 
 
-def create_location(connection, location_name: str, address: str, postal_code: str) -> None:
+def create_location(connection, location_name: str, address: str, postal_code: str) -> int:
     """
     Creates a location.
     :param connection:
@@ -427,10 +427,12 @@ def create_location(connection, location_name: str, address: str, postal_code: s
     :param postal_code:
     :return:
     """
-    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+    with connection.cursor() as cursor:
         cursor.execute(CREATE_LOCATION_SQL.format(location_name=location_name,
                                                   address=address, postal_code=postal_code))
         connection.commit()
+        location_id = cursor.fetchone()[0]
+    return location_id
 
 
 def create_update_postal_code(connection, postal_code: str, city: str, province: str) -> None:

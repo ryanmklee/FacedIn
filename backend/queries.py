@@ -20,8 +20,8 @@ where user_posts.user_id = '{user_id}'
    or user_posts.user_id in (select friend_id from friend_list_table where friend_list_table.user_id = '{user_id}');
 '''
 INSERT_USER_DATA_SQL = '''
-INSERT INTO user_data("user_id", "age", "sex", "location", "occupation", "name")
-VALUES ('{user_id}', '{age}', '{sex}', '{location}', '{occupation}', '{name}')
+INSERT INTO user_data("user_id", "age", "sex", "occupation", "name", "location_id")
+VALUES ('{user_id}', '{age}', '{sex}', '{occupation}', '{name}', '{location_id}')
 '''
 
 UPDATE_USER_DATA_SQL = '''
@@ -31,8 +31,12 @@ where user_id = '{user_id}'
 '''
 
 QUERY_USER_DATA = '''
-select * from user_data where user_id = '{user_id}';
+select * from user_data
+  join locations l on user_data.location_id = l.location_id
+  join postal_code pc on l.postal_code = pc.postal_code
+where user_id = '{user_id}';
 '''
+
 INSERT_FRIEND_REQUEST = '''
 INSERT INTO friend_requests ("from_user", "to_user")
  VALUES ('{user_id}', '{friend_id}')
@@ -97,12 +101,15 @@ where to_user = '{user_id}'
 '''
 
 INSERT_EVENT_SQL = '''
-INSERT INTO "events" ("event_id", "group_id", "event_name", "location", "time")
- VALUES (DEFAULT, '{group_id}', '{event_name}', '{location}', '{timestamp}') returning event_id
+INSERT INTO "events" ("event_id", "group_id", "event_name", "time", "location_id")
+ VALUES (DEFAULT, '{group_id}', '{event_name}', '{timestamp}', '{location_id}') returning event_id
 '''
 
 QUERY_GROUP_EVENTS_SQL = '''
-select * from events where group_id = '{group_id}';
+select * from events
+join locations l on events.location_id = l.location_id
+join postal_code pc on l.postal_code = pc.postal_code
+where group_id = '{group_id}';
 '''
 
 INSERT_GROUP_LIST_SQL = '''
@@ -118,6 +125,8 @@ select * from group_list_table
 QUERY_USER_ASSOCIATED_EVENTS = '''
 select *
 from events
+join locations l on events.location_id = l.location_id
+join postal_code pc on l.postal_code = pc.postal_code
 where group_id in (select group_id from groups where user_id = '{user_id}');
 '''
 
@@ -147,8 +156,10 @@ CREATE_UPDATE_POSTAL_CODE_SQL = '''
 '''
 
 CREATE_LOCATION_SQL = '''
-    insert into "locations" (location_id, location_name, address, postal_code) 
-    values (default, '{location_name}', '{address}', '{postal_code}')
+    insert into "locations" (location_id, location_name, address, postal_code)
+values (default, '{location_name}', '{address}', '{postal_code}') 
+ON CONFLICT(location_name, address, postal_code)
+ do update set location_name=EXCLUDED.location_name returning location_id;
 '''
 
 INSERT_GROUP_POST_SQL = '''
