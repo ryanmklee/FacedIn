@@ -73,12 +73,19 @@ All queries are to be done on [localhost:5000](localhost:5000)
 ###### POST: /api/user/info
 ```angular2html
 {
-    "user_id": 1,
     "age": 18,
     "name": "Dr. Strange",
-    "sex": Male,
-    "location": "Seattle, WA",
-    "occupation": Auditor
+    "occupation": "Auditor",
+    "sex": "Male",
+    "user_id": 1,
+    "location_name": "DMP 310",
+    "address": "234 Computer Science Rd.",
+    "postal_code": "V2X1G5",
+    "city": "Vancouver",
+    "province": "BC",
+    "sex": "Male,
+    "name": "Gareth Crisp",
+    "occupation": "Soccer Player"
 }
 ```
 
@@ -101,11 +108,18 @@ All queries are to be done on [localhost:5000](localhost:5000)
     "user_data": [
         {
             "age": 18,
-            "location": "Seattle, WA",
             "name": "Dr. Strange",
             "occupation": "Auditor",
             "sex": "Male",
-            "user_id": 1
+            "user_id": 1,
+            "location_name": "DMP 310",
+            "address": "234 Computer Science Rd.",
+            "postal_code": "V2X1G5",
+            "city": "Vancouver",
+            "province": "BC",
+            "sex": "Male,
+            "name": "Gareth Crisp",
+            "occupation": "Soccer Player"
         }
     ]
 }
@@ -381,7 +395,11 @@ Decline group request
 {
     "group_id": 4,
     "event_name": "Monday Writing Session",
-    "location": "Vancouver, BC",
+    "location_name": "DMP 310",
+    "address": "234 Computer Science Rd.",
+    "postal_code": "V2X1G5",
+    "city": "Vancouver",
+    "province": "BC",
     "timestamp": '2/3/2016 12:05'
 }
 ```
@@ -391,6 +409,7 @@ Decline group request
     "event_id": {
         "event_id": 2
     },
+    "location_id": 3
     "status": 200
 }
 ```

@@ -76,6 +76,7 @@ def query_user():
     """
     args = request.args
     user_id = args['user_id']
+    location_id = create_location(args)
     if user_id != -1:
         if request.method == 'GET':
             with database.get_connection() as conn:
@@ -83,7 +84,7 @@ def query_user():
             return jsonify(status=status.HTTP_200_OK, user_data=user_data)
         else:
             with database.get_connection() as conn:
-                database.insert_user_data(conn, user_id, age=args['age'], sex=args['sex'], location=args['location'],
+                database.insert_user_data(conn, user_id, age=args['age'], sex=args['sex'], location_id=location_id,
                                           occupation=args['occupation'], name=args['name'])
             return jsonify(status=status.HTTP_201_CREATED)
     return jsonify(status=status.HTTP_400_BAD_REQUEST, error_message='user_id cannot be -1')
@@ -265,13 +266,13 @@ def create_event():
     :return:
     """
     args = request.args
+    location_id = create_location(args)
     group_id = args['group_id']
     event_name = args['event_name']
-    location = args['location']
     timestamp = args['timestamp']
     with database.get_connection() as conn:
-        event_id = database.insert_event(conn, group_id, event_name, location, timestamp)
-    return jsonify(status=status.HTTP_200_OK, event_id=event_id)
+        event_id = database.insert_event(conn, group_id, event_name, location_id, timestamp)
+    return jsonify(status=status.HTTP_200_OK, event_id=event_id, location_id=location_id)
 
 
 @app.route('/api/groups/event/view', methods=['GET'])
@@ -338,21 +339,17 @@ def query_location():
         return jsonify(location_details)
 
 
-@app.route('/api/location/create', methods=['POST'])
-def create_location():
-    args = request.args
-    location_name = args["location_name"]
-    address = args["address"]
-    postal_code = args["postal_code"]
-    province = args["province"]
-    city = args["city"]
+def create_location(args):
+    location_name = args['location_name']
+    address = args['address']
+    postal_code = args['postal_code']
+    province = args['province']
+    city = args['city']
+    print(location_name, address, postal_code, province)
     with database.get_connection() as conn:
         database.create_update_postal_code(conn, postal_code, city, province)
-
-    with database.get_connection() as conn:
-        database.create_location(conn, location_name, address, postal_code)
-
-    return jsonify(status=status.HTTP_200_OK)
+        location_id = database.create_location(conn, location_name, address, postal_code)
+    return location_id
 
 
 if __name__ == '__main__':
