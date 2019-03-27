@@ -170,6 +170,23 @@ def modify_friend_request():
     return jsonify(status=status.HTTP_200_OK)
 
 
+@app.route('/api/user/friend_locations', methods=['GET'])
+def query_friends_by_city():
+    """
+    Queries all of users' friends and returns a list of friends grouped by city
+    :return: list of friends grouped by city
+    """
+    args = request.args
+    user_id = args['user_id']
+    with database.get_connection() as conn:
+        grouped = []
+        cities = database.count_city_friends(conn, user_id)
+        for city in cities:
+            friends = database.friends_in_city(conn, user_id, city['city'])
+            grouped.append([city, friends])
+    return jsonify(status=status.HTTP_200_OK, friends=grouped)
+
+
 @app.route('/api/groups/create', methods=['POST'])
 def create_group():
     """
@@ -204,11 +221,32 @@ def group_post():
     group_id = args['group_id']
     with database.get_connection() as conn:
         if request.method == 'GET':
+            res = []
             posts = database.query_group_posts(conn, group_id)
-            return jsonify(status=status.HTTP_200_OK, posts=posts)
+            for post in posts:
+                gpost_id = post['gpost_id']
+                comments = database.query_group_post_comment(conn, gpost_id)
+                res.append([post, {'comments': comments}])
+            return jsonify(status=status.HTTP_200_OK, posts=res)
         else:
             gpost_id = database.insert_group_post(conn, group_id, args['user_id'], args['group_post'])
             return jsonify(status=status.HTTP_200_OK, gpost_id=gpost_id)
+
+
+@app.route('/api/groups/insert_comment', methods=['POST'])
+def post_group_comment():
+    """
+    Posts a comment on a group post
+    :return:
+    """
+    args = request.args
+    group_id = args['group_id']
+    gpost_id = args['gpost_id']
+    user_id = args['user_id']
+    comment_text = args['comment_text']
+    with database.get_connection() as conn:
+        comment_id = database.insert_group_post_comment(conn, group_id, gpost_id, user_id, comment_text)
+    return jsonify(status=status.HTTP_200_OK, comment_id=comment_id)
 
 
 @app.route('/api/groups/send_request', methods=['POST'])

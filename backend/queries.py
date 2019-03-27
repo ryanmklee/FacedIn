@@ -168,7 +168,7 @@ INSERT INTO "group_posts" ("gpost_id", "group_id", "user_id", "group_post", "tim
 '''
 
 QUERY_GROUP_POST_SQL = '''
-select group_id, ud.user_id, group_post, name, time_posted
+select gpost_id, group_id, ud.user_id, group_post, name, time_posted
 from group_posts
             join user_data ud on ud.user_id = group_posts.user_id
 where group_id = '{group_id}';
@@ -203,5 +203,35 @@ EXCEPT
 (SELECT sp.group_id FROM group_list_table as sp WHERE sp.user_id = sx.user_id )));
 '''
 
+GROUP_FRIENDS_BY_CITY = '''
+select flt.user_id, age, sex, name, occupation, location_name, address, pc.postal_code, city, province
+       from friend_list_table flt
+join user_data ud on ud.user_id = flt.friend_id
+join locations l on ud.location_id = l.location_id
+join postal_code pc on l.postal_code = pc.postal_code
+where flt.user_id = '{user_id}' and pc.city = '{city}'
+'''
+
+QUERY_FRIEND_CITY_COUNT = '''
+select pc.city, l.location_id, count(city)
+from user_data
+join locations l on user_data.location_id = l.location_id
+join postal_code pc on l.postal_code = pc.postal_code
+where user_id in
+      (select friend_id
+       from friend_list_table
+       where user_id = '{user_id}')
+group by pc.city, l.location_id;
+
+'''
+
+INSERT_GROUP_POST_COMMENT_SQL = '''
+INSERT INTO group_post_comments ("comment_id", "gpost_id", "user_id", "group_id", "comment_text", "time_posted")
+ VALUES (DEFAULT, '{gpost_id}', '{user_id}', '{group_id}', '{comment_text}', DEFAULT) returning comment_id
+'''
+
+QUERY_GROUP_POST_COMMENT_SQL = '''
+select * from group_post_comments where gpost_id = '{gpost_id}'
+'''
 
 

@@ -404,6 +404,37 @@ def query_group_posts(connection, group_id: int) -> list:
     return rows
 
 
+def insert_group_post_comment(connection, group_id: int, gpost_id: int, user_id: int, comment_text: str) -> dict:
+    """
+    Insert a comment to a group post
+    :param connection:
+    :param group_id:
+    :param gpost_id:
+    :param user_id:
+    :param comment_text:
+    :return:
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(INSERT_GROUP_POST_COMMENT_SQL.format(group_id=group_id, gpost_id=gpost_id,
+                                                            user_id=user_id, comment_text=comment_text))
+        connection.commit()
+        comment_id = cursor.fetchone()
+    return comment_id
+
+
+def query_group_post_comment(connection, gpost_id: int) -> list:
+    """
+    Queries all comments associated to the group post given the gpost_id
+    :param connection: Database connection
+    :param gpost_id: int
+    :return: list of comments
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(QUERY_GROUP_POST_COMMENT_SQL.format(gpost_id=gpost_id))
+        rows = cursor.fetchall()
+    return rows
+
+
 def query_location(connection, location_id: int) -> dict:
     """
     Queries location_id and returns a dict that is the table entry for the
@@ -498,3 +529,30 @@ def count_monthly_events(connection, group_id: int) -> dict:
         cursor.execute(COUNT_EVENTS_MONTHLY.format(group_id=group_id))
         count = cursor.fetchone()
     return count
+
+
+def count_city_friends(connection, user_id: int) -> list:
+    """
+    Counts and names the cities friends are in given a user_id
+    :param connection: Database connection
+    :param user_id: int
+    :return:
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(QUERY_FRIEND_CITY_COUNT.format(user_id=user_id))
+        rows = cursor.fetchall()
+    return rows
+
+
+def friends_in_city(connection, user_id: int, city: str) -> list:
+    """
+    Returns the list of friends in a city
+    :param connection: Database connection
+    :param user_id: int
+    :param city: str
+    :return:
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(GROUP_FRIENDS_BY_CITY.format(user_id=user_id, city=city))
+        rows = cursor.fetchall()
+    return rows

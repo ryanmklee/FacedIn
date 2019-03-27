@@ -335,35 +335,207 @@ Decline group request
 ```angularjs
 {
     "posts": [
-        {
-            "group_id": 4,
-            "group_post": "I'm so excited to go see everyone at the writing session!",
-            "name": "Lucy MacDonald",
-            "time_posted": "Tue, 26 Mar 2019 21:29:00 GMT",
-            "user_id": 8
-        },
-        {
-            "group_id": 4,
-            "group_post": "I'm so excited to go see everyone at the writing session!",
-            "name": "Lucy MacDonald",
-            "time_posted": "Tue, 26 Mar 2019 21:32:26 GMT",
-            "user_id": 8
-        },
-        {
-            "group_id": 4,
-            "group_post": "It is almost time for us to go to our writing session. I cannot wait! I love papers",
-            "name": "Lucy MacDonald",
-            "time_posted": "Tue, 26 Mar 2019 21:42:34 GMT",
-            "user_id": 8
-        },
-        {
-            "group_id": 4,
-            "group_post": "It is almost time for us to go to our writing session. I cannot wait! I love papers",
-            "name": "Lucy MacDonald",
-            "time_posted": "Tue, 26 Mar 2019 21:42:56 GMT",
-            "user_id": 8
-        }
+        [
+            {
+                "gpost_id": 1,
+                "group_id": 4,
+                "group_post": "I'm so excited to go see everyone at the writing session!",
+                "name": "Lucy MacDonald",
+                "time_posted": "Tue, 26 Mar 2019 21:29:00 GMT",
+                "user_id": 8
+            },
+            {
+                "comments": []
+            }
+        ],
+        [
+            {
+                "gpost_id": 2,
+                "group_id": 4,
+                "group_post": "I'm so excited to go see everyone at the writing session!",
+                "name": "Lucy MacDonald",
+                "time_posted": "Tue, 26 Mar 2019 21:32:26 GMT",
+                "user_id": 8
+            },
+            {
+                "comments": []
+            }
+        ],
+        [
+            {
+                "gpost_id": 3,
+                "group_id": 4,
+                "group_post": "It is almost time for us to go to our writing session. I cannot wait! I love papers",
+                "name": "Lucy MacDonald",
+                "time_posted": "Tue, 26 Mar 2019 21:42:34 GMT",
+                "user_id": 8
+            },
+            {
+                "comments": []
+            }
+        ],
+        [
+            {
+                "gpost_id": 4,
+                "group_id": 4,
+                "group_post": "It is almost time for us to go to our writing session. I cannot wait! I love papers",
+                "name": "Lucy MacDonald",
+                "time_posted": "Tue, 26 Mar 2019 21:42:56 GMT",
+                "user_id": 8
+            },
+            {
+                "comments": [
+                    {
+                        "comment_id": 1,
+                        "comment_text": "I can't wait! Only a few more hours!",
+                        "gpost_id": 4,
+                        "group_id": 4,
+                        "time_posted": "Wed, 27 Mar 2019 05:50:53 GMT",
+                        "user_id": 8
+                    },
+                    {
+                        "comment_id": 2,
+                        "comment_text": "Almost time! I'm so excited to do that midterm!",
+                        "gpost_id": 4,
+                        "group_id": 4,
+                        "time_posted": "Wed, 27 Mar 2019 05:55:20 GMT",
+                        "user_id": 8
+                    },
+                    {
+                        "comment_id": 3,
+                        "comment_text": "That midterm was amazing! It was very fair and I totally believe that the TA wrote an amazing midterm!",
+                        "gpost_id": 4,
+                        "group_id": 4,
+                        "time_posted": "Wed, 27 Mar 2019 05:55:47 GMT",
+                        "user_id": 8
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "gpost_id": 5,
+                "group_id": 4,
+                "group_post": "Hello World!",
+                "name": "Lucy MacDonald",
+                "time_posted": "Wed, 27 Mar 2019 02:42:48 GMT",
+                "user_id": 8
+            },
+            {
+                "comments": []
+            }
+        ],
+        [
+            {
+                "gpost_id": 6,
+                "group_id": 4,
+                "group_post": "Hello World!",
+                "name": "Lucy MacDonald",
+                "time_posted": "Wed, 27 Mar 2019 02:43:23 GMT",
+                "user_id": 8
+            },
+            {
+                "comments": []
+            }
+        ],
+        [
+            {
+                "gpost_id": 7,
+                "group_id": 4,
+                "group_post": "Hello World!",
+                "name": "Lucy MacDonald",
+                "time_posted": "Wed, 27 Mar 2019 02:46:55 GMT",
+                "user_id": 8
+            },
+            {
+                "comments": []
+            }
+        ],
+        [
+            {
+                "gpost_id": 8,
+                "group_id": 4,
+                "group_post": "Hello World!",
+                "name": "Lucy MacDonald",
+                "time_posted": "Wed, 27 Mar 2019 02:47:33 GMT",
+                "user_id": 8
+            },
+            {
+                "comments": []
+            }
+        ],
+        [
+            {
+                "gpost_id": 9,
+                "group_id": 4,
+                "group_post": "Hello World!",
+                "name": "Lucy MacDonald",
+                "time_posted": "Wed, 27 Mar 2019 02:49:50 GMT",
+                "user_id": 8
+            },
+            {
+                "comments": []
+            }
+        ],
+        [
+            {
+                "gpost_id": 10,
+                "group_id": 4,
+                "group_post": "Hello World!",
+                "name": "Lucy MacDonald",
+                "time_posted": "Wed, 27 Mar 2019 02:50:29 GMT",
+                "user_id": 8
+            },
+            {
+                "comments": []
+            }
+        ],
+        [
+            {
+                "gpost_id": 11,
+                "group_id": 4,
+                "group_post": "Hello World!",
+                "name": "Lucy MacDonald",
+                "time_posted": "Wed, 27 Mar 2019 02:52:29 GMT",
+                "user_id": 8
+            },
+            {
+                "comments": []
+            }
+        ],
+        [
+            {
+                "gpost_id": 12,
+                "group_id": 4,
+                "group_post": "Hello World!",
+                "name": "Lucy MacDonald",
+                "time_posted": "Wed, 27 Mar 2019 02:53:38 GMT",
+                "user_id": 8
+            },
+            {
+                "comments": []
+            }
+        ]
     ],
+    "status": 200
+}
+```
+#### Add a comment to a group post
+###### POST: /api/groups/insert_comment
+```angularjs
+{
+    "group_id": 4,
+    "gpost_id": 1,
+    "user_id": 8,
+    "comment_text": "Taking the derivative of an image is so cool! You can use it do edge detection. If you use a sobel operator it does even more amazing things!
+}
+```
+###### Successful Response
+```angularjs
+{
+    "comment_id": {
+        "comment_id": 4
+    },
     "status": 200
 }
 ```
@@ -509,6 +681,55 @@ User attends an event
             "location": "New Zealand",
             "time": "Wed, 27 Mar 2019 02:03:28 GMT"
         }
+    ],
+    "status": 200
+}
+```
+
+#### Group all friends by city
+###### GET: /api/user/friend_locations
+```angularjs
+{
+    "user_id": 8
+}
+```
+###### Successful Response
+```angularjs
+{
+    "friends": [
+        [
+            {
+                "city": "Vancouver",
+                "count": 2,
+                "location_id": 3
+            },
+            [
+                {
+                    "address": "234 Computer Science Rd.",
+                    "age": 23,
+                    "city": "Vancouver",
+                    "location_name": "DMP 310",
+                    "name": "Bob Joe",
+                    "occupation": "Professor",
+                    "postal_code": "V2X1G5",
+                    "province": "BC",
+                    "sex": "Male",
+                    "user_id": 8
+                },
+                {
+                    "address": "234 Computer Science Rd.",
+                    "age": 12,
+                    "city": "Vancouver",
+                    "location_name": "DMP 310",
+                    "name": "Gareth Crisp",
+                    "occupation": "Soccer Player",
+                    "postal_code": "V2X1G5",
+                    "province": "BC",
+                    "sex": "Male",
+                    "user_id": 8
+                }
+            ]
+        ]
     ],
     "status": 200
 }
