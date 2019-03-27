@@ -498,3 +498,30 @@ def count_monthly_events(connection, group_id: int) -> dict:
         cursor.execute(COUNT_EVENTS_MONTHLY.format(group_id=group_id))
         count = cursor.fetchone()
     return count
+
+
+def count_city_friends(connection, user_id: int) -> list:
+    """
+    Counts and names the cities friends are in given a user_id
+    :param connection: Database connection
+    :param user_id: int
+    :return:
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(QUERY_FRIEND_CITY_COUNT.format(user_id=user_id))
+        rows = cursor.fetchall()
+    return rows
+
+
+def friends_in_city(connection, user_id: int, city: str) -> list:
+    """
+    Returns the list of friends in a city
+    :param connection: Database connection
+    :param user_id: int
+    :param city: str
+    :return:
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(GROUP_FRIENDS_BY_CITY.format(user_id=user_id, city=city))
+        rows = cursor.fetchall()
+    return rows

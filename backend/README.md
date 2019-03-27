@@ -513,3 +513,52 @@ User attends an event
     "status": 200
 }
 ```
+
+#### Group all friends by city
+###### GET: /api/user/friend_locations
+```angularjs
+{
+    "user_id": 8
+}
+```
+###### Successful Response
+```angularjs
+{
+    "friends": [
+        [
+            {
+                "city": "Vancouver",
+                "count": 2,
+                "location_id": 3
+            },
+            [
+                {
+                    "address": "234 Computer Science Rd.",
+                    "age": 23,
+                    "city": "Vancouver",
+                    "location_name": "DMP 310",
+                    "name": "Bob Joe",
+                    "occupation": "Professor",
+                    "postal_code": "V2X1G5",
+                    "province": "BC",
+                    "sex": "Male",
+                    "user_id": 8
+                },
+                {
+                    "address": "234 Computer Science Rd.",
+                    "age": 12,
+                    "city": "Vancouver",
+                    "location_name": "DMP 310",
+                    "name": "Gareth Crisp",
+                    "occupation": "Soccer Player",
+                    "postal_code": "V2X1G5",
+                    "province": "BC",
+                    "sex": "Male",
+                    "user_id": 8
+                }
+            ]
+        ]
+    ],
+    "status": 200
+}
+```

@@ -203,5 +203,25 @@ EXCEPT
 (SELECT sp.group_id FROM group_list_table as sp WHERE sp.user_id = sx.user_id )));
 '''
 
+GROUP_FRIENDS_BY_CITY = '''
+select flt.user_id, age, sex, name, occupation, location_name, address, pc.postal_code, city, province
+       from friend_list_table flt
+join user_data ud on ud.user_id = flt.friend_id
+join locations l on ud.location_id = l.location_id
+join postal_code pc on l.postal_code = pc.postal_code
+where flt.user_id = '{user_id}' and pc.city = '{city}'
+'''
 
+QUERY_FRIEND_CITY_COUNT = '''
+select pc.city, l.location_id, count(city)
+from user_data
+join locations l on user_data.location_id = l.location_id
+join postal_code pc on l.postal_code = pc.postal_code
+where user_id in
+      (select friend_id
+       from friend_list_table
+       where user_id = '{user_id}')
+group by pc.city, l.location_id;
+
+'''
 

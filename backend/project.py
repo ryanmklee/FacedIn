@@ -170,6 +170,23 @@ def modify_friend_request():
     return jsonify(status=status.HTTP_200_OK)
 
 
+@app.route('/api/user/friend_locations', methods=['GET'])
+def query_friends_by_city():
+    """
+    Queries all of users' friends and returns a list of friends grouped by city
+    :return: list of friends grouped by city
+    """
+    args = request.args
+    user_id = args['user_id']
+    with database.get_connection() as conn:
+        grouped = []
+        cities = database.count_city_friends(conn, user_id)
+        for city in cities:
+            friends = database.friends_in_city(conn, user_id, city['city'])
+            grouped.append([city, friends])
+    return jsonify(status=status.HTTP_200_OK, friends=grouped)
+
+
 @app.route('/api/groups/create', methods=['POST'])
 def create_group():
     """
