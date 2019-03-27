@@ -2,26 +2,24 @@ import React from "react";
 import {connect} from "react-redux"
 import {PASSWORD_CREATE_INPUT, USERNAME_CREATE_INPUT} from "../constants/actionTypes";
 import store from "../store/index"
-import {createUser} from "../actions/createuser";
+import {createUser, setCreateUserSuccess, testFetch} from "../actions/createuser";
 import {Redirect} from "react-router-dom";
+
 
 class CreateUser extends React.Component {
 
     constructor(props) {
         super(props);
-        this.submitUserClick = this.submitUserClick.bind(this);
+        // this.submitUserClick = this.submitUserClick.bind(this);
     }
 
-    submitUserClick = (username, password) => {
-        store.dispatch(createUser(username, password)).then(() => {
-            if (store.getState().createuser.createdUser) {
-                this.props.history.push('/')
-            }
-        });
-    };
+
 
 
     render() {
+        if (this.props.createdUser) {
+            return <Redirect push to={"/"}/>
+        }
         return (
             <div>
                 <h3>Create User</h3>
@@ -30,16 +28,20 @@ class CreateUser extends React.Component {
                 <button type="button" onClick={()=> {
                     const username = document.getElementById(USERNAME_CREATE_INPUT).value;
                     const password = document.getElementById(PASSWORD_CREATE_INPUT).value;
-                    this.submitUserClick(username, password)
-                }}>Submit</button>
+                    this.props.submitUserClick(username, password)
+                }}>{this.props.createdUser.toString()}</button>
             </div>
         );
     }
 }
 
-function mapStateToProps(state){
-    return {
-        createdUser: state.login.createdUser
+const mapStateToProps = (state) => ({
+    createdUser: state.createuser.createdUser
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    submitUserClick: (username, password) => {
+        dispatch(createUser(username, password))
     }
-}
-export default connect(mapStateToProps)(CreateUser)
+});
+export default connect(mapStateToProps, mapDispatchToProps)(CreateUser)

@@ -2,25 +2,14 @@ import React from "react";
 import {connect} from "react-redux"
 import {PASSWORD_INPUT, USERNAME_INPUT} from "../constants/actionTypes";
 import {tryLogin} from "../actions/login";
-import store from "../store/index"
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 class Login extends React.Component {
 
-
-    constructor(props) {
-        super(props);
-        this.loginButtonClick = this.loginButtonClick.bind(this);
-    }
-
-    loginButtonClick = (username, password) => {
-        this.props.dispatch(tryLogin(username, password)).then(() => {
-            if (store.getState().login.user_id !== -1) {
-                this.props.history.push('/home')
-            }
-        });
-    };
-
     render() {
+        console.log(this.props.user_id)
+        // if (this.props.user_id !== -1) {
+        //     return <Redirect push to={"/home"}/>
+        // }
         return (
             <div>
                 <h3>Sign in</h3>
@@ -29,22 +18,25 @@ class Login extends React.Component {
                 <button type="button" onClick={() => {
                     const username = document.getElementById(USERNAME_INPUT).value;
                     const password = document.getElementById(PASSWORD_INPUT).value;
-                    this.loginButtonClick(username, password)
+                    this.props.loginButtonClick(username, password)
                 }}>Login
                 </button>
                 <Link to={"/create-user"}>
-                    <button type="button">Create New User</button>
+                    <button type="button">{this.props.user_id}</button>
                 </Link>
             </div>
         );
     }
 }
 
-const mapStateToProps = state =>
-{
-    return {
-        user_id: state.login.user_id,
+const mapStateToProps = state => ({
+    user_id: state.login.user_id,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    loginButtonClick: (username, password) => {
+        dispatch(tryLogin(username, password))
     }
-};
-export default connect(mapStateToProps)(Login)
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
 

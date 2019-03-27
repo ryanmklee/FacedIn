@@ -80,7 +80,7 @@ export function getIGroupPosts(groupId) {
         let config = {
             params: {group_id: groupId}
         };
-        return axiosGetRequestHelper(dispatch, "http://127.0.0.1:5000/api/groups/posts", config, setIGroupRetrievePostsSuccess, setIGroupRetrievePostsError)
+        return axiosGetRequestHelper(dispatch, "http://127.0.0.1:5000/api/groups/post", config, setIGroupRetrievePostsSuccess, setIGroupRetrievePostsError)
     }
 }
 
@@ -89,7 +89,7 @@ export function getIGroupEvents(groupId) {
         let config = {
             params: {group_id: groupId}
         };
-        return axiosGetRequestHelper(dispatch,"http://127.0.0.1:5000/api/groups/event/view", config, setIGroupRetrievePostsSuccess, setIGroupRetrievePostsError);
+        return axiosGetRequestHelper(dispatch,"http://127.0.0.1:5000/api/groups/event/view", config, setIGroupRetrieveEventsSuccess, setIGroupRetrieveEventsError);
     }
 }
 
@@ -125,6 +125,6 @@ export function createEventForGroup(groupId, eventName, location, timestamp) {
                 timestamp: timestamp
             }
         };
-        return axiosPostRequestHelper(dispatch, "http://127.0.0.1:5000/api/groups/post", config, setCreateEventToGroupSuccess, setCreateEventToGroupError)
+        return axiosPostRequestHelper(dispatch, "http://127.0.0.1:5000/api/groups/event/create", config, setCreateEventToGroupSuccess, setCreateEventToGroupError)
     }
 }

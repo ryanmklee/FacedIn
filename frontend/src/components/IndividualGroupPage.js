@@ -90,25 +90,25 @@ class IndividualGroupPage extends React.Component {
         const tempGroupId = 4;
         const tempUserId = 8;
 
-        this.props.dispatch(getIGroupPosts(tempGroupId)).then(() => {
-
-        });
+        // this.props.dispatch(getIGroupPosts(tempGroupId)).then(() => {
+        //
+        // });
 
         this.props.dispatch(getIGroupEvents(tempGroupId)).then(() => {
 
         });
+        //
+        // this.props.dispatch(getIGroupInformation(tempGroupId)).then(() => {
+        //
+        // });
 
-        this.props.dispatch(getIGroupInformation(tempGroupId)).then(() => {
-
-        });
-
-        this.props.dispatch(postToGroup(tempGroupId, tempUserId, "Hello World!")).then(() => {
-
-        });
-
-        this.props.dispatch(createEventForGroup(tempGroupId, "Say Hello to the world", "Somewhere", "Sometime")).then(() => {
-
-        });
+        // this.props.dispatch(postToGroup(tempGroupId, tempUserId, "Hello World!")).then(() => {
+        //
+        // });
+        //
+        // this.props.dispatch(createEventForGroup(tempGroupId, "Say Hello to the world", "Somewhere", '2/3/2016 12:05')).then(() => {
+        //
+        // });
     }
 
     render() {
@@ -140,7 +140,7 @@ class IndividualGroupPage extends React.Component {
         <hr/>
         <ListGroup>
           {
-            events.map((event) =>
+            this.props.events.map((event) =>
               <ListGroup.Item>
                 <Event event={event}/>
               </ListGroup.Item>
@@ -153,7 +153,9 @@ class IndividualGroupPage extends React.Component {
 }
 function mapStateToProps(state){
     return {
-
+        posts: state.individualGroupPage.posts,
+        events: state.individualGroupPage.events,
+        size: state.individualGroupPage.events.size
     }
 }
 export default connect(mapStateToProps)(IndividualGroupPage)

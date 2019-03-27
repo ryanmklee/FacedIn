@@ -11,7 +11,10 @@ export default (state = initialState, action) => {
         case SET_CREATE_USER_SUCCESS:
             console.log("User created");
             state.createdUser = true;
-            return state;
+            return  {
+                ...state,
+                createdUser: true
+            };
         case SET_CREATE_USER_ERROR:
             return state;
         default:
