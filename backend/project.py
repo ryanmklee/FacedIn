@@ -21,12 +21,6 @@ def create_user():
     PARAMS: user, password
     :return: status code
     """
-    # GAVIN THE DATA YOU ARE PASSING IS THE REQUEST.DATA
-    print(request.data)
-    # '{"user":"gavin@gmail.com","password":"ilovejs"}'
-    # HOWEVER WE ARE EXPECTING THE DATA TO BE IN THE REQUEST ARGUMENTS
-    print(request.args)
-    # empty dict
     args = request.args
     user = args['user']
     pwd = args['password']
