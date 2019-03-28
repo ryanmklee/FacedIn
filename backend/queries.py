@@ -248,7 +248,10 @@ INSERT INTO group_post_comments ("comment_id", "gpost_id", "user_id", "group_id"
 '''
 
 QUERY_GROUP_POST_COMMENT_SQL = '''
-select * from group_post_comments where gpost_id = '{gpost_id}'
+select *
+from group_post_comments
+       join user_data u on group_post_comments.user_id = u.user_id
+where gpost_id = '{gpost_id}';
 '''
 
 QUERY_SEARCH_TERM_USERS = '''

@@ -3,10 +3,16 @@ import psycopg2.extras
 
 from backend.queries import *
 
-DBNAME = 'ywkauiiv'
-USER = 'ywkauiiv'
-PASSWORD = 'GaFtaBzCJqbozlewTl5ZvXv9etwAcoxF'
-HOST = 'isilo.db.elephantsql.com'
+# TODO: replace before submission
+# DBNAME = 'ywkauiiv'
+# USER = 'ywkauiiv'
+# PASSWORD = 'GaFtaBzCJqbozlewTl5ZvXv9etwAcoxF'
+# HOST = 'isilo.db.elephantsql.com'
+
+DBNAME = 'lxjvzzed'
+USER = 'lxjvzzed'
+PASSWORD = '8XaKBKymJa295Ej28nnXiYFnUlDWkApM'
+HOST = 'stampy.db.elephantsql.com'
 
 
 def get_connection():
