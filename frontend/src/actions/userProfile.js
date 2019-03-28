@@ -46,18 +46,19 @@ export function setUserInfo(age, name, occupation, sex, userId, locationName, ad
                 address: address,
                 postal_code: postalCode,
                 city: city,
-                province: province,
+                province: province
             }
         };
+        console.log(config)
         let url = "http://127.0.0.1:5000/api/user/info";
         return axios.put(url, null,  config)
             .then(response => {
-                console.log("Post " + url + " Response:");
+                console.log("Put " + url + " Response:");
                 console.log(response);
                 dispatch(setChangeUserInfoSuccess())
             })
             .catch(error => {
-                console.log("Post " + url+ " Error:");
+                console.log("Put " + url+ " Error:");
                 console.log(error);
                 dispatch(setChangeUserInfoError())
             })

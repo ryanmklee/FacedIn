@@ -53,7 +53,7 @@ class Profile extends React.Component {
                         let postal = document.getElementById(EDIT_POSTAL).value;
                         let city = document.getElementById(EDIT_CITY).value;
                         let province = document.getElementById(EDIT_PROVINCE).value;
-                        this.props.setUserInfo(name, age, sex, this.props.userId, occupation, address, postal, city, province)
+                        this.props.setUserInfo(name, age, occupation, sex, this.props.userId, address, postal, city, province)
                     }}>Save Changes</Button>}
                     {edit && <Button variant="secondary" onClick={() => this.setState({ edit: !edit })}>Cancel</Button>}
                 </Row>
