@@ -182,6 +182,7 @@ Posts include all posts associated to user_id to include friends posts as well a
                     "comment_text": "\"Wow! I also truly enjoy 304. It is almost as great as CPSC 311 and MATH 200. They are all so enjoyable!\"",
                     "name": "Dr. Strangest",
                     "post_id": 4,
+                    "time_posted": "Tue, 26 Mar 2019 03:20:20 GMT",
                     "user_id": 1
                 },
                 {
@@ -189,6 +190,7 @@ Posts include all posts associated to user_id to include friends posts as well a
                     "comment_text": "I truly do enjoy this course. I truly have learned a lot from this class.",
                     "name": "Dr. Strangest",
                     "post_id": 4,
+                    "time_posted": "Thu, 28 Mar 2019 04:42:57 GMT",
                     "user_id": 1
                 },
                 {
@@ -196,6 +198,7 @@ Posts include all posts associated to user_id to include friends posts as well a
                     "comment_text": "I truly do enjoy this course. I truly have learned a lot from this class.",
                     "name": "Dr. Strangest",
                     "post_id": 4,
+                    "time_posted": "Thu, 28 Mar 2019 04:43:20 GMT",
                     "user_id": 1
                 },
                 {
@@ -203,6 +206,7 @@ Posts include all posts associated to user_id to include friends posts as well a
                     "comment_text": "Super duper cool!",
                     "name": "Dr. Strangest",
                     "post_id": 4,
+                    "time_posted": "Thu, 28 Mar 2019 04:44:53 GMT",
                     "user_id": 1
                 },
                 {
@@ -210,6 +214,7 @@ Posts include all posts associated to user_id to include friends posts as well a
                     "comment_text": "Before this class I didn't want to be a DBA! Now I do, I'm so excited to look at SQL queries for 8 hours a day! I couldn't be any happier.",
                     "name": "Dr. Strangest",
                     "post_id": 4,
+                    "time_posted": "Thu, 28 Mar 2019 06:25:15 GMT",
                     "user_id": 1
                 },
                 {
@@ -217,6 +222,7 @@ Posts include all posts associated to user_id to include friends posts as well a
                     "comment_text": "I think Dr. Strange is lying",
                     "name": "Dr. Strangest",
                     "post_id": 4,
+                    "time_posted": "Thu, 28 Mar 2019 06:37:28 GMT",
                     "user_id": 1
                 },
                 {
@@ -224,6 +230,7 @@ Posts include all posts associated to user_id to include friends posts as well a
                     "comment_text": "I do not think so!",
                     "name": "Dr. Strangest",
                     "post_id": 4,
+                    "time_posted": "Thu, 28 Mar 2019 06:53:27 GMT",
                     "user_id": 1
                 },
                 {
@@ -231,6 +238,7 @@ Posts include all posts associated to user_id to include friends posts as well a
                     "comment_text": "I love writing SQL queries!",
                     "name": "Dr. Strangest",
                     "post_id": 4,
+                    "time_posted": "Thu, 28 Mar 2019 07:02:34 GMT",
                     "user_id": 1
                 },
                 {
@@ -238,6 +246,7 @@ Posts include all posts associated to user_id to include friends posts as well a
                     "comment_text": "me too!",
                     "name": "Dr. Strangest",
                     "post_id": 4,
+                    "time_posted": "Thu, 28 Mar 2019 09:45:33 GMT",
                     "user_id": 1
                 }
             ],

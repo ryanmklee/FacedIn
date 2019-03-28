@@ -61,7 +61,7 @@ INSERT INTO post_comments ("comment_id", "post_id", "user_id", "comment_text", "
   VALUES (DEFAULT, '{post_id}', '{user_id}','{comment_text}', DEFAULT) returning comment_id
 '''
 QUERY_COMMENTS_SQL = '''
-select comment_id, post_id, comment_text, ud.user_id, ud.name from post_comments
+select comment_id, post_id, comment_text, ud.user_id, ud.name, time_posted from post_comments
 join user_data ud on ud.user_id = post_comments.user_id
 where post_comments.post_id = '{post_id}';
 '''
