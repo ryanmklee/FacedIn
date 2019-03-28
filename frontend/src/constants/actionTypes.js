@@ -79,3 +79,12 @@ export const EVENT_TIMESTAMP = "EVENT_TS";
 // component specific types
 export const REGULAR_POST_TYPE = "REGULAR_POST_TYPE";
 export const GROUP_POST_TYPE = "GROUP_POST_TYPE";
+
+export const EDIT_NAME = "EDIT_NAME"
+export const EDIT_AGE = "EDIT_AGE"
+export const EDIT_SEX = "EDIT_SEX"
+export const EDIT_OCCUPATION = "EDIT_OCCUPTION"
+export const EDIT_ADDRESS = "EDIT_ADDRESS"
+export const EDIT_POSTAL = "EDIT_POSTAL"
+export const EDIT_CITY = "EDIT_CITY"
+export const EDIT_PROVINCE = "EDIT_PROVINCE"
