@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 
 import formatDateString from '../utils/date';
 import connect from "react-redux/es/connect/connect";
+import Button from "react-bootstrap/es/Button";
 
 class Event extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class Event extends Component {
             this.props.event.address + " " + this.props.event.city + ", " + this.props.event.province}
             </Row>
           </Col>
+          <Button>Attend</Button>
         </Row>
       </Container>
     );

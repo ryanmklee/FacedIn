@@ -25,17 +25,18 @@ export default class Post extends Component {
           };
           postText = post.post.group_post;
       }
+      let userId = store.getState().login.user_id;
       return (
       <Container>
         <Row className="mt-2 flex-nowrap">
           <Col md="auto" className="no-padding">
-            <ProfilePicture userId={post.post.user_id}/>
+            <ProfilePicture userId={userId}/>
           </Col>
           <Col>
             <Row className="name"><h6>{post.post.name}</h6></Row>
             <Row className="date">{post.post.time_posted}</Row>
           </Col>
-            {this.props.type === REGULAR_POST_TYPE && post.post.user_id === store.getState().login.user_id &&
+            {this.props.type === REGULAR_POST_TYPE && post.post.user_id === userId &&
             <Button onClick={() => {
                 store.dispatch(deletePost(post.post.user_id, post.post.post_id))
             }}>Delete</Button>}
