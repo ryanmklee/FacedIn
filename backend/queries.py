@@ -234,4 +234,28 @@ QUERY_GROUP_POST_COMMENT_SQL = '''
 select * from group_post_comments where gpost_id = '{gpost_id}'
 '''
 
+QUERY_SEARCH_TERM_USERS = '''
+select *
+from user_data
+       join locations l on user_data.location_id = l.location_id
+       join postal_code pc on l.postal_code = pc.postal_code
+where name ilike '{phrase}%'
+   or occupation ilike '{phrase}%'
+   or city ilike '{phrase}%';
+'''
 
+QUERY_SEARCH_TERM_GROUPS = '''
+select *
+from groups
+where activity ilike '{phrase}%'
+   or group_name like '{phrase}%';
+'''
+
+QUERY_SEARCH_TERM_EVENTS = '''
+select *
+from events
+       join locations l on events.location_id = l.location_id
+       join postal_code pc on l.postal_code = pc.postal_code
+       join groups g on events.group_id = g.group_id
+where event_name ilike '{phrase}%';
+'''
