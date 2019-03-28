@@ -1051,15 +1051,15 @@ User attends an event
             [
                 {
                     "address": "420 Computer Science Rd.",
-                    "age": 123,
+                    "age": 19,
                     "city": "Calgary",
-                    "friend_id": 1,
                     "location_name": "DMP 110",
-                    "name": "Dr. Strangest",
-                    "occupation": "Auditor",
+                    "name": "Dr. Strange",
+                    "occupation": "Starbucks Barista",
                     "postal_code": "G2A1F4",
                     "province": "AB",
-                    "sex": "Male"
+                    "sex": "Male",
+                    "user_id": 1
                 }
             ]
         ],
@@ -1074,25 +1074,25 @@ User attends an event
                     "address": "234 Computer Science Rd.",
                     "age": 23,
                     "city": "Vancouver",
-                    "friend_id": 3,
                     "location_name": "DMP 310",
                     "name": "Bob Joe",
                     "occupation": "Professor",
                     "postal_code": "V2X1G5",
                     "province": "BC",
-                    "sex": "Male"
+                    "sex": "Male",
+                    "user_id": 3
                 },
                 {
                     "address": "234 Computer Science Rd.",
                     "age": 12,
                     "city": "Vancouver",
-                    "friend_id": 5,
                     "location_name": "DMP 310",
                     "name": "Gareth Crisp",
                     "occupation": "Soccer Player",
                     "postal_code": "V2X1G5",
                     "province": "BC",
-                    "sex": "Male"
+                    "sex": "Male",
+                    "user_id": 5
                 }
             ]
         ]

@@ -223,7 +223,7 @@ EXCEPT
 '''
 
 GROUP_FRIENDS_BY_CITY = '''
-select friend_id, age, sex, name, occupation, location_name, address, pc.postal_code, city, province
+select friend_id as "user_id", age, sex, name, occupation, location_name, address, pc.postal_code, city, province
        from friend_list_table flt
 join user_data ud on ud.user_id = flt.friend_id
 join locations l on ud.location_id = l.location_id
