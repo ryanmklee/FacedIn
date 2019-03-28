@@ -9,6 +9,7 @@ import {
     SET_SEND_GROUP_REQ_SUCCESS
 } from "../constants/actionTypes";
 import {axiosPostRequestHelper} from "./webcallUtil";
+import {setDeclineFRError, setDeclineFRSuccess} from "./friendRequests";
 
 /**
   * these actions are used in weird places...
@@ -85,6 +86,27 @@ export function acceptGroupRequest(friendId, groupId) {
             }
         };
         return axiosPostRequestHelper(dispatch,"http://127.0.0.1:5000/api/user/group_request", config, setAcceptGroupRequestSuccess, setAcceptGroupRequestErrpr)
+    }
+}
+
+export function deletePost(userId, post_id) {
+    return function (dispatch) {
+        let config = {
+            data: {
+                user_id: userId,
+                post_id: post_id
+            }
+        };
+        let url = "http://127.0.0.1:5000/api/user/post";
+        return axios.delete(url, config)
+            .then(response => {
+                console.log("Delete " + url + " Response:");
+                console.log(response);
+            })
+            .catch(error => {
+                console.log("Delete " + url + " Error:");
+                console.log(error);
+            })
     }
 }
 

@@ -4,9 +4,12 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import CommentSection from './CommentSection';
 import ProfilePicture from '../ProfilePicture';
+import store from '../../store/index'
 
 import './Post.css';
 import {REGULAR_POST_TYPE} from "../../constants/actionTypes";
+import Button from "react-bootstrap/es/Button";
+import {deletePost} from "../../actions/general";
 
 export default class Post extends Component {
   render() {
@@ -32,6 +35,10 @@ export default class Post extends Component {
             <Row className="name"><h6>{post.post.name}</h6></Row>
             <Row className="date">{post.post.time_posted}</Row>
           </Col>
+            {this.props.type === REGULAR_POST_TYPE && post.post.user_id === store.getState().login.user_id &&
+            <Button onClick={() => {
+                store.dispatch(deletePost(post.post.user_id, post.post.post_id))
+            }}>Delete</Button>}
         </Row>
         <Row className="mt-3">
           <p>{postText}</p>
