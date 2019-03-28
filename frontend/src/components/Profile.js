@@ -1,22 +1,13 @@
 import React from "react";
 import {connect} from "react-redux"
-import {Link} from 'react-router-dom'
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Jumbotron from 'react-bootstrap/Jumbotron';
-import constant, {PASSWORD_INPUT, USERNAME_INPUT} from "../constants/actionTypes";
-import store from "../store/index"
-import axios from 'axios'
-import {tryLogin} from "../actions/login";
 import {getUserInfo, setUserInfo} from "../actions/userProfile";
 import ProfilePicture from './ProfilePicture';
-// TODO: replace mock data
-import user from '../mockData/mockUser';
-
-const tempUserId = 1;
 
 class Profile extends React.Component {
 
@@ -26,8 +17,7 @@ class Profile extends React.Component {
     }
 
     componentWillMount() {
-        this.props.getUserInfo(tempUserId)
-        // this.props.setUserInfo()
+        this.props.getUserInfo(this.props.userId)
     }
     render() {
         const { edit } = this.state;
@@ -35,8 +25,8 @@ class Profile extends React.Component {
         return (
             <Container className="mt-3 mb-3 group" style={{width: '50%'}}>
                 <Jumbotron className="groupTitle">
-                    <ProfilePicture userId={user.user_id}/>
-                    <h2>{user.name}</h2>
+                    <ProfilePicture userId={this.props.userId}/>
+                    <h2>{this.props.user.name}</h2>
                     <Button>Add Friend</Button>
                 </Jumbotron>
                 <Row className="mb-3">
@@ -50,7 +40,7 @@ class Profile extends React.Component {
                             <h6>Name</h6>
                         </Form.Label>
                         <Col className="ml-auto">
-                            <Form.Control plaintext readOnly={!edit} defaultValue={user.name} style={{textAlign: 'right'}}/>
+                            <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user.name} style={{textAlign: 'right'}}/>
                         </Col>
                     </Form.Group>
                     <hr/>
@@ -59,7 +49,7 @@ class Profile extends React.Component {
                             <h6>Age</h6>
                         </Form.Label>
                         <Col className="ml-auto">
-                            <Form.Control plaintext readOnly={!edit} defaultValue={user.age} style={{textAlign: 'right'}}/>
+                            <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user.age} style={{textAlign: 'right'}}/>
                         </Col>
                     </Form.Group>
                     <hr/>
@@ -68,7 +58,7 @@ class Profile extends React.Component {
                             <h6>Sex</h6>
                         </Form.Label>
                         <Col className="ml-auto">
-                            <Form.Control plaintext readOnly={!edit} defaultValue={user.sex} style={{textAlign: 'right'}}/>
+                            <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user.sex} style={{textAlign: 'right'}}/>
                         </Col>
                     </Form.Group>
                     <hr/>
@@ -77,7 +67,7 @@ class Profile extends React.Component {
                             <h6>Occupation</h6>
                         </Form.Label>
                         <Col className="ml-auto">
-                            <Form.Control plaintext readOnly={!edit} defaultValue={user.occupation} style={{textAlign: 'right'}}/>
+                            <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user.occupation} style={{textAlign: 'right'}}/>
                         </Col>
                     </Form.Group>
                     <hr/>
@@ -86,7 +76,7 @@ class Profile extends React.Component {
                             <h6>Address</h6>
                         </Form.Label>
                         <Col className="ml-auto">
-                            <Form.Control plaintext readOnly={!edit} defaultValue={user.address} style={{textAlign: 'right'}}/>
+                            <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user.address} style={{textAlign: 'right'}}/>
                         </Col>
                     </Form.Group>
                     <hr/>
@@ -95,7 +85,7 @@ class Profile extends React.Component {
                             <h6>Postal Code</h6>
                         </Form.Label>
                         <Col className="ml-auto">
-                            <Form.Control plaintext readOnly={!edit} defaultValue={user.postal_code} style={{textAlign: 'right'}}/>
+                            <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user.postal_code} style={{textAlign: 'right'}}/>
                         </Col>
                     </Form.Group>
                     <hr/>
@@ -104,7 +94,7 @@ class Profile extends React.Component {
                             <h6>City</h6>
                         </Form.Label>
                         <Col className="ml-auto">
-                            <Form.Control plaintext readOnly={!edit} defaultValue={user.city} style={{textAlign: 'right'}}/>
+                            <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user.city} style={{textAlign: 'right'}}/>
                         </Col>
                     </Form.Group>
                     <hr/>
@@ -113,7 +103,7 @@ class Profile extends React.Component {
                             <h6>Province</h6>
                         </Form.Label>
                         <Col className="ml-auto">
-                            <Form.Control plaintext readOnly={!edit} defaultValue={user.province} style={{textAlign: 'right'}}/>
+                            <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user.province} style={{textAlign: 'right'}}/>
                         </Col>
                     </Form.Group>
                     <hr/>
@@ -125,7 +115,7 @@ class Profile extends React.Component {
 
 function mapStateToProps(state){
     return {
-        userInfo: state.userProfile.userData,
+        user: state.userProfile.userData,
         userId: state.login.user_id
     }
 }
