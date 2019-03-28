@@ -374,7 +374,16 @@ def query_location():
     location_id = args['location_id']
     with database.get_connection() as conn:
         location_details = database.query_location(conn, location_id)
-        return jsonify(location_details)
+        return jsonify(status=status.HTTP_200_OK, location=location_details)
+
+
+@app.route('/api/search', methods=['GET'])
+def query_search_phrase():
+    args = request.args
+    phrase = args['phrase']
+    with database.get_connection() as conn:
+        res = database.query_search_term(conn, phrase)
+    return jsonify(status=status.HTTP_200_OK, res=res)
 
 
 def create_location(args):

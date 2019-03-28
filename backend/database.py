@@ -556,3 +556,20 @@ def friends_in_city(connection, user_id: int, city: str) -> list:
         cursor.execute(GROUP_FRIENDS_BY_CITY.format(user_id=user_id, city=city))
         rows = cursor.fetchall()
     return rows
+
+
+def query_search_term(connection, phrase: str) -> dict:
+    """
+    Returns a list of users, groups and events matched by the phrase
+    :param connection:
+    :param phrase:
+    :return:
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(QUERY_SEARCH_TERM_USERS.format(phrase=phrase))
+        users = cursor.fetchall()
+        cursor.execute(QUERY_SEARCH_TERM_EVENTS.format(phrase=phrase))
+        events = cursor.fetchall()
+        cursor.execute(QUERY_SEARCH_TERM_GROUPS.format(phrase=phrase))
+        groups = cursor.fetchall()
+    return {"users": users, "events": events, "groups": groups}

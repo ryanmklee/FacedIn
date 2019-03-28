@@ -7,8 +7,8 @@ import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 
 import {setLogout} from "../actions/login";
-import store from "../store/index"
-
+import store from "../store/index";
+import RequestsButton from './request/RequestsButton';
 
 export default class Navigator extends Component {
   logoutOnClick() {
@@ -23,6 +23,7 @@ export default class Navigator extends Component {
           <Nav.Link href="/home">Home</Nav.Link>
           <Nav.Link href="/group-page">Groups</Nav.Link>
           <Nav.Link href="/profile">My Profile</Nav.Link>
+          <RequestsButton/>
         </Nav>
         <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2"/>

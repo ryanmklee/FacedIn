@@ -205,10 +205,17 @@ Queries friend requests for a certain user_id.
 ###### Successful Response
 ```angular2html
 {
+    {
     "friend_requests": [
         {
-            "name": "Ryan Lee",
-            "to_user": 1
+            "age": 14,
+            "from_user": 8,
+            "location_id": 2,
+            "name": "Lucy MacDonald",
+            "occupation": "Student",
+            "sex": "Female",
+            "to_user": 1,
+            "user_id": 8
         }
     ],
     "status": 200
@@ -731,6 +738,55 @@ User attends an event
             ]
         ]
     ],
+    "status": 200
+}
+```
+#### Search users, events and groups based on a phrase
+This endpoint looks at the users' name, location and occupation,
+looks at group name, looks at event name and activity then pattern matches with a wildcard with the phrase.
+###### GET: /api/search
+```angularjs
+{
+    "phrase": "g"
+}
+```
+```angularjs
+{
+    "res": {
+        "events": [
+            {
+                "activity": "Writing English papers",
+                "address": "8120 Fremlin Street",
+                "city": "Vancouver",
+                "event_id": 7,
+                "event_name": "ghams bday bash",
+                "group_id": 4,
+                "group_name": "Writing Club",
+                "location_id": 11,
+                "location_name": "his house",
+                "postal_code": "V6P 3W8",
+                "province": "BC",
+                "time": "Wed, 03 Feb 2016 12:05:00 GMT",
+                "user_id": 8
+            }
+        ],
+        "groups": [],
+        "users": [
+            {
+                "address": "234 Computer Science Rd.",
+                "age": 12,
+                "city": "Vancouver",
+                "location_id": 3,
+                "location_name": "DMP 310",
+                "name": "Gareth Crisp",
+                "occupation": "Soccer Player",
+                "postal_code": "V2X1G5",
+                "province": "BC",
+                "sex": "Male",
+                "user_id": 5
+            }
+        ]
+    },
     "status": 200
 }
 ```
