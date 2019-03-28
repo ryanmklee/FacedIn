@@ -4,30 +4,18 @@ import constant, {PASSWORD_INPUT, USERNAME_INPUT} from "../constants/actionTypes
 import store from "../store/index"
 import axios from 'axios'
 import {setLogout, tryLogin} from "../actions/login";
-import HomeNavigation from "./HomeNavigation";
 import {Link} from "react-router-dom";
+import Navigator from './Navigator';
 
 /**
  * displays the posts and top navigation.
  */
 class Home extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.logoutOnClick = this.logoutOnClick.bind(this);
-    }
-
-    logoutOnClick() {
-        store.dispatch(setLogout())
-    }
     render() {
         return (
             <div>
-                <h3>Home</h3>
-                <HomeNavigation/>
-                <Link to={"/"}>
-                    <button type="button" onClick={this.logoutOnClick}>Logout</button>
-                </Link>
+                <Navigator/>
+                {/* <Posts/> */}
             </div>
 
         );
