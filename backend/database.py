@@ -42,7 +42,7 @@ def update_user(connection, user_id: int, user: str, password: str) -> None:
     :return:
     """
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
-        cursor.execute(UPDATE_USER_DATA_SQL.format(user_id=user_id, email=user, password=password))
+        cursor.execute(UPDATE_USER_SQL.format(user_id=user_id, email=user, password=password))
         connection.commit()
 
 
@@ -225,6 +225,7 @@ def query_all_groups(connection) -> list:
         cursor.execute(QUERY_ALL_GROUPS_SQL)
         groups = cursor.fetchall()
     return groups
+
 
 def query_groups(connection, user_id: int) -> list:
     """
@@ -487,7 +488,7 @@ def create_update_postal_code(connection, postal_code: str, city: str, province:
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
         cursor.execute(CREATE_UPDATE_POSTAL_CODE_SQL.format(postal_code=postal_code,
                                                             city=city,
-                                                            province=province[0:2]))
+                                                            province=province))
         connection.commit()
 
 
@@ -584,3 +585,21 @@ def query_search_term(connection, phrase: str) -> dict:
         cursor.execute(QUERY_SEARCH_TERM_GROUPS.format(phrase=phrase))
         groups = cursor.fetchall()
     return {"users": users, "events": events, "groups": groups}
+
+
+def update_user_data(connection, user_id, age, sex, location_id, occupation, name) -> None:
+    """
+    Update user data with new data
+    :param connection:
+    :param user_id:
+    :param age:
+    :param sex:
+    :param location_id:
+    :param occupation:
+    :param name:
+    :return:
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(UPDATE_USER_DATA_SQL.format(user_id=user_id, age=age, sex=sex, location_id=location_id,
+                                                   occupation=occupation, name=name))
+        connection.commit()

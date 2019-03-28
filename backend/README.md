@@ -83,18 +83,37 @@ All queries are to be done on [localhost:5000](localhost:5000)
     "postal_code": "V2X1G5",
     "city": "Vancouver",
     "province": "BC",
-    "sex": "Male,
-    "name": "Gareth Crisp",
-    "occupation": "Soccer Player"
 }
 ```
-
 ###### Successful Response
 ```angular2html
 {
     "status": 201
 }
 ```
+###### PUT: /api/user/info
+```angularjs
+{
+    "age": 18,
+    "name": "Dr. Strange",
+    "occupation": "Auditor",
+    "sex": "Male",
+    "user_id": 1,
+    "location_name": "DMP 310",
+    "address": "234 Computer Science Rd.",
+    "postal_code": "V2X1G5",
+    "city": "Vancouver",
+    "province": "BC",
+}
+```
+###### Successful Response
+```angularjs
+{
+    "message": "Updated 1",
+    "status": 200
+}
+```
+
 ###### GET: /api/user/info
 ```angular2html
 {

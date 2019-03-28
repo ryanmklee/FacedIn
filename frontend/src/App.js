@@ -16,6 +16,7 @@ import CreateEvent from "./components/CreateEvent";
 import Profile from "./components/Profile";
 import Group from "./components/IndividualGroupPage";
 import Event from "./components/Event"
+import SearchResult from './components/SearchResult';
 
 class App extends Component {
     render() {
@@ -31,6 +32,7 @@ class App extends Component {
                     <Route path = "/create-event" component={Event}/>
                     <Route path = "/profile" component={Profile}/>
                     <Route path = "/home" component={Home}/>
+                    <Route path = "/search-result" component={SearchResult}/>
                     <Route path = "/ind-group-page" component={Group}/>
                     <Route component={Error}/>
                 </Switch>

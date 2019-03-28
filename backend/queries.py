@@ -24,10 +24,20 @@ INSERT INTO user_data("user_id", "age", "sex", "occupation", "name", "location_i
 VALUES ('{user_id}', '{age}', '{sex}', '{occupation}', '{name}', '{location_id}')
 '''
 
-UPDATE_USER_DATA_SQL = '''
+UPDATE_USER_SQL = '''
 update users set email = '{email}',
                  password = '{password}'
 where user_id = '{user_id}'
+'''
+
+UPDATE_USER_DATA_SQL = '''
+update user_data
+set age         = '{age}',
+    sex         = '{sex}',
+    name        = '{name}',
+    occupation  = '{occupation}',
+    location_id = '{location_id}'
+where user_id = '{user_id}';
 '''
 
 QUERY_USER_DATA = '''

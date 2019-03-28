@@ -11,7 +11,7 @@ import ProfilePicture from './ProfilePicture';
 import {
     EDIT_ADDRESS,
     EDIT_AGE,
-    EDIT_CITY,
+    EDIT_CITY, EDIT_LNAME,
     EDIT_NAME,
     EDIT_OCCUPATION,
     EDIT_POSTAL, EDIT_PROVINCE,
@@ -49,11 +49,13 @@ class Profile extends React.Component {
                         let age = document.getElementById(EDIT_AGE).value;
                         let sex = document.getElementById(EDIT_SEX).value;
                         let occupation = document.getElementById(EDIT_OCCUPATION).value;
+                        let lName = document.getElementById(EDIT_LNAME).value;
                         let address = document.getElementById(EDIT_ADDRESS).value;
                         let postal = document.getElementById(EDIT_POSTAL).value;
                         let city = document.getElementById(EDIT_CITY).value;
                         let province = document.getElementById(EDIT_PROVINCE).value;
-                        this.props.setUserInfo(name, age, occupation, sex, this.props.userId, address, postal, city, province)
+                        this.props.setUserInfo(age, name, occupation, sex, this.props.userId, lName, address, postal, city, province)
+                        this.setState({ edit: !edit })
                     }}>Save Changes</Button>}
                     {edit && <Button variant="secondary" onClick={() => this.setState({ edit: !edit })}>Cancel</Button>}
                 </Row>
@@ -91,6 +93,15 @@ class Profile extends React.Component {
                         </Form.Label>
                         <Col className="ml-auto">
                             <Form.Control plaintext readOnly={!edit} value={this.props.user.occupation} style={{textAlign: 'right'}}/>
+                        </Col>
+                    </Form.Group>
+                    <hr/>
+                    <Form.Group controlId={EDIT_LNAME} as={Row}>
+                        <Form.Label column>
+                            <h6>Age</h6>
+                        </Form.Label>
+                        <Col className="ml-auto">
+                            <Form.Control plaintext readOnly={!edit} value={this.props.user.location_name} style={{textAlign: 'right'}}/>
                         </Col>
                     </Form.Group>
                     <hr/>

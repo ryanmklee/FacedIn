@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import jsonify, request, send_from_directory
+from flask import jsonify, request, send_from_directory, json
 from flask_api import status
 from flask_cors import CORS
 
@@ -61,14 +61,14 @@ def user_post():
     """
     args = request.args
     user_id = args['user_id']
-    post = args['post']
+    post = pad_single_quote(args['post'])
     if user_id and post:
         with database.get_connection() as conn:
             post_id = database.add_post(conn, user_id, post)
     return jsonify(status=status.HTTP_201_CREATED, post_id=post_id)
 
 
-@app.route('/api/user/info', methods=['GET', 'POST'])
+@app.route('/api/user/info', methods=['GET', 'POST', 'PUT'])
 def query_user():
     """
     GET request user_id for user data
@@ -81,12 +81,18 @@ def query_user():
             with database.get_connection() as conn:
                 user_data = database.query_user_data(conn, user_id)
             return jsonify(status=status.HTTP_200_OK, user_data=user_data)
-        else:
+        if request.method == 'POST':
             location_id = create_location(args)
             with database.get_connection() as conn:
                 database.insert_user_data(conn, user_id, age=args['age'], sex=args['sex'], location_id=location_id,
                                           occupation=args['occupation'], name=args['name'])
             return jsonify(status=status.HTTP_201_CREATED)
+        if request.method == 'PUT':
+            location_id = create_location(args)
+            with database.get_connection() as conn:
+                database.update_user_data(conn, user_id, age=args['age'], sex=args['sex'], location_id=location_id,
+                                          occupation=args['occupation'], name=args['name'])
+            return jsonify(status=status.HTTP_200_OK, message='Updated {}'.format(user_id))
     return jsonify(status=status.HTTP_400_BAD_REQUEST, error_message='user_id cannot be -1')
 
 
@@ -118,7 +124,7 @@ def post_comment():
     args = request.args
     post_id = args['post_id']
     user_id = args['user_id']
-    comment_text = args['comment_text']
+    comment_text = pad_single_quote(args['comment_text'])
     with database.get_connection() as conn:
         comment_id = database.insert_comment(conn, user_id, post_id, comment_text)
     return jsonify(status=status.HTTP_200_OK, comment_id=comment_id)
@@ -159,13 +165,16 @@ def modify_friend_request():
     Accepts/Declines a friend request and moves the request to the friend list table
     :return:
     """
-    data = request.data
-    user_id = data['user_id']
-    friend_id = data['friend_id']
     with database.get_connection() as conn:
         if request.method == 'POST':
+            args = request.args
+            user_id = args['user_id']
+            friend_id = args['friend_id']
             database.accept_friend_request(conn, user_id, friend_id)
         else:
+            data = json.loads(request.data)
+            user_id = data['friend_id']
+            friend_id = data['user_id']
             database.decline_friend_request(conn, user_id, friend_id)
     return jsonify(status=status.HTTP_200_OK)
 
@@ -243,7 +252,7 @@ def post_group_comment():
     group_id = args['group_id']
     gpost_id = args['gpost_id']
     user_id = args['user_id']
-    comment_text = args['comment_text']
+    comment_text = pad_single_quote(args['comment_text'])
     with database.get_connection() as conn:
         comment_id = database.insert_group_post_comment(conn, group_id, gpost_id, user_id, comment_text)
     return jsonify(status=status.HTTP_200_OK, comment_id=comment_id)
@@ -387,7 +396,7 @@ def query_location():
 @app.route('/api/search', methods=['GET'])
 def query_search_phrase():
     args = request.args
-    phrase = args['phrase']
+    phrase = pad_single_quote(args['phrase'])
     with database.get_connection() as conn:
         res = database.query_search_term(conn, phrase)
     return jsonify(status=status.HTTP_200_OK, res=res)
@@ -399,11 +408,14 @@ def create_location(args):
     postal_code = args['postal_code']
     province = args['province']
     city = args['city']
-    print(location_name, address, postal_code, province)
     with database.get_connection() as conn:
         database.create_update_postal_code(conn, postal_code, city, province)
         location_id = database.create_location(conn, location_name, address, postal_code)
     return location_id
+
+
+def pad_single_quote(s) -> str:
+    return s.replace("'", "''")
 
 
 if __name__ == '__main__':
