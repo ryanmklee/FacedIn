@@ -488,7 +488,7 @@ def create_update_postal_code(connection, postal_code: str, city: str, province:
     with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
         cursor.execute(CREATE_UPDATE_POSTAL_CODE_SQL.format(postal_code=postal_code,
                                                             city=city,
-                                                            province=province[0:2]))
+                                                            province=province))
         connection.commit()
 
 
