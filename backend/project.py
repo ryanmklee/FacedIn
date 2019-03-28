@@ -61,7 +61,7 @@ def user_post():
     """
     args = request.args
     user_id = args['user_id']
-    post = args['post']
+    post = pad_single_quote(args['post'])
     if user_id and post:
         with database.get_connection() as conn:
             post_id = database.add_post(conn, user_id, post)
@@ -118,7 +118,7 @@ def post_comment():
     args = request.args
     post_id = args['post_id']
     user_id = args['user_id']
-    comment_text = args['comment_text']
+    comment_text = pad_single_quote(args['comment_text'])
     with database.get_connection() as conn:
         comment_id = database.insert_comment(conn, user_id, post_id, comment_text)
     return jsonify(status=status.HTTP_200_OK, comment_id=comment_id)
@@ -246,7 +246,7 @@ def post_group_comment():
     group_id = args['group_id']
     gpost_id = args['gpost_id']
     user_id = args['user_id']
-    comment_text = args['comment_text']
+    comment_text = pad_single_quote(args['comment_text'])
     with database.get_connection() as conn:
         comment_id = database.insert_group_post_comment(conn, group_id, gpost_id, user_id, comment_text)
     return jsonify(status=status.HTTP_200_OK, comment_id=comment_id)
@@ -390,7 +390,7 @@ def query_location():
 @app.route('/api/search', methods=['GET'])
 def query_search_phrase():
     args = request.args
-    phrase = args['phrase']
+    phrase = pad_single_quote(args['phrase'])
     with database.get_connection() as conn:
         res = database.query_search_term(conn, phrase)
     return jsonify(status=status.HTTP_200_OK, res=res)
@@ -402,11 +402,14 @@ def create_location(args):
     postal_code = args['postal_code']
     province = args['province']
     city = args['city']
-    print(location_name, address, postal_code, province)
     with database.get_connection() as conn:
         database.create_update_postal_code(conn, postal_code, city, province)
         location_id = database.create_location(conn, location_name, address, postal_code)
     return location_id
+
+
+def pad_single_quote(s) -> str:
+    return s.replace("'", "''")
 
 
 if __name__ == '__main__':
