@@ -27,7 +27,7 @@ export default class Navigator extends Component {
         </Nav>
         <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2"/>
-          <Button variant="outline-light">Search</Button>
+          <Button href="/search-result" variant="outline-light">Search</Button>
         </Form>
         <Nav>
           <Nav.Link href="/" onClick={this.logoutOnClick.bind(this)} className="ml-3">Logout</Nav.Link>
