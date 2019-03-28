@@ -999,15 +999,32 @@ User attends an event
 ```angularjs
 {
     "count": {
-        "count": 1
+        "count": 2
     },
     "events": [
         {
+            "address": "2335 Engineering Road",
+            "city": "Vancouver",
             "event_id": 3,
             "event_name": "Tuesday Writing Session",
             "group_id": 4,
-            "location": "New Zealand",
+            "location_id": 2,
+            "location_name": "Plastic cone",
+            "postal_code": "V6T1Z4",
+            "province": "BC",
             "time": "Wed, 27 Mar 2019 02:03:28 GMT"
+        },
+        {
+            "address": "234 Computer Science Rd.",
+            "city": "Vancouver",
+            "event_id": 9,
+            "event_name": "Google Interview",
+            "group_id": 4,
+            "location_id": 3,
+            "location_name": "DMP 310",
+            "postal_code": "V2X1G5",
+            "province": "BC",
+            "time": "Thu, 28 Mar 2019 22:09:56 GMT"
         }
     ],
     "status": 200
@@ -1027,6 +1044,27 @@ User attends an event
     "friends": [
         [
             {
+                "city": "Calgary",
+                "count": 1,
+                "location_id": 77
+            },
+            [
+                {
+                    "address": "420 Computer Science Rd.",
+                    "age": 123,
+                    "city": "Calgary",
+                    "friend_id": 1,
+                    "location_name": "DMP 110",
+                    "name": "Dr. Strangest",
+                    "occupation": "Auditor",
+                    "postal_code": "G2A1F4",
+                    "province": "AB",
+                    "sex": "Male"
+                }
+            ]
+        ],
+        [
+            {
                 "city": "Vancouver",
                 "count": 2,
                 "location_id": 3
@@ -1036,25 +1074,25 @@ User attends an event
                     "address": "234 Computer Science Rd.",
                     "age": 23,
                     "city": "Vancouver",
+                    "friend_id": 3,
                     "location_name": "DMP 310",
                     "name": "Bob Joe",
                     "occupation": "Professor",
                     "postal_code": "V2X1G5",
                     "province": "BC",
-                    "sex": "Male",
-                    "user_id": 8
+                    "sex": "Male"
                 },
                 {
                     "address": "234 Computer Science Rd.",
                     "age": 12,
                     "city": "Vancouver",
+                    "friend_id": 5,
                     "location_name": "DMP 310",
                     "name": "Gareth Crisp",
                     "occupation": "Soccer Player",
                     "postal_code": "V2X1G5",
                     "province": "BC",
-                    "sex": "Male",
-                    "user_id": 8
+                    "sex": "Male"
                 }
             ]
         ]
