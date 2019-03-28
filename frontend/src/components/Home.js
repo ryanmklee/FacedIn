@@ -5,7 +5,13 @@ import store from "../store/index"
 import axios from 'axios'
 import {setLogout, tryLogin} from "../actions/login";
 import {Link} from "react-router-dom";
+
 import Navigator from './Navigator';
+import Posts from './Posts';
+
+import posts from '../mockData/mockPosts';
+
+console.log(posts);
 
 /**
  * displays the posts and top navigation.
@@ -15,9 +21,8 @@ class Home extends React.Component {
         return (
             <div>
                 <Navigator/>
-                {/* <Posts/> */}
+                <Posts posts={posts}/>
             </div>
-
         );
     }
 }
