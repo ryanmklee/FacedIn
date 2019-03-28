@@ -215,6 +215,17 @@ def insert_group(connection, user_id: int, activity: str, group_name: str) -> di
     return group_id
 
 
+def query_all_groups(connection) -> list:
+    """
+    Queries all groups that exists
+    :param connection: Database connection
+    :return:
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(QUERY_ALL_GROUPS_SQL)
+        groups = cursor.fetchall()
+    return groups
+
 def query_groups(connection, user_id: int) -> list:
     """
     Queries groups where user is assoicated in

@@ -284,6 +284,13 @@ def modify_group_request():
     return jsonify(status=status.HTTP_200_OK)
 
 
+@app.route('/api/groups/all', methods=['GET'])
+def query_all_groups():
+    with database.get_connection() as conn:
+        groups = database.query_all_groups(conn)
+    return jsonify(status=status.HTTP_200_OK, groups=groups)
+
+
 @app.route('/api/groups/info', methods=['GET'])
 def query_group():
     """
