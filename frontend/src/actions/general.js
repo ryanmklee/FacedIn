@@ -11,7 +11,7 @@ import {
 import {axiosPostRequestHelper} from "./webcallUtil";
 
 /**
-  * these actions are used in several places.
+  * these actions are used in weird places...
  */
 
 export function setPostCommentSuccess() {

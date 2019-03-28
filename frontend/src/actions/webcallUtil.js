@@ -8,7 +8,7 @@ export function axiosGetRequestHelper(dispatch, url, params, successFunction, er
             dispatch(successFunction(response))
         })
         .catch(error => {
-            console.log("Post " + url + " Error:");
+            console.log("Get " + url + " Error:");
             console.log(error);
             dispatch(errorFunction())
         })
