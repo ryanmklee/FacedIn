@@ -10,8 +10,9 @@ import axios from 'axios'
 import {tryLogin} from "../actions/login";
 
 import Navigator from './Navigator';
+import {createGroup} from "../actions/general";
 
-class CreateGroup extends React.Component {
+export default class CreateGroup extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -20,6 +21,7 @@ class CreateGroup extends React.Component {
         event.preventDefault();
         const groupName = document.getElementById('groupName').value;
         const groupActivity = document.getElementById('groupActivity').value;
+        store.dispatch(createGroup(store.getState().login.user_id, groupActivity, groupName))
     }
 
     render() {
@@ -41,10 +43,3 @@ class CreateGroup extends React.Component {
         );
     }
 }
-
-function mapStateToProps(state){
-    return {
-
-    }
-}
-export default connect(mapStateToProps)(CreateGroup)

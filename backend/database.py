@@ -88,6 +88,19 @@ def add_post(connection, user_id: int, post: str) -> dict:
     return post_id
 
 
+def delete_post(connection, user_id: int, post_id: int) -> None:
+    """
+    Deletes a post given the user_id and the post_id
+    :param connection:
+    :param user_id:
+    :param post_id:
+    :return:
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(DELETE_POST_SQL.format(user_id=user_id, post_id=post_id))
+        connection.commit()
+
+
 def insert_user_data(connection, user_id: int, age: int, sex: str, location_id: int, occupation: str, name: str) -> None:
     """
     Inserts user data to the user_data table

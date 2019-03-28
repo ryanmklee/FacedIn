@@ -12,6 +12,11 @@ INSERT_POST_SQL = '''
 INSERT INTO user_posts ("post_id", "user_id", "post", "time_posted")
   VALUES (DEFAULT, '{user_id}', '{post}', DEFAULT) returning post_id
 '''
+
+DELETE_POST_SQL = '''
+DELETE FROM user_posts WHERE post_id = '{post_id}' and user_id = '{user_id}'
+'''
+
 QUERY_FRIEND_POST_SQL = '''
 select post_id, user_posts.user_id, name, post, time_posted
 from user_posts

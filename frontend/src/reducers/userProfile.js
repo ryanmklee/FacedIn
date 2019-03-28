@@ -1,11 +1,13 @@
 import {
+    SEND_FRIEND_REQ_SUCCESS,
     SET_CHANGE_USER_INFO_ERROR,
     SET_CHANGE_USER_INFO_SUCCESS,
     SET_RETRIEVE_USER_INFO_ERROR,
     SET_RETRIEVE_USER_INFO_SUCCESS
 } from "../constants/actionTypes";
 const initialState = {
-    userData: {}
+    userData: {},
+    addedFriend: false
 };
 export default (state = initialState, action) => {
     switch (action.type) {
@@ -21,6 +23,11 @@ export default (state = initialState, action) => {
             };
         case SET_RETRIEVE_USER_INFO_ERROR:
             return state;
+        case SEND_FRIEND_REQ_SUCCESS:
+            return {
+                ...state,
+                addedFriend: true
+            };
         default:
             return state
     }

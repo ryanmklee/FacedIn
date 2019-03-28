@@ -18,7 +18,7 @@ export default class Comment extends Component {
           <Col>
             <Row>
               <Col md="auto" className="no-padding">
-                <h6>{this.props.data.commentData.post.name}</h6>
+                <h6>{this.props.data.commentData.comment.name}</h6>
               </Col>
               <Col className="no-padding">
                 <p>{this.props.data.commentData.comment.comment_text}</p>

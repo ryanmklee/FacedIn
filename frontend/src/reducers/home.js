@@ -1,4 +1,5 @@
 import {
+    REGULAR_POST_SUCCESS,
     SET_GET_USER_POSTS_SUCCESS,
 
 } from "../constants/actionTypes";
@@ -14,7 +15,8 @@ export default (state = initialState, action) => {
                 ...state,
                 posts: action.payload.data.posts
             };
-
+        case REGULAR_POST_SUCCESS:
+            return state;
         default:
             return state
     }

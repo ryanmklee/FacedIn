@@ -68,6 +68,19 @@ All queries are to be done on [localhost:5000](localhost:5000)
     "status": 201
 }
 ```
+###### DELETE: /api/user/post
+```angularjs
+{
+    "user_id": 2,
+    "post_id": 12
+}
+```
+###### Successful Response
+```angularjs
+{
+    "status": 200
+}
+```
 
 #### User information
 ###### POST: /api/user/info

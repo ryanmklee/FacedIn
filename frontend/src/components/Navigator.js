@@ -44,7 +44,7 @@ export default class Navigator extends Component {
         <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" value={this.state.value} onChange={this.handleChange}/>
             <Button variant="light">
-                <NavLink to={{pathname:"/search-result", state:{searchText: this.state.value}}}>Search</NavLink>
+                <Link to={{pathname:"/search-result", state:{searchText: this.state.value}}}>Search</Link>
             </Button>
         </Form>
         <Nav>

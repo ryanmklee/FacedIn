@@ -19,8 +19,7 @@ const users = [user, user];
 class SearchResult extends React.Component {
     constructor(props) {
         super(props);
-        this.searchText = this.props.location.state.searchText
-        console.log(this.searchText)
+        this.searchText = "g"//this.props.location.state.searchText
     }
 
     componentWillMount() {
@@ -28,7 +27,7 @@ class SearchResult extends React.Component {
     }
 
     render() {
-        console.log(this.props.users)
+        // console.log(this.props.users)
     return (
       <div>
         <Navigator/>
