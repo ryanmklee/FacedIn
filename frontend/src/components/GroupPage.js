@@ -1,5 +1,8 @@
 import React from "react";
 import ListGroup from 'react-bootstrap/ListGroup';
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
+
 import {connect} from "react-redux"
 
 import Navigator from './Navigator';
@@ -15,7 +18,10 @@ class GroupPage extends React.Component {
         return (
             <div>
                 <Navigator/>
-                <h5 className="ml-3 mt-3">Browse groups</h5>
+                <Row className="ml-3 mt-3 mr-3">
+                    <h5 md="auto" >Browse groups</h5>
+                    <Button href="/create-group" className="ml-auto">Create Group</Button>
+                </Row>
                 <hr className="ml-3 mr-3 mb-3"/>
                 <ListGroup className="ml-3 mr-3">
                         {
