@@ -1,7 +1,7 @@
 import {SET_LOGIN_ERROR, SET_LOGIN_PENDING, SET_LOGIN_SUCCESS, SET_LOGOUT} from "../constants/actionTypes";
 
 const initialState = {
-    user_id: -1,
+    user_id: 1,
 };
 export default (state = initialState, action) => {
     switch (action.type) {
