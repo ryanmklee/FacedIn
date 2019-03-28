@@ -449,7 +449,138 @@ Decline group request
                 "user_id": 8
             },
             {
-                "comments": []
+                "comments": [
+                    {
+                        "age": 14,
+                        "comment_id": 4,
+                        "comment_text": "Taking the derivative of an image is so cool! You can use it do edge detection. If you use a sobel operator it does even more amazing things!",
+                        "gpost_id": 1,
+                        "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
+                        "time_posted": "Wed, 27 Mar 2019 06:09:44 GMT",
+                        "user_id": 8
+                    },
+                    {
+                        "age": 14,
+                        "comment_id": 5,
+                        "comment_text": "hry",
+                        "gpost_id": 1,
+                        "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
+                        "time_posted": "Thu, 28 Mar 2019 01:49:01 GMT",
+                        "user_id": 8
+                    },
+                    {
+                        "age": 14,
+                        "comment_id": 6,
+                        "comment_text": "wassup",
+                        "gpost_id": 1,
+                        "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
+                        "time_posted": "Thu, 28 Mar 2019 02:07:47 GMT",
+                        "user_id": 8
+                    },
+                    {
+                        "age": 14,
+                        "comment_id": 7,
+                        "comment_text": "nm",
+                        "gpost_id": 1,
+                        "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
+                        "time_posted": "Thu, 28 Mar 2019 02:08:26 GMT",
+                        "user_id": 8
+                    },
+                    {
+                        "age": 14,
+                        "comment_id": 8,
+                        "comment_text": "anotha one",
+                        "gpost_id": 1,
+                        "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
+                        "time_posted": "Thu, 28 Mar 2019 02:08:54 GMT",
+                        "user_id": 8
+                    },
+                    {
+                        "age": 14,
+                        "comment_id": 9,
+                        "comment_text": "again?",
+                        "gpost_id": 1,
+                        "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
+                        "time_posted": "Thu, 28 Mar 2019 02:09:19 GMT",
+                        "user_id": 8
+                    },
+                    {
+                        "age": 14,
+                        "comment_id": 10,
+                        "comment_text": "no",
+                        "gpost_id": 1,
+                        "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
+                        "time_posted": "Thu, 28 Mar 2019 02:10:05 GMT",
+                        "user_id": 8
+                    },
+                    {
+                        "age": 14,
+                        "comment_id": 12,
+                        "comment_text": "hey",
+                        "gpost_id": 1,
+                        "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
+                        "time_posted": "Thu, 28 Mar 2019 04:41:11 GMT",
+                        "user_id": 8
+                    },
+                    {
+                        "age": 14,
+                        "comment_id": 13,
+                        "comment_text": "hi",
+                        "gpost_id": 1,
+                        "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
+                        "time_posted": "Thu, 28 Mar 2019 18:43:49 GMT",
+                        "user_id": 8
+                    },
+                    {
+                        "age": 123,
+                        "comment_id": 15,
+                        "comment_text": "Wassup bro",
+                        "gpost_id": 1,
+                        "group_id": 4,
+                        "location_id": 77,
+                        "name": "Dr. Strangest",
+                        "occupation": "Auditor",
+                        "sex": "Male",
+                        "time_posted": "Thu, 28 Mar 2019 21:45:29 GMT",
+                        "user_id": 1
+                    }
+                ]
             }
         ],
         [
@@ -462,7 +593,21 @@ Decline group request
                 "user_id": 8
             },
             {
-                "comments": []
+                "comments": [
+                    {
+                        "age": 14,
+                        "comment_id": 11,
+                        "comment_text": "WOW IM FIRST",
+                        "gpost_id": 2,
+                        "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
+                        "time_posted": "Thu, 28 Mar 2019 02:11:45 GMT",
+                        "user_id": 8
+                    }
+                ]
             }
         ],
         [
@@ -490,26 +635,41 @@ Decline group request
             {
                 "comments": [
                     {
+                        "age": 14,
                         "comment_id": 1,
                         "comment_text": "I can't wait! Only a few more hours!",
                         "gpost_id": 4,
                         "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
                         "time_posted": "Wed, 27 Mar 2019 05:50:53 GMT",
                         "user_id": 8
                     },
                     {
+                        "age": 14,
                         "comment_id": 2,
                         "comment_text": "Almost time! I'm so excited to do that midterm!",
                         "gpost_id": 4,
                         "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
                         "time_posted": "Wed, 27 Mar 2019 05:55:20 GMT",
                         "user_id": 8
                     },
                     {
+                        "age": 14,
                         "comment_id": 3,
                         "comment_text": "That midterm was amazing! It was very fair and I totally believe that the TA wrote an amazing midterm!",
                         "gpost_id": 4,
                         "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
                         "time_posted": "Wed, 27 Mar 2019 05:55:47 GMT",
                         "user_id": 8
                     }
@@ -614,6 +774,45 @@ Decline group request
                 "group_post": "Hello World!",
                 "name": "Lucy MacDonald",
                 "time_posted": "Wed, 27 Mar 2019 02:53:38 GMT",
+                "user_id": 8
+            },
+            {
+                "comments": []
+            }
+        ],
+        [
+            {
+                "gpost_id": 13,
+                "group_id": 4,
+                "group_post": "",
+                "name": "Lucy MacDonald",
+                "time_posted": "Wed, 27 Mar 2019 09:22:21 GMT",
+                "user_id": 8
+            },
+            {
+                "comments": []
+            }
+        ],
+        [
+            {
+                "gpost_id": 14,
+                "group_id": 4,
+                "group_post": "",
+                "name": "Lucy MacDonald",
+                "time_posted": "Wed, 27 Mar 2019 09:26:43 GMT",
+                "user_id": 8
+            },
+            {
+                "comments": []
+            }
+        ],
+        [
+            {
+                "gpost_id": 15,
+                "group_id": 4,
+                "group_post": "hi",
+                "name": "Lucy MacDonald",
+                "time_posted": "Wed, 27 Mar 2019 09:51:58 GMT",
                 "user_id": 8
             },
             {

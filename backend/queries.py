@@ -196,7 +196,7 @@ select * from groups where group_id = '{group_id}';
 '''
 
 COUNT_EVENTS_MONTHLY = '''
-select count(*)
+select count(distinct EXTRACT(month from events.time))
 from events
 where group_id = '{group_id}'
   and EXTRACT(MONTH FROM time) = EXTRACT(MONTH from now())
@@ -248,7 +248,10 @@ INSERT INTO group_post_comments ("comment_id", "gpost_id", "user_id", "group_id"
 '''
 
 QUERY_GROUP_POST_COMMENT_SQL = '''
-select * from group_post_comments where gpost_id = '{gpost_id}'
+select *
+from group_post_comments
+       join user_data u on group_post_comments.user_id = u.user_id
+where gpost_id = '{gpost_id}';
 '''
 
 QUERY_SEARCH_TERM_USERS = '''

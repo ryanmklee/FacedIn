@@ -261,12 +261,14 @@ INSERT INTO public.postal_code (postal_code, city, province) VALUES ('V6T1Z4', '
 INSERT INTO public.postal_code (postal_code, city, province) VALUES ('V6P 3W8', 'Vancouver', 'BC');
 INSERT INTO public.postal_code (postal_code, city, province) VALUES ('V2X1G5', 'Vancouver', 'BC');
 INSERT INTO public.postal_code (postal_code, city, province) VALUES ('V1X1G2', 'Victoria', 'BC');
+INSERT INTO public.postal_code (postal_code, city, province) VALUES ('G2A1F4', 'Calgary', 'AB');
 
 INSERT INTO public.locations (location_id, location_name, address, postal_code) VALUES (1, 'Depression School', '2325 West Mall', 'V6T1Z4');
 INSERT INTO public.locations (location_id, location_name, address, postal_code) VALUES (2, 'Plastic cone', '2335 Engineering Road', 'V6T1Z4');
 INSERT INTO public.locations (location_id, location_name, address, postal_code) VALUES (11, 'his house', '8120 Fremlin Street', 'V6P 3W8');
 INSERT INTO public.locations (location_id, location_name, address, postal_code) VALUES (3, 'DMP 310', '234 Computer Science Rd.', 'V2X1G5');
 INSERT INTO public.locations (location_id, location_name, address, postal_code) VALUES (70, 'DMP 310', '123 Computer Science Rd.', 'V1X1G2');
+INSERT INTO public.locations (location_id, location_name, address, postal_code) VALUES (77, 'DMP 110', '420 Computer Science Rd.', 'G2A1F4');
 
 INSERT INTO public.user_data (user_id, age, sex, name, occupation, location_id) VALUES (8, 14, 'Female', 'Lucy MacDonald', 'Student', 2);
 INSERT INTO public.user_data (user_id, age, sex, name, occupation, location_id) VALUES (3, 23, 'Male', 'Bob Joe', 'Professor', 3);
@@ -277,14 +279,16 @@ INSERT INTO public.user_data (user_id, age, sex, name, occupation, location_id) 
 INSERT INTO public.user_posts (post_id, user_id, post, time_posted) VALUES (4, 1, 'I truly do enjoy this course. I truly have learned a lot from this class.', '2019-03-26 02:48:28.339931');
 INSERT INTO public.user_posts (post_id, user_id, post, time_posted) VALUES (5, 8, 'I really enjoy writing papers. It is a great passion of mine. It really contributes to my professional development.', '2019-03-26 19:12:03.494772');
 INSERT INTO public.user_posts (post_id, user_id, post, time_posted) VALUES (6, 19, 'CPSC 304 is so fun! ', '2017-04-01 12:12:12.494000');
-
+INSERT INTO public.user_posts (post_id, user_id, post, time_posted) VALUES (8, 1, 'hello', '2019-03-28 20:12:14.204102');
+INSERT INTO public.user_posts (post_id, user_id, post, time_posted) VALUES (9, 2, 'I am Carly Peppy', '2019-03-28 20:18:13.757898');
+INSERT INTO public.user_posts (post_id, user_id, post, time_posted) VALUES (11, 2, 'to be deleted', '2019-03-28 20:49:25.851698');
+INSERT INTO public.user_posts (post_id, user_id, post, time_posted) VALUES (12, 2, 'to be deleted', '2019-03-28 20:50:56.259973');
 
 INSERT INTO public.groups (group_id, user_id, activity, group_name) VALUES (3, 1, '"Rock climbing"', '"Rock climbing heroes"');
 INSERT INTO public.groups (group_id, user_id, activity, group_name) VALUES (4, 8, 'Writing English papers', 'Writing Club');
-
-INSERT INTO public.group_requests (group_id, to_user) VALUES (3, 2);
-INSERT INTO public.group_requests (group_id, to_user) VALUES (3, 3);
-INSERT INTO public.group_requests (group_id, to_user) VALUES (3, 34);
+INSERT INTO public.groups (group_id, user_id, activity, group_name) VALUES (5, 34, 'writing sql queries', 'asdf');
+INSERT INTO public.groups (group_id, user_id, activity, group_name) VALUES (6, 1, 'Drink bubble tea daily', 'Bubble tea fan club');
+INSERT INTO public.groups (group_id, user_id, activity, group_name) VALUES (7, 1, 'Gobs sht', 'Gavins Gobsters');
 
 INSERT INTO public.events (event_id, group_id, event_name, time, location_id) VALUES (3, 4, 'Tuesday Writing Session', '2019-03-27 02:03:28.224300', 2);
 INSERT INTO public.events (event_id, group_id, event_name, time, location_id) VALUES (5, 4, 'ESL Classes', '2020-03-29 03:43:35.152344', 2);
@@ -298,19 +302,23 @@ INSERT INTO public.event_attendance (event_id, user_id) VALUES (2, 1);
 INSERT INTO public.event_attendance (event_id, user_id) VALUES (2, 2);
 INSERT INTO public.event_attendance (event_id, user_id) VALUES (3, 8);
 
-INSERT INTO public.friend_list_table (user_id, friend_id) VALUES (1, 7);
 INSERT INTO public.friend_list_table (user_id, friend_id) VALUES (8, 3);
 INSERT INTO public.friend_list_table (user_id, friend_id) VALUES (3, 8);
 INSERT INTO public.friend_list_table (user_id, friend_id) VALUES (8, 5);
 INSERT INTO public.friend_list_table (user_id, friend_id) VALUES (5, 8);
 INSERT INTO public.friend_list_table (user_id, friend_id) VALUES (1, 2);
 INSERT INTO public.friend_list_table (user_id, friend_id) VALUES (2, 1);
+INSERT INTO public.friend_list_table (user_id, friend_id) VALUES (1, 8);
+INSERT INTO public.friend_list_table (user_id, friend_id) VALUES (8, 1);
 
 INSERT INTO public.friend_requests (from_user, to_user) VALUES (18, 19);
 INSERT INTO public.friend_requests (from_user, to_user) VALUES (9, 34);
 
 INSERT INTO public.group_list_table (group_id, user_id) VALUES (4, 8);
 INSERT INTO public.group_list_table (group_id, user_id) VALUES (3, 8);
+INSERT INTO public.group_list_table (group_id, user_id) VALUES (5, 8);
+INSERT INTO public.group_list_table (group_id, user_id) VALUES (6, 8);
+INSERT INTO public.group_list_table (group_id, user_id) VALUES (7, 1);
 
 INSERT INTO public.group_posts (gpost_id, group_id, user_id, group_post, time_posted) VALUES (1, 4, 8, 'I''m so excited to go see everyone at the writing session!', '2019-03-26 21:29:00.225772');
 INSERT INTO public.group_posts (gpost_id, group_id, user_id, group_post, time_posted) VALUES (2, 4, 8, 'I''m so excited to go see everyone at the writing session!', '2019-03-26 21:32:26.378898');
@@ -340,6 +348,7 @@ INSERT INTO public.group_post_comments (comment_id, gpost_id, user_id, comment_t
 INSERT INTO public.group_post_comments (comment_id, gpost_id, user_id, comment_text, time_posted, group_id) VALUES (10, 1, 8, 'no', '2019-03-28 02:10:05.468488', 4);
 INSERT INTO public.group_post_comments (comment_id, gpost_id, user_id, comment_text, time_posted, group_id) VALUES (11, 2, 8, 'WOW IM FIRST', '2019-03-28 02:11:45.068229', 4);
 INSERT INTO public.group_post_comments (comment_id, gpost_id, user_id, comment_text, time_posted, group_id) VALUES (12, 1, 8, 'hey', '2019-03-28 04:41:11.445332', 4);
+INSERT INTO public.group_post_comments (comment_id, gpost_id, user_id, comment_text, time_posted, group_id) VALUES (13, 1, 8, 'hi', '2019-03-28 18:43:49.436870', 4);
 
 INSERT INTO public.post_comments (comment_id, post_id, user_id, comment_text, time_posted) VALUES (4, 4, 1, '"Wow! I also truly enjoy 304. It is almost as great as CPSC 311 and MATH 200. They are all so enjoyable!"', '2019-03-26 03:20:20.252072');
 INSERT INTO public.post_comments (comment_id, post_id, user_id, comment_text, time_posted) VALUES (5, 5, 8, 'I also do love writing papers. Being able to communicate effectively really does help me. I also like to make coffee.', '2019-03-26 19:13:31.014294');
@@ -351,5 +360,12 @@ INSERT INTO public.post_comments (comment_id, post_id, user_id, comment_text, ti
 INSERT INTO public.post_comments (comment_id, post_id, user_id, comment_text, time_posted) VALUES (15, 4, 1, 'I do not think so!', '2019-03-28 06:53:27.784947');
 INSERT INTO public.post_comments (comment_id, post_id, user_id, comment_text, time_posted) VALUES (16, 4, 1, 'I love writing SQL queries!', '2019-03-28 07:02:34.005396');
 INSERT INTO public.post_comments (comment_id, post_id, user_id, comment_text, time_posted) VALUES (17, 4, 1, 'me too!', '2019-03-28 09:45:33.664004');
+INSERT INTO public.post_comments (comment_id, post_id, user_id, comment_text, time_posted) VALUES (19, 4, 2, 'Wow! Python is the best!', '2019-03-28 20:11:02.990962');
+INSERT INTO public.post_comments (comment_id, post_id, user_id, comment_text, time_posted) VALUES (20, 9, 2, 'I am Dr. Stranger. I am a stranger!', '2019-03-28 20:18:44.211471');
+INSERT INTO public.post_comments (comment_id, post_id, user_id, comment_text, time_posted) VALUES (21, 8, 1, 'hi', '2019-03-28 20:27:21.188376');
+INSERT INTO public.post_comments (comment_id, post_id, user_id, comment_text, time_posted) VALUES (23, 5, 8, 'Amazing! I really do want to try writing papers. It seems like a great time!', '2019-03-28 21:26:47.588397');
+INSERT INTO public.post_comments (comment_id, post_id, user_id, comment_text, time_posted) VALUES (24, 9, 2, 'hi', '2019-03-28 21:33:20.900177');
+INSERT INTO public.post_comments (comment_id, post_id, user_id, comment_text, time_posted) VALUES (25, 5, 1, 'YES IM DR STRANGER', '2019-03-28 21:35:13.393197');
+INSERT INTO public.post_comments (comment_id, post_id, user_id, comment_text, time_posted) VALUES (26, 4, 1, 'wit', '2019-03-28 21:38:39.440845');
 
 
