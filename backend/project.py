@@ -68,7 +68,7 @@ def user_post():
     return jsonify(status=status.HTTP_201_CREATED, post_id=post_id)
 
 
-@app.route('/api/user/info', methods=['GET', 'POST'])
+@app.route('/api/user/info', methods=['GET', 'POST', 'PUT'])
 def query_user():
     """
     GET request user_id for user data
@@ -81,12 +81,18 @@ def query_user():
             with database.get_connection() as conn:
                 user_data = database.query_user_data(conn, user_id)
             return jsonify(status=status.HTTP_200_OK, user_data=user_data)
-        else:
+        if request.method == 'POST':
             location_id = create_location(args)
             with database.get_connection() as conn:
                 database.insert_user_data(conn, user_id, age=args['age'], sex=args['sex'], location_id=location_id,
                                           occupation=args['occupation'], name=args['name'])
             return jsonify(status=status.HTTP_201_CREATED)
+        if request.method == 'PUT':
+            location_id = create_location(args)
+            with database.get_connection() as conn:
+                database.update_user_data(conn, user_id, age=args['age'], sex=args['sex'], location_id=location_id,
+                                          occupation=args['occupation'], name=args['name'])
+            return jsonify(status=status.HTTP_200_OK, message='Updated {}'.format(user_id))
     return jsonify(status=status.HTTP_400_BAD_REQUEST, error_message='user_id cannot be -1')
 
 
