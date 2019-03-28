@@ -1149,3 +1149,45 @@ looks at group name, looks at event name and activity then pattern matches with 
     "status": 200
 }
 ```
+#### Query users in a group
+###### GET: /api/groups/users
+```angularjs
+{
+    "group_id": 8
+}
+```
+###### Successful Response
+```angularjs
+{
+    "status": 200,
+    "users": [
+        {
+            "address": "2335 Engineering Road",
+            "age": 14,
+            "city": "Vancouver",
+            "location_id": 2,
+            "location_name": "Plastic cone",
+            "name": "Lucy MacDonald",
+            "occupation": "Student",
+            "postal_code": "V6T1Z4",
+            "province": "BC",
+            "sex": "Female",
+            "user_id": 8
+        },
+        {
+            "address": "420 Computer Science Rd.",
+            "age": 19,
+            "city": "Calgary",
+            "location_id": 77,
+            "location_name": "DMP 110",
+            "name": "Dr. Strange",
+            "occupation": "Starbucks Barista",
+            "postal_code": "G2A1F4",
+            "province": "AB",
+            "sex": "Male",
+            "user_id": 1
+        }
+    ]
+}
+
+```

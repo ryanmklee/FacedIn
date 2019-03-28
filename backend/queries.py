@@ -281,3 +281,11 @@ from events
        join groups g on events.group_id = g.group_id
 where event_name ilike '{phrase}%';
 '''
+
+QUERY_USERS_IN_GROUP = '''
+select *
+from user_data
+join locations l on user_data.location_id = l.location_id
+join postal_code pc on l.postal_code = pc.postal_code
+where user_id in (select user_id from group_list_table where group_id = '{group_id}');
+'''
