@@ -26,7 +26,7 @@ class Features extends React.Component {
                 <Navigator/>
                 <h4 className="mt-4 mb-4" style={{textAlign: 'center'}}>Features</h4>
                 <Container className="mb-4">
-                    <h5>Users In The Most Groups</h5>
+                    <h5>Users In Every Group</h5>
                     <hr/>
                     {<ListGroup className="ml-3 mr-3">
                         {
