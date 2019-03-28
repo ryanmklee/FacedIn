@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import jsonify, request, send_from_directory
+from flask import jsonify, request, send_from_directory, json
 from flask_api import status
 from flask_cors import CORS
 
@@ -159,13 +159,16 @@ def modify_friend_request():
     Accepts/Declines a friend request and moves the request to the friend list table
     :return:
     """
-    data = request.data
-    user_id = data['user_id']
-    friend_id = data['friend_id']
     with database.get_connection() as conn:
         if request.method == 'POST':
+            args = request.args
+            user_id = args['user_id']
+            friend_id = args['friend_id']
             database.accept_friend_request(conn, user_id, friend_id)
         else:
+            data = json.loads(request.data)
+            user_id = data['friend_id']
+            friend_id = data['user_id']
             database.decline_friend_request(conn, user_id, friend_id)
     return jsonify(status=status.HTTP_200_OK)
 

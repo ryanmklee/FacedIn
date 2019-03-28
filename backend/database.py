@@ -226,6 +226,7 @@ def query_all_groups(connection) -> list:
         groups = cursor.fetchall()
     return groups
 
+
 def query_groups(connection, user_id: int) -> list:
     """
     Queries groups where user is assoicated in
