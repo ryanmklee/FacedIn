@@ -27,12 +27,13 @@ class Profile extends React.Component {
 
     componentWillMount() {
         this.props.getUserInfo(tempUserId)
+        // this.props.setUserInfo()
     }
     render() {
         return (
             <div>
                 <h3>Profile</h3>
-                <h2>{this.props.userInfo.address}</h2>
+                <h2>{this.props.userInfo.name}</h2>
             </div>
         );
     }

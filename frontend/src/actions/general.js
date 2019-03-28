@@ -26,12 +26,13 @@ export function setPostCommentError() {
     }
 }
 
-export function postCommentOnPost(postId, userId) {
+export function postCommentOnPost(postId, userId, commentText) {
     return function (dispatch) {
         let config = {
             params: {
                 post_id: postId,
-                user_id: userId
+                user_id: userId,
+                comment_text: commentText
             }
         };
         return axiosPostRequestHelper(dispatch,"http://127.0.0.1:5000/api/user/comment", config, setPostCommentSuccess, setPostCommentError)

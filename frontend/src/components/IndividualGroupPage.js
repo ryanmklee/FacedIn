@@ -14,7 +14,7 @@ import connect from "react-redux/es/connect/connect";
 import {tryLogin} from "../actions/login";
 import store from "../store";
 import {
-    createEventForGroup,
+    createEventForGroup, getGroupMonthlyEvent,
     getIGroupEvents,
     getIGroupInformation,
     getIGroupPosts,
@@ -102,6 +102,7 @@ class IndividualGroupPage extends React.Component {
     componentDidMount() {
         this.props.getGroupPosts(tempGroupId);
         this.props.getGroupEvents(tempGroupId);
+        this.props.getMonthlyGroupEvents(tempGroupId)
 
     }
 
@@ -158,6 +159,17 @@ class IndividualGroupPage extends React.Component {
           </Row>
 
           <hr/>
+          <h2>Events This Month</h2>
+          <ListGroup>
+              {
+                  this.props.monthlyEvents.map((event) =>
+                      <ListGroup.Item>
+                          <Event event={event}/>
+                      </ListGroup.Item>
+                  )
+              }
+          </ListGroup>
+          <h2>All Events</h2>
         <ListGroup>
           {
             this.props.events.map((event) =>
@@ -176,6 +188,7 @@ function mapStateToProps(state){
         userId: state.login.user_id,
         posts: state.individualGroupPage.posts,
         events: state.individualGroupPage.events,
+        monthlyEvents: state.individualGroupPage.monthlyEvents,
         groupName: state.individualGroupPage.groupName,
         groupDesc: state.individualGroupPage.groupDesc,
         acceptedToGroup: state.individualGroupPage.acceptedToGroup
@@ -191,6 +204,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getGroupEvents: (groupId) => {
         dispatch(getIGroupEvents(groupId))
+    },
+    getMonthlyGroupEvents: (groupId) => {
+        dispatch(getGroupMonthlyEvent(groupId))
     },
     createPost: (groupId, userId, postText) => {
         dispatch(postToGroup(groupId, userId, postText))

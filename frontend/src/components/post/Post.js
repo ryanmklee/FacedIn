@@ -12,9 +12,6 @@ import './Post.css';
 export default class Post extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
-    let temp = this.props;
-    // this.date = formatDateString(this.props.time_posted);
   }
  
   render() {
@@ -25,15 +22,15 @@ export default class Post extends Component {
             <Image roundedCircle thumbnail className="post-image" src="https:\/\/randomuser.me\/api\/portraits\/men\/97.jpg"></Image>
           </Col>
           <Col>
-            <Row className="name"><h6>{this.props.post.name}</h6></Row>
-            <Row className="date">{this.props.post.time_posted}</Row>
+            <Row className="name"><h6>{this.props.post[0].name}</h6></Row>
+            <Row className="date">{this.props.post[0].time_posted}</Row>
           </Col>
         </Row>
         <Row className="mt-3">
           <p>{this.props.post.group_post}</p>
         </Row>
         <hr/>
-        {/*<CommentSection comments={this.props.comments} postId={this.props.post.post_id}/>*/}
+        <CommentSection comments={this.props.post[1].comments} postId={this.props.post[0].gpost_id}/>
       </Container>
     );
   }

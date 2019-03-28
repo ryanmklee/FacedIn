@@ -6,28 +6,43 @@ import axios from 'axios'
 import {setLogout, tryLogin} from "../actions/login";
 import HomeNavigation from "./HomeNavigation";
 import {Link} from "react-router-dom";
+import {getUserInfo, setUserInfo} from "../actions/userProfile";
+import {getUserPosts} from "../actions/home";
+import ListGroup from "react-bootstrap/ListGroup";
+import Post from "./post/Post";
+import Container from "react-bootstrap/Container";
 
 /**
  * displays the posts and top navigation.
  */
+const tempUserId = 1;
 class Home extends React.Component {
+
+    componentWillMount() {
+        this.props.getUserPosts(tempUserId)//this.props.userId)
+    }
 
     constructor(props) {
         super(props);
-        this.logoutOnClick = this.logoutOnClick.bind(this);
     }
 
-    logoutOnClick() {
-        store.dispatch(setLogout())
-    }
     render() {
         return (
             <div>
                 <h3>Home</h3>
                 <HomeNavigation/>
                 <Link to={"/"}>
-                    <button type="button" onClick={this.logoutOnClick}>Logout</button>
+                    <button type="button" onClick={this.props.logout}>Logout</button>
                 </Link>
+                <ListGroup className="mb-3">
+                    {
+                        this.props.posts.map((postObj) =>
+                            <ListGroup.Item>
+                                <h2>{postObj.post.post}</h2>
+                            </ListGroup.Item>
+                        )
+                    }
+                </ListGroup>
             </div>
 
         );
@@ -36,7 +51,20 @@ class Home extends React.Component {
 
 function mapStateToProps(state){
     return {
-        user_id: state.user_id,
+        userId: state.login.user_id,
+        posts: state.home.posts
     }
 }
-export default connect(mapStateToProps)(Home)
+
+const mapDispatchToProps = (dispatch) => ({
+    logout: () => {
+        dispatch(setLogout())
+    },
+    getUserPosts: (userId) => {
+        dispatch(getUserPosts(userId))
+    }
+    // setUserInfo: (age, name, occupation, sex, userId, locationName, address, postalCode, city, province) => {
+    //     dispatch(setUserInfo(age, name, occupation, sex, userId, locationName, address, postalCode, city, province))
+    // }
+})
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

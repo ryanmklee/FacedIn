@@ -36,19 +36,16 @@ export function setUserInfo(age, name, occupation, sex, userId, locationName, ad
     return function (dispatch) {
         let config = {
             params: {
-                age: 18,
-                name: "Dr. Strange",
-                occupation: "Auditor",
-                sex: "Male",
-                user_id: 1,
-                location_name: "DMP 310",
-                address: "234 Computer Science Rd.",
-                postal_code: "V2X1G5",
-                city: "Vancouver",
-                province: "BC",
-                // sex: "Male,
-                // name: "Gareth Crisp",
-                // occupation: "Soccer Player"
+                age: age,
+                name: name,
+                occupation: occupation,
+                sex: sex,
+                user_id: userId,
+                location_name: locationName,
+                address: address,
+                postal_code: postalCode,
+                city: city,
+                province: province,
             }
         };
         return axiosPostRequestHelper(dispatch, "http://127.0.0.1:5000/api/user/info", config, setChangeUserInfoSuccess, setChangeUserInfoError);
@@ -59,19 +56,7 @@ export function getUserInfo(userId) {
     return function (dispatch) {
         let config = {
             params: {
-                age: 18,
-                name: "Dr. Strange",
-                occupation: "Auditor",
-                sex: "Male",
-                user_id: 1,
-                location_name: "DMP 310",
-                address: "234 Computer Science Rd.",
-                postal_code: "V2X1G5",
-                city: "Vancouver",
-                province: "BC",
-                // sex: "Male,
-                // name: "Gareth Crisp",
-                // occupation: "Soccer Player"
+                user_id: userId
             }
         };
         return axiosGetRequestHelper(dispatch, "http://127.0.0.1:5000/api/user/info", config, setGetUserInfoSuccess, setGetUserInfoError);

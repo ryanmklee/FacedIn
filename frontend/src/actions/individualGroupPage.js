@@ -1,5 +1,9 @@
 import axios from 'axios'
-import {SET_RETRIEVE_POSTS_IGROUP_SUCCESS} from "../constants/actionTypes";
+import {
+    SET_GET_MONTHLY_EVENTS_ERROR,
+    SET_GET_MONTHLY_EVENTS_SUCCESS,
+    SET_RETRIEVE_POSTS_IGROUP_SUCCESS
+} from "../constants/actionTypes";
 import {SET_RETRIEVE_POSTS_IGROUP_ERROR} from "../constants/actionTypes";
 import {SET_RETRIEVE_EVENTS_IGROUP_ERROR} from "../constants/actionTypes";
 import {SET_RETRIEVE_EVENTS_IGROUP_SUCCESS} from "../constants/actionTypes";
@@ -75,6 +79,19 @@ export function setCreateEventToGroupError() {
     }
 }
 
+export function getMonthlyEventSuccess (response) {
+    return {
+        type: SET_GET_MONTHLY_EVENTS_SUCCESS,
+        payload: response
+    }
+}
+
+export function getMonthlyEventError () {
+    return {
+        type: SET_GET_MONTHLY_EVENTS_ERROR
+    }
+}
+
 export function getIGroupPosts(groupId) {
     return function (dispatch) {
         let config = {
@@ -130,6 +147,15 @@ export function createEventForGroup(groupId, eventName, locationName, address, p
             }
         };
         return axiosPostRequestHelper(dispatch, "http://127.0.0.1:5000/api/groups/event/create", config, setCreateEventToGroupSuccess, setCreateEventToGroupError)
+    }
+}
+
+export function getGroupMonthlyEvent(groupId) {
+    return function (dispatch) {
+        let config = {
+            params: {group_id: groupId}
+        };
+        return axiosGetRequestHelper(dispatch, "http://127.0.0.1:5000/api/groups/monthly_events", config, getMonthlyEventSuccess, getMonthlyEventError)
     }
 }
 

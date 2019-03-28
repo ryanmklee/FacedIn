@@ -1,6 +1,6 @@
 import {
     SET_ACCEPT_GROUP_REQ_ERROR,
-    SET_ACCEPT_GROUP_REQ_SUCCESS,
+    SET_ACCEPT_GROUP_REQ_SUCCESS, SET_GET_MONTHLY_EVENTS_SUCCESS,
     SET_JOIN_GROUP_SUCCESS,
     SET_RETRIEVE_POSTS_IGROUP_SUCCESS, SET_SEND_GROUP_REQ_ERROR,
     SET_SEND_GROUP_REQ_SUCCESS
@@ -18,6 +18,7 @@ import {SET_CREATE_EVENT_ERROR} from "../constants/actionTypes";
 const initialState = {
     posts: [],
     events:[],
+    monthlyEvents: [],
     groupName: "",
     groupDesc: "",
     acceptedToGroup: false,
@@ -63,13 +64,18 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 acceptedToGroup: false
-            }
+            };
         case SET_ACCEPT_GROUP_REQ_SUCCESS:
             return state;
         case SET_ACCEPT_GROUP_REQ_ERROR:
             return {
                 ...state,
                 acceptedToGroup: false
+            };
+        case SET_GET_MONTHLY_EVENTS_SUCCESS:
+            return {
+                ...state,
+                monthlyEvents: action.payload.data.events
             };
         default:
             return state
