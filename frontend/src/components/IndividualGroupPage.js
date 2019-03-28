@@ -106,11 +106,10 @@ class IndividualGroupPage extends React.Component {
     }
 
     render() {
+        console.log(this.props.monthlyEvents)
         return (
             <div>
                 <Navigator/>
-
-
                 <Container className="mt-3 mb-3 group">
                     <Jumbotron className="groupTitle">
                         <h2>{this.props.groupName}</h2>
@@ -162,7 +161,9 @@ class IndividualGroupPage extends React.Component {
                     </Row>
 
                     <hr/>
-                    <h2>Events This Month</h2>
+                    <Row>
+                        <h2>{"Events This Month " + this.props.monthlyEventsCount}</h2>
+                    </Row>
                     <ListGroup>
                         {
                             this.props.monthlyEvents.map((event) =>
@@ -193,6 +194,7 @@ function mapStateToProps(state){
         posts: state.individualGroupPage.posts,
         events: state.individualGroupPage.events,
         monthlyEvents: state.individualGroupPage.monthlyEvents,
+        monthlyEventsCount: state.individualGroupPage.monthlyEventsCount,
         groupName: state.individualGroupPage.groupName,
         groupDesc: state.individualGroupPage.groupDesc,
         acceptedToGroup: state.individualGroupPage.acceptedToGroup

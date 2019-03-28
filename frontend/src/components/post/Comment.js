@@ -9,7 +9,6 @@ import ProfilePicture from "../ProfilePicture";
 
 export default class Comment extends Component {
   render() {
-    console.log(this.props)
     return (
       <Container>
         <Row className="mt-2 flex-nowrap">

@@ -19,6 +19,7 @@ const initialState = {
     posts: [],
     events:[],
     monthlyEvents: [],
+    monthlyEventsCount: 0,
     groupName: "",
     groupDesc: "",
     acceptedToGroup: false,
@@ -75,7 +76,8 @@ export default (state = initialState, action) => {
         case SET_GET_MONTHLY_EVENTS_SUCCESS:
             return {
                 ...state,
-                monthlyEvents: action.payload.data.events
+                monthlyEvents: action.payload.data.events,
+                monthlyEventsCount: action.payload.data.count.count
             };
         default:
             return state
