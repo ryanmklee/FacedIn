@@ -196,7 +196,7 @@ select * from groups where group_id = '{group_id}';
 '''
 
 COUNT_EVENTS_MONTHLY = '''
-select count(*)
+select count(distinct EXTRACT(month from events.time))
 from events
 where group_id = '{group_id}'
   and EXTRACT(MONTH FROM time) = EXTRACT(MONTH from now())
