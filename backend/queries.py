@@ -196,7 +196,7 @@ select * from groups where group_id = '{group_id}';
 '''
 
 COUNT_EVENTS_MONTHLY = '''
-select count(distinct EXTRACT(month from events.time))
+select count(distinct event_name)
 from events
 where group_id = '{group_id}'
   and EXTRACT(MONTH FROM time) = EXTRACT(MONTH from now())
@@ -206,6 +206,8 @@ where group_id = '{group_id}'
 QUERY_EVENTS_MONTHLY = '''
 select *
 from events
+join locations l on events.location_id = l.location_id
+join postal_code pc on l.postal_code = pc.postal_code
 where group_id = '{group_id}'
   and EXTRACT(MONTH FROM time) = EXTRACT(MONTH from now())
   and EXTRACT(YEAR from time) = EXTRACT(YEAR from now());
@@ -221,7 +223,7 @@ EXCEPT
 '''
 
 GROUP_FRIENDS_BY_CITY = '''
-select flt.user_id, age, sex, name, occupation, location_name, address, pc.postal_code, city, province
+select friend_id, age, sex, name, occupation, location_name, address, pc.postal_code, city, province
        from friend_list_table flt
 join user_data ud on ud.user_id = flt.friend_id
 join locations l on ud.location_id = l.location_id
