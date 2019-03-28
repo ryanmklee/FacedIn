@@ -10,7 +10,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 
-import {getUserInfo, setUserInfo} from "../actions/userProfile";
+import {getUserInfo, sendFriendRequest, setUserInfo} from "../actions/userProfile";
 import ProfilePicture from './ProfilePicture';
 import {
     EDIT_ADDRESS,
@@ -24,10 +24,6 @@ import {
 } from "../constants/actionTypes";
 import Navigator from "./Navigator";
 import Post from './post/Post';
-
-// TODO: remove after replacing with API
-import posts from '../mockData/mockPosts';
-
 class Profile extends React.Component {
 
     constructor(props) {
@@ -37,7 +33,7 @@ class Profile extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getUserInfo(this.props.userId)
+        this.props.getUserInfo(this.viewingUserId)
     }
 
     render() {
@@ -48,9 +44,11 @@ class Profile extends React.Component {
                 <Navigator/>
                 <Container className="mt-3 mb-3 group" style={{width: '50%'}}>
                     <Jumbotron className="groupTitle">
-                        <ProfilePicture userId={this.props.userId}/>
+                        <ProfilePicture userId={this.viewingUserId}/>
                         <h2>{this.props.user.name}</h2>
-                        {this.viewingUserId !== this.props.userId && <Button>Add Friend</Button>}
+                        {(this.viewingUserId !== this.props.userId && !this.props.addedFriend) && <Button onClick={() => {
+                            this.props.sendFriendRequest(this.props.userId, this.viewingUserId)
+                        }}>Add Friend</Button>}
                     </Jumbotron>
                     {this.viewingUserId === this.props.userId && <Row className="mb-3">
                         {!edit && <Button onClick={() => this.setState({ edit: !edit })} className="ml-auto">Edit Profile</Button>}
@@ -152,22 +150,6 @@ class Profile extends React.Component {
                         </Form.Group>
                         <hr/>
                     </Form>
-                    {/*<h4 className="mt-3 mb-3">My Posts</h4>*/}
-                    {/*<InputGroup>*/}
-                        {/*<FormControl placeholder="Say what you wanna say"/>*/}
-                        {/*<InputGroup.Append>*/}
-                            {/*<Button>Post</Button>*/}
-                        {/*</InputGroup.Append>*/}
-                    {/*</InputGroup>*/}
-                    {/*<ListGroup className="mt-3 mb-3">*/}
-                        {/*{*/}
-                            {/*posts.map((postObj) =>*/}
-                                {/*<ListGroup.Item>*/}
-                                    {/*<Post post={postObj} type={REGULAR_POST_TYPE}/>*/}
-                                {/*</ListGroup.Item>*/}
-                            {/*)*/}
-                        {/*}*/}
-                    {/*</ListGroup>*/}
                 </Container>
             </div>
 
@@ -178,7 +160,8 @@ class Profile extends React.Component {
 function mapStateToProps(state){
     return {
         user: state.userProfile.userData,
-        userId: state.login.user_id
+        userId: state.login.user_id,
+        addedFriend: state.userProfile.addedFriend
     }
 }
 
@@ -188,6 +171,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     setUserInfo: (age, name, occupation, sex, userId, locationName, address, postalCode, city, province) => {
         dispatch(setUserInfo(age, name, occupation, sex, userId, locationName, address, postalCode, city, province))
+    },
+    sendFriendRequest:(userId, friendId) => {
+        dispatch(sendFriendRequest(userId, friendId))
     }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)

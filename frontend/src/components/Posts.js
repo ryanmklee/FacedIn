@@ -6,10 +6,6 @@ import Post from './post/Post';
 import {REGULAR_POST_TYPE} from "../constants/actionTypes";
 
 export default class Posts extends Component {
-
-  constructor(props) {
-    super(props)
-  }
   render() {
     return (
         <div>

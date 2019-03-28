@@ -1,10 +1,12 @@
 import {
+    SEND_FRIEND_REQ_ERROR,
+    SEND_FRIEND_REQ_SUCCESS,
     SET_CHANGE_USER_INFO_ERROR,
-    SET_CHANGE_USER_INFO_SUCCESS, SET_RETRIEVE_USER_INFO_ERROR,
+    SET_CHANGE_USER_INFO_SUCCESS,
+    SET_RETRIEVE_USER_INFO_ERROR,
     SET_RETRIEVE_USER_INFO_SUCCESS
 } from "../constants/actionTypes";
 import {axiosGetRequestHelper, axiosPostRequestHelper} from "./webcallUtil";
-import {setPostToGroupError, setPostToGroupSuccess} from "./individualGroupPage";
 import axios from "axios";
 
 
@@ -32,7 +34,28 @@ export function setGetUserInfoError () {
         type: SET_RETRIEVE_USER_INFO_ERROR
     }
 }
+export function setSendFriendRequestSuccess () {
+    return {
+        type: SEND_FRIEND_REQ_SUCCESS
+    }
+}
+export function setSendFriendRequestError () {
+    return {
+        type: SEND_FRIEND_REQ_ERROR
+    }
+}
 
+export function sendFriendRequest(userId, friendId) {
+    return function (dispatch) {
+        let config = {
+            params: {
+                user_id: userId,
+                friend_id: friendId
+            }
+        };
+        return axiosPostRequestHelper(dispatch, "http://127.0.0.1:5000/api/user/send_friend_request", config, setSendFriendRequestSuccess, setSendFriendRequestError);
+    }
+}
 export function setUserInfo(age, name, occupation, sex, userId, locationName, address, postalCode, city, province) {
     return function (dispatch) {
         let config = {
@@ -76,3 +99,4 @@ export function getUserInfo(userId) {
         return axiosGetRequestHelper(dispatch, "http://127.0.0.1:5000/api/user/info", config, setGetUserInfoSuccess, setGetUserInfoError);
     }
 }
+
