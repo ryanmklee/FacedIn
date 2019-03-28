@@ -1,20 +1,14 @@
 import React from "react";
 import ListGroup from 'react-bootstrap/ListGroup';
 import {connect} from "react-redux"
-import constant, {PASSWORD_INPUT, USERNAME_INPUT} from "../constants/actionTypes";
-import store from "../store/index"
-import axios from 'axios'
-import {tryLogin} from "../actions/login";
 
 import Navigator from './Navigator';
 import Group from './Group';
-
-// TODO: replace mock data with API
-import groups from '../mockData/mockGroups';
+import {getAllGroups} from "../actions/groupPage";
 
 class GroupPage extends React.Component {
-    constructor(props) {
-        super(props);
+    componentWillMount() {
+        this.props.getAllGroups()
     }
 
     render() {
@@ -25,7 +19,7 @@ class GroupPage extends React.Component {
                 <hr className="ml-3 mr-3 mb-3"/>
                 <ListGroup className="ml-3 mr-3">
                         {
-                            groups.map((group) =>
+                            this.props.groups.map((group) =>
                                 <ListGroup.Item>
                                     <Group group={group}/>
                                 </ListGroup.Item>
@@ -39,7 +33,12 @@ class GroupPage extends React.Component {
 
 function mapStateToProps(state){
     return {
-
+        groups: state.groupPage.groups
     }
 }
-export default connect(mapStateToProps)(GroupPage)
+const mapDispatchToProps = (dispatch) => ({
+    getAllGroups: (groupId, userId) => {
+        dispatch(getAllGroups(groupId, userId))
+    }
+});
+export default connect(mapStateToProps, mapDispatchToProps)(GroupPage)

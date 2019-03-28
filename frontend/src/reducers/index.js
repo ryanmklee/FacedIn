@@ -5,11 +5,13 @@ import individualGroupPage from './individualGroupPage'
 import userProfile from "./userProfile";
 import home from "./home";
 import friendRequests from "./friendRequests";
+import groupPage from "./groupPage"
 export default combineReducers({
     login,
     createuser,
     individualGroupPage,
     userProfile,
     home,
-    friendRequests
+    friendRequests,
+    groupPage
 });
