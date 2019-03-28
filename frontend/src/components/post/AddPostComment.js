@@ -5,7 +5,9 @@ import FormControl from 'react-bootstrap/FormControl';
 import store from '../../store/index'
 
 import {postCommentOnGroupPost} from "../../actions/individualGroupPage";
-export default class AddGroupPostComment extends Component {
+import {postCommentOnPost} from "../../actions/general";
+import {REGULAR_POST_TYPE} from "../../constants/actionTypes";
+export default class AddPostComment extends Component {
   constructor(props) {
     super(props);
     this.commentText = React.createRef();
@@ -13,7 +15,11 @@ export default class AddGroupPostComment extends Component {
 
   addComment() {
       const comment = this.commentText.current.value;
-      store.dispatch(postCommentOnGroupPost(this.props.post.group_id, this.props.post.gpost_id, this.props.post.user_id, comment));
+      if (this.props.type === REGULAR_POST_TYPE) {
+          store.dispatch(postCommentOnPost(this.props.post.post_id, this.props.post.user_id, comment))
+      } else {
+          store.dispatch(postCommentOnGroupPost(this.props.post.group_id, this.props.post.gpost_id, this.props.post.user_id, comment));
+      }
   }
 
   render () {

@@ -8,7 +8,7 @@ export function axiosGetRequestHelper(dispatch, url, params, successFunction, er
             dispatch(successFunction(response))
         })
         .catch(error => {
-            console.log("GroupPost " + url + " Error:");
+            console.log("Post " + url + " Error:");
             console.log(error);
             dispatch(errorFunction())
         })
@@ -17,12 +17,12 @@ export function axiosGetRequestHelper(dispatch, url, params, successFunction, er
 export function axiosPostRequestHelper(dispatch, url, params, successFunction, errorFunction) {
     return axios.post(url, null,  params)
         .then(response => {
-            console.log("GroupPost " + url + " Response:");
+            console.log("Post " + url + " Response:");
             console.log(response);
             dispatch(successFunction(response))
         })
         .catch(error => {
-            console.log("GroupPost " + url+ " Error:");
+            console.log("Post " + url+ " Error:");
             console.log(error);
             dispatch(errorFunction(error))
         })

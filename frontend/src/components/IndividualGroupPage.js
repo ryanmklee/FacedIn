@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 
 import Event from './Event';
-import GroupPost from './post/GroupPost';
+import Post from './post/Post';
 
 import './Group.css';
 import connect from "react-redux/es/connect/connect";
@@ -23,7 +23,7 @@ import {
 import {
     EVENT_ADDRESS_INPUT, EVENT_CITY,
     EVENT_LOCATION_NAME_INPUT,
-    EVENT_NAME_INPUT, EVENT_POSTALCODE, EVENT_PROVINCE, EVENT_TIMESTAMP,
+    EVENT_NAME_INPUT, EVENT_POSTALCODE, EVENT_PROVINCE, EVENT_TIMESTAMP, GROUP_POST_TYPE,
     USERNAME_INPUT,
     WRITE_GROUP_POST_INPUT
 } from "../constants/actionTypes";
@@ -130,7 +130,7 @@ class IndividualGroupPage extends React.Component {
           {
             this.props.posts.map((postObj) =>
               <ListGroup.Item>
-                <GroupPost post={postObj}/>
+                <Post post={postObj} type={GROUP_POST_TYPE}/>
               </ListGroup.Item>
             )
           }

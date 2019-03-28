@@ -66,3 +66,7 @@ export const EVENT_POSTALCODE = "EVENT_POSTALCODE";
 export const EVENT_CITY = "EVENT_CITY";
 export const EVENT_PROVINCE = "EVENT_PROVINCE";
 export const EVENT_TIMESTAMP = "EVENT_TS";
+
+// component specific types
+export const REGULAR_POST_TYPE = "REGULAR_POST_TYPE";
+export const GROUP_POST_TYPE = "GROUP_POST_TYPE";
