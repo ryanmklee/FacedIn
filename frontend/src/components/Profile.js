@@ -152,22 +152,22 @@ class Profile extends React.Component {
                         </Form.Group>
                         <hr/>
                     </Form>
-                    <h4 className="mt-3 mb-3">My Posts</h4>
-                    <InputGroup>
-                        <FormControl placeholder="Say what you wanna say"/>
-                        <InputGroup.Append>
-                            <Button>Post</Button>
-                        </InputGroup.Append>
-                    </InputGroup>
-                    <ListGroup className="mt-3 mb-3">
-                        {
-                            posts.map((postObj) =>
-                                <ListGroup.Item>
-                                    <Post post={postObj} type={REGULAR_POST_TYPE}/>
-                                </ListGroup.Item>
-                            )
-                        }
-                    </ListGroup>
+                    {/*<h4 className="mt-3 mb-3">My Posts</h4>*/}
+                    {/*<InputGroup>*/}
+                        {/*<FormControl placeholder="Say what you wanna say"/>*/}
+                        {/*<InputGroup.Append>*/}
+                            {/*<Button>Post</Button>*/}
+                        {/*</InputGroup.Append>*/}
+                    {/*</InputGroup>*/}
+                    {/*<ListGroup className="mt-3 mb-3">*/}
+                        {/*{*/}
+                            {/*posts.map((postObj) =>*/}
+                                {/*<ListGroup.Item>*/}
+                                    {/*<Post post={postObj} type={REGULAR_POST_TYPE}/>*/}
+                                {/*</ListGroup.Item>*/}
+                            {/*)*/}
+                        {/*}*/}
+                    {/*</ListGroup>*/}
                 </Container>
             </div>
 
