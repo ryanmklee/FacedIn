@@ -76,13 +76,13 @@ def query_user():
     """
     args = request.args
     user_id = args['user_id']
-    location_id = create_location(args)
     if user_id != -1:
         if request.method == 'GET':
             with database.get_connection() as conn:
                 user_data = database.query_user_data(conn, user_id)
             return jsonify(status=status.HTTP_200_OK, user_data=user_data)
         else:
+            location_id = create_location(args)
             with database.get_connection() as conn:
                 database.insert_user_data(conn, user_id, age=args['age'], sex=args['sex'], location_id=location_id,
                                           occupation=args['occupation'], name=args['name'])

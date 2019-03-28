@@ -1,5 +1,7 @@
 import axios from 'axios'
 import {
+    SET_COMMENT_GROUP_POST_ERROR,
+    SET_COMMENT_GROUP_POST_SUCCESS,
     SET_GET_MONTHLY_EVENTS_ERROR,
     SET_GET_MONTHLY_EVENTS_SUCCESS,
     SET_RETRIEVE_POSTS_IGROUP_SUCCESS
@@ -14,6 +16,7 @@ import {SET_RETRIEVE_GROUP_INFO_ERROR} from "../constants/actionTypes";
 import {SET_CREATE_EVENT_SUCCESS} from "../constants/actionTypes";
 import {SET_CREATE_EVENT_ERROR} from "../constants/actionTypes";
 import {axiosGetRequestHelper, axiosPostRequestHelper} from "./webcallUtil";
+import {setPostCommentError, setPostCommentSuccess} from "./general";
 
 
 export function setIGroupRetrievePostsSuccess(response) {
@@ -92,6 +95,18 @@ export function getMonthlyEventError () {
     }
 }
 
+export function setCommentGPostSuccess () {
+    return {
+        type: SET_COMMENT_GROUP_POST_SUCCESS
+    }
+}
+
+export function setCommentGPostError () {
+    return {
+        type: SET_COMMENT_GROUP_POST_ERROR
+    }
+}
+
 export function getIGroupPosts(groupId) {
     return function (dispatch) {
         let config = {
@@ -156,6 +171,20 @@ export function getGroupMonthlyEvent(groupId) {
             params: {group_id: groupId}
         };
         return axiosGetRequestHelper(dispatch, "http://127.0.0.1:5000/api/groups/monthly_events", config, getMonthlyEventSuccess, getMonthlyEventError)
+    }
+}
+
+export function postCommentOnGroupPost(groupId, gPostId, userId, commentText) {
+    return function (dispatch) {
+        let config = {
+            params: {
+                group_id: groupId,
+                gpost_id: gPostId,
+                user_id: userId,
+                comment_text: commentText
+            }
+        };
+        return axiosPostRequestHelper(dispatch,"http://127.0.0.1:5000/api/groups/insert_comment", config, setCommentGPostSuccess, setCommentGPostError)
     }
 }
 

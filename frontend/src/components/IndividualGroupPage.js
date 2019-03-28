@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 
 import Event from './Event';
-import Post from './post/Post';
+import GroupPost from './post/GroupPost';
 
 import './Group.css';
 import connect from "react-redux/es/connect/connect";
@@ -101,8 +101,8 @@ class IndividualGroupPage extends React.Component {
 
     componentDidMount() {
         this.props.getGroupPosts(tempGroupId);
-        this.props.getGroupEvents(tempGroupId);
-        this.props.getMonthlyGroupEvents(tempGroupId)
+        // this.props.getGroupEvents(tempGroupId);
+        // this.props.getMonthlyGroupEvents(tempGroupId)
 
     }
 
@@ -130,7 +130,7 @@ class IndividualGroupPage extends React.Component {
           {
             this.props.posts.map((postObj) =>
               <ListGroup.Item>
-                <Post post={postObj} comments={postObj.comments}/>
+                <GroupPost post={postObj}/>
               </ListGroup.Item>
             )
           }

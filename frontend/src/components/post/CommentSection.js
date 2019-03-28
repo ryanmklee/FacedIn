@@ -6,23 +6,34 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 
-import AddComment from './AddComment';
+import AddGroupPostComment from './AddGroupPostComment';
 import Comment from './Comment';
 
 export default class CommentSection extends Component {
+
+    constructor(props) {
+        super(props)
+        // console.log(this.props)
+    }
   render () {
     return (
       <Container>
         <ListGroup className="mb-3">
           {
-            this.props.comments.map((comment) =>
+            this.props.post[1].comments.map((comment) =>
               <ListGroup.Item>
-                <Comment comment={comment}/>
+                <Comment data={{
+                    commentData: {
+                        post: this.props.post[0],
+                        comment: comment
+                    }
+                }
+                }/>
               </ListGroup.Item>
             )
           }
         </ListGroup>
-        <AddComment postId={this.props.postId}/>
+        <AddGroupPostComment post={this.props.post[0]}/>
       </Container>
     )
   }

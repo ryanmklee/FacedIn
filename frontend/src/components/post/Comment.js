@@ -23,10 +23,12 @@ function getUser(userId) {
 export default class Comment extends Component {
   constructor(props) {
     super(props);
-    this.user = getUser(this.props.comment.user_id);
-    this.date = formatDateString(this.props.comment.time_posted);
+    this.user = this.props.data.commentData.post;
+      console.log(this.user)
+
+      this.date = formatDateString(this.props.data.commentData.comment.time_posted);
   }
-  
+
   render() {
     return (
       <Container>
@@ -40,7 +42,7 @@ export default class Comment extends Component {
                 <h6>{this.user.name}</h6>
               </Col>
               <Col className="no-padding">
-                <p>{this.props.comment.comment_text}</p>
+                <p>{this.props.data.commentData.comment.comment_text}</p>
               </Col>
             </Row>
             <Row className="date">{this.date}</Row>

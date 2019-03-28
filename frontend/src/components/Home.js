@@ -9,7 +9,7 @@ import {Link} from "react-router-dom";
 import {getUserInfo, setUserInfo} from "../actions/userProfile";
 import {getUserPosts} from "../actions/home";
 import ListGroup from "react-bootstrap/ListGroup";
-import Post from "./post/Post";
+import GroupPost from "./post/GroupPost";
 import Container from "react-bootstrap/Container";
 
 /**

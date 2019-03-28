@@ -1,17 +1,16 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
-import ListGroup from 'react-bootstrap/ListGroup';
 import CommentSection from './CommentSection';
-import formatDateString from '../../utils/date';
 
-import './Post.css';
+import './GroupPost.css';
 
-export default class Post extends Component {
+export default class GroupPost extends Component {
   constructor(props) {
     super(props);
+    // console.log(this.props)
   }
  
   render() {
@@ -30,7 +29,7 @@ export default class Post extends Component {
           <p>{this.props.post.group_post}</p>
         </Row>
         <hr/>
-        <CommentSection comments={this.props.post[1].comments} postId={this.props.post[0].gpost_id}/>
+        <CommentSection post={this.props.post}/>
       </Container>
     );
   }
