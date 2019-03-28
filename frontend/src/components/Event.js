@@ -9,7 +9,7 @@ import connect from "react-redux/es/connect/connect";
 class Event extends Component {
   constructor(props) {
     super(props);
-    this.date = formatDateString(this.props.event.time);
+    // this.date = formatDateString(this.props.event.time);
   }
 
   render() {

@@ -4,21 +4,13 @@ import {Redirect} from "react-router-dom";
 
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 
 import {PASSWORD_CREATE_INPUT, USERNAME_CREATE_INPUT} from "../constants/actionTypes";
-import store from "../store/index"
-import {createUser, setCreateUserSuccess, testFetch} from "../actions/createuser";
+import {createUser} from "../actions/createuser";
 
 
 class CreateUser extends React.Component {
-
-    constructor(props) {
-        super(props);
-        // this.submitUserClick = this.submitUserClick.bind(this);
-    }
 
     submit(event) {
         event.preventDefault();

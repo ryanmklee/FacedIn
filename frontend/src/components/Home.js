@@ -1,7 +1,6 @@
 import React from "react";
 import {connect} from "react-redux"
 import {REGULAR_POST_TYPE} from "../constants/actionTypes";
-import {setLogout} from "../actions/login";
 import {getUserPosts} from "../actions/home";
 
 import Navigator from './Navigator';
@@ -10,7 +9,6 @@ import Posts from './Posts';
 /**
  * displays the posts and top navigation.
  */
-const tempUserId = 1;
 class Home extends React.Component {
 
     componentWillMount() {
@@ -36,14 +34,8 @@ function mapStateToProps(state){
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    logout: () => {
-        dispatch(setLogout())
-    },
     getUserPosts: (userId) => {
         dispatch(getUserPosts(userId))
     }
-    // setUserInfo: (age, name, occupation, sex, userId, locationName, address, postalCode, city, province) => {
-    //     dispatch(setUserInfo(age, name, occupation, sex, userId, locationName, address, postalCode, city, province))
-    // }
-})
+});
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

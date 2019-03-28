@@ -20,6 +20,7 @@ export function setGEtAllGroupsError() {
 export function getAllGroups() {
     return function (dispatch) {
         let params = {
+
         };
         return axiosGetRequestHelper(dispatch, "http://127.0.0.1:5000/api/groups/all", params, setGetAllGroupsSuccess, setGEtAllGroupsError)
     }

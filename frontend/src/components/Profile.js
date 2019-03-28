@@ -24,13 +24,11 @@ class Profile extends React.Component {
     constructor(props) {
         super(props);
         this.state = { edit: false };
+        this.viewingUserId = this.props.location.state.userId
     }
 
-    componentWillMount() {
-        this.props.getUserInfo(this.props.userId)
-    }
     componentDidMount() {
-
+        this.props.getUserInfo(this.props.userId)
     }
 
     render() {
@@ -43,9 +41,9 @@ class Profile extends React.Component {
                     <Jumbotron className="groupTitle">
                         <ProfilePicture userId={this.props.userId}/>
                         <h2>{this.props.user.name}</h2>
-                        <Button>Add Friend</Button>
+                        {this.viewingUserId !== this.props.userId && <Button>Add Friend</Button>}
                     </Jumbotron>
-                    <Row className="mb-3">
+                    {this.viewingUserId === this.props.userId && <Row className="mb-3">
                         {!edit && <Button onClick={() => this.setState({ edit: !edit })} className="ml-auto">Edit Profile</Button>}
                         {edit && <Button className="ml-auto mr-1" onClick={() => {
                             let name = document.getElementById(EDIT_NAME).value;
@@ -61,7 +59,7 @@ class Profile extends React.Component {
                             this.setState({ edit: !edit })
                         }}>Save Changes</Button>}
                         {edit && <Button variant="secondary" onClick={() => this.setState({ edit: !edit })}>Cancel</Button>}
-                    </Row>
+                    </Row>}
                     <Form>
                         <Form.Group controlId={EDIT_NAME} as={Row}>
                             <Form.Label column>
@@ -166,5 +164,5 @@ const mapDispatchToProps = (dispatch) => ({
     setUserInfo: (age, name, occupation, sex, userId, locationName, address, postalCode, city, province) => {
         dispatch(setUserInfo(age, name, occupation, sex, userId, locationName, address, postalCode, city, province))
     }
-})
+});
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)

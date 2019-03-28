@@ -15,6 +15,7 @@ export default (state = initialState, action) => {
         case SET_LOGIN_ERROR:
             return state;
         case SET_LOGOUT:
+            console.log("Setting uid to -1");
             return {
                 ...state,
                 user_id: -1

@@ -95,7 +95,6 @@ const events = [
 class IndividualGroupPage extends React.Component {
 
     componentWillMount() {
-        console.log(this.props)
         this.props.getGroupInfo(this.props.location.state.groupId)
     }
 

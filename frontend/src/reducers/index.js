@@ -6,6 +6,7 @@ import userProfile from "./userProfile";
 import home from "./home";
 import friendRequests from "./friendRequests";
 import groupPage from "./groupPage"
+import searchResult from "./searchResult"
 export default combineReducers({
     login,
     createuser,
@@ -13,5 +14,6 @@ export default combineReducers({
     userProfile,
     home,
     friendRequests,
-    groupPage
+    groupPage,
+    searchResult
 });
