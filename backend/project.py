@@ -53,19 +53,25 @@ def login():
     return jsonify(status=status.HTTP_200_OK, user_id=user_id)
 
 
-@app.route('/api/user/post', methods=['POST'])
+@app.route('/api/user/post', methods=['POST', 'DELETE'])
 def user_post():
     """
     POST request to post a user post
     :return:
     """
-    args = request.args
-    user_id = args['user_id']
-    post = pad_single_quote(args['post'])
-    if user_id and post:
-        with database.get_connection() as conn:
+    with database.get_connection() as conn:
+        if request.method == 'POST':
+            args = request.args
+            user_id = args['user_id']
+            post = pad_single_quote(args['post'])
             post_id = database.add_post(conn, user_id, post)
-    return jsonify(status=status.HTTP_201_CREATED, post_id=post_id)
+            return jsonify(status=status.HTTP_201_CREATED, post_id=post_id)
+        else:
+            data = json.loads(request.data)
+            user_id = data['user_id']
+            post_id = data['post_id']
+            database.delete_post(conn, user_id, post_id)
+            return jsonify(status=status.HTTP_200_OK)
 
 
 @app.route('/api/user/info', methods=['GET', 'POST', 'PUT'])
