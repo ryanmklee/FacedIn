@@ -378,6 +378,19 @@ def most_joined_groups():
     return jsonify(status=status.HTTP_200_OK, users=users)
 
 
+@app.route('/api/groups/users', methods=['GET'])
+def query_users_group():
+    """
+    Returns a list of users in a group
+    :return:
+    """
+    args = request.args
+    group_id = args['group_id']
+    with database.get_connection() as conn:
+        users = database.query_users_in_group(conn, group_id)
+    return jsonify(status=status.HTTP_200_OK, users=users)
+
+
 @app.route('/api/groups/monthly_events', methods=['GET'])
 def monthly_events():
     """

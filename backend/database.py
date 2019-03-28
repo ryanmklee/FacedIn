@@ -622,3 +622,10 @@ def update_user_data(connection, user_id, age, sex, location_id, occupation, nam
         cursor.execute(UPDATE_USER_DATA_SQL.format(user_id=user_id, age=age, sex=sex, location_id=location_id,
                                                    occupation=occupation, name=name))
         connection.commit()
+
+
+def query_users_in_group(connection, group_id: int) -> list:
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(QUERY_USERS_IN_GROUP.format(group_id=group_id))
+        rows = cursor.fetchall()
+    return rows
