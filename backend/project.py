@@ -159,9 +159,9 @@ def modify_friend_request():
     Accepts/Declines a friend request and moves the request to the friend list table
     :return:
     """
-    args = request.args
-    user_id = args['user_id']
-    friend_id = args['friend_id']
+    data = request.data
+    user_id = data['user_id']
+    friend_id = data['friend_id']
     with database.get_connection() as conn:
         if request.method == 'POST':
             database.accept_friend_request(conn, user_id, friend_id)
@@ -273,9 +273,9 @@ def modify_group_request():
     """
     Accepts or declines group requests
     """
-    args = request.args
-    group_id = args['group_id']
-    user_id = args['user_id']
+    data = request.data
+    group_id = data['group_id']
+    user_id = data['user_id']
     with database.get_connection() as conn:
         if request.method == 'POST':
             database.accept_group_request(conn, group_id, user_id)
