@@ -1,4 +1,3 @@
-export default posts;
 const posts = [
   {
       "comments": [
@@ -44,3 +43,5 @@ const posts = [
     }
   }
 ];
+
+export default posts
