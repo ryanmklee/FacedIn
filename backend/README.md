@@ -85,6 +85,12 @@ All queries are to be done on [localhost:5000](localhost:5000)
     "province": "BC",
 }
 ```
+###### Successful Response
+```angular2html
+{
+    "status": 201
+}
+```
 ###### PUT: /api/user/info
 ```angularjs
 {
@@ -108,12 +114,6 @@ All queries are to be done on [localhost:5000](localhost:5000)
 }
 ```
 
-###### Successful Response
-```angular2html
-{
-    "status": 201
-}
-```
 ###### GET: /api/user/info
 ```angular2html
 {
