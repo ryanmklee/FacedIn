@@ -6,6 +6,7 @@ import Image from 'react-bootstrap/Image';
 import ListGroup from 'react-bootstrap/ListGroup';
 import CommentSection from './CommentSection';
 import formatDateString from '../../utils/date';
+import ProfilePicture from '../ProfilePicture';
 
 import './Post.css';
 
@@ -22,7 +23,7 @@ export default class Post extends Component {
       <Container>
         <Row className="mt-2 flex-nowrap">
           <Col md="auto" className="no-padding">
-            <Image roundedCircle thumbnail className="post-image" src="https:\/\/randomuser.me\/api\/portraits\/men\/97.jpg"></Image>
+            <ProfilePicture userId={1}/>
           </Col>
           <Col>
             <Row className="name"><h6>{this.props.post.name}</h6></Row>

@@ -11,8 +11,6 @@ import Posts from './Posts';
 
 import posts from '../mockData/mockPosts';
 
-console.log(posts);
-
 /**
  * displays the posts and top navigation.
  */
