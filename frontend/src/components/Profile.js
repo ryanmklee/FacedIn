@@ -39,6 +39,8 @@ class Profile extends React.Component {
 
     render() {
         const { edit } = this.state;
+        console.log(this.viewingUserId)
+        console.log(this.props.userId)
         return (
             <div>
                 <Navigator/>
@@ -46,7 +48,7 @@ class Profile extends React.Component {
                     <Jumbotron className="groupTitle">
                         <ProfilePicture userId={this.viewingUserId}/>
                         <h2>{this.props.user? this.props.user.name: "-"}</h2>
-                        {(this.viewingUserId !== this.props.userId && !this.props.addedFriend) && <Button onClick={() => {
+                        {(this.viewingUserId !== this.props.userId) && <Button onClick={() => {
                             this.props.sendFriendRequest(this.props.userId, this.viewingUserId)
                         }}>Add Friend</Button>}
                     </Jumbotron>
@@ -161,7 +163,6 @@ function mapStateToProps(state){
     return {
         user: state.userProfile.userData,
         userId: state.login.user_id,
-        addedFriend: state.userProfile.addedFriend
     }
 }
 
