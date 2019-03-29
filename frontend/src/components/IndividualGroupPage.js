@@ -29,69 +29,6 @@ import {
 } from "../constants/actionTypes";
 import {acceptGroupRequest, sendGroupRequest} from "../actions/general";
 import Navigator from "./Navigator";
-
-const posts = [
-    {
-        "comments": [
-            {
-                "comment_id": 4,
-                "comment_text": "\"Wow! I also truly enjoy 304. It is almost as great as CPSC 311 and MATH 200. They are all so enjoyable!\"",
-                "post_id": 4,
-                "time_posted": "Tue, 26 Mar 2019 03:20:20 GMT",
-                "user_id": 1
-            },
-            {
-                "comment_id": 4,
-                "comment_text": "\"Wow! I also truly enjoy 304. It is almost as great as CPSC 311 and MATH 200. They are all so enjoyable!\"",
-                "post_id": 4,
-                "time_posted": "Tue, 26 Mar 2019 03:20:20 GMT",
-                "user_id": 1
-            }
-        ],
-        "post": {
-            "name": "Dr. Strange",
-            "post": "I truly do enjoy this course. I truly have learned a lot from this class.",
-            "post_id": 4,
-            "time_posted": "Tue, 26 Mar 2019 02:48:28 GMT",
-            "user_id": 1
-        }
-    },
-    {
-        "comments": [
-            {
-                "comment_id": 4,
-                "comment_text": "\"Wow! I also truly enjoy 304. It is almost as great as CPSC 311 and MATH 200. They are all so enjoyable!\"",
-                "post_id": 4,
-                "time_posted": "Tue, 26 Mar 2019 03:20:20 GMT",
-                "user_id": 1
-            }
-        ],
-        "post": {
-            "name": "Dr. Strange",
-            "post": "I truly do enjoy this course. I truly have learned a lot from this class.",
-            "post_id": 4,
-            "time_posted": "Tue, 26 Mar 2019 02:48:28 GMT",
-            "user_id": 1
-        }
-    }
-];
-
-const events = [
-    {
-        "event_id": 2,
-        "event_name": "Monday Writing Session",
-        "group_id": 4,
-        "location": "Vancouver, BC",
-        "time": "Wed, 03 Feb 2016 12:05:00 GMT"
-    },
-    {
-        "event_id": 2,
-        "event_name": "Monday Writing Session",
-        "group_id": 4,
-        "location": "Vancouver, BC",
-        "time": "Wed, 03 Feb 2016 12:05:00 GMT"
-    }
-];
 class IndividualGroupPage extends React.Component {
 
     componentWillMount() {
@@ -112,8 +49,6 @@ class IndividualGroupPage extends React.Component {
 
     render() {
         let userInThisGroup = false;
-        console.log(this.props.userId)
-        console.log(this.props.groupMembers)
         if (this.props.groupMembers.some(e => e.user_id === this.props.userId)) {
             userInThisGroup = true
         }

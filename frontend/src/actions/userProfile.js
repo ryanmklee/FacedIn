@@ -1,4 +1,5 @@
 import {
+    RESET_PROFILE_INFO,
     SEND_FRIEND_REQ_ERROR,
     SEND_FRIEND_REQ_SUCCESS,
     SET_CHANGE_USER_INFO_ERROR,
@@ -19,6 +20,12 @@ export function setChangeUserInfoSuccess () {
 export function setChangeUserInfoError () {
     return {
         type: SET_CHANGE_USER_INFO_ERROR
+    }
+}
+
+export function resetProfileInfo () {
+    return {
+        type: RESET_PROFILE_INFO
     }
 }
 

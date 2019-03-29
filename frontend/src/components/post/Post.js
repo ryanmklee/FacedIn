@@ -30,7 +30,7 @@ export default class Post extends Component {
       <Container>
         <Row className="mt-2 flex-nowrap">
           <Col md="auto" className="no-padding">
-            <ProfilePicture userId={userId}/>
+            <ProfilePicture userId={post.post.user_id}/>
           </Col>
           <Col>
             <Row className="name"><h6>{post.post.name}</h6></Row>

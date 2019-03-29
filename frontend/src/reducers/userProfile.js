@@ -1,4 +1,5 @@
 import {
+    RESET_PROFILE_INFO,
     SEND_FRIEND_REQ_SUCCESS,
     SET_CHANGE_USER_INFO_ERROR,
     SET_CHANGE_USER_INFO_SUCCESS,
@@ -11,6 +12,8 @@ const initialState = {
 };
 export default (state = initialState, action) => {
     switch (action.type) {
+        case RESET_PROFILE_INFO:
+            return initialState;
         case SET_CHANGE_USER_INFO_SUCCESS:
             return state;
         case SET_CHANGE_USER_INFO_ERROR:

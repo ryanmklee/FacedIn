@@ -10,7 +10,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 
-import {getUserInfo, sendFriendRequest, setUserInfo} from "../actions/userProfile";
+import {getUserInfo, resetProfileInfo, sendFriendRequest, setUserInfo} from "../actions/userProfile";
 import ProfilePicture from './ProfilePicture';
 import {
     EDIT_ADDRESS,
@@ -32,20 +32,20 @@ class Profile extends React.Component {
         this.viewingUserId = this.props.location.state.userId
     }
 
+
     componentDidMount() {
         this.props.getUserInfo(this.viewingUserId)
     }
 
     render() {
         const { edit } = this.state;
-
         return (
             <div>
                 <Navigator/>
                 <Container className="mt-3 mb-3 group" style={{width: '50%'}}>
                     <Jumbotron className="groupTitle">
                         <ProfilePicture userId={this.viewingUserId}/>
-                        <h2>{this.props.user.name}</h2>
+                        <h2>{this.props.user? this.props.user.name: "-"}</h2>
                         {(this.viewingUserId !== this.props.userId && !this.props.addedFriend) && <Button onClick={() => {
                             this.props.sendFriendRequest(this.props.userId, this.viewingUserId)
                         }}>Add Friend</Button>}
@@ -73,7 +73,7 @@ class Profile extends React.Component {
                                 <h6>Name</h6>
                             </Form.Label>
                             <Col className="ml-auto">
-                                <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user.name} style={{textAlign: 'right'}}/>
+                                <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user? this.props.user.name:"-"} style={{textAlign: 'right'}}/>
                             </Col>
                         </Form.Group>
                         <hr/>
@@ -82,7 +82,7 @@ class Profile extends React.Component {
                                 <h6>Age</h6>
                             </Form.Label>
                             <Col className="ml-auto">
-                                <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user.age} style={{textAlign: 'right'}}/>
+                                <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user? this.props.user.age:"0"} style={{textAlign: 'right'}}/>
                             </Col>
                         </Form.Group>
                         <hr/>
@@ -91,7 +91,7 @@ class Profile extends React.Component {
                                 <h6>Sex</h6>
                             </Form.Label>
                             <Col className="ml-auto">
-                                <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user.sex} style={{textAlign: 'right'}}/>
+                                <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user? this.props.user.sex:"-"} style={{textAlign: 'right'}}/>
                             </Col>
                         </Form.Group>
                         <hr/>
@@ -100,7 +100,7 @@ class Profile extends React.Component {
                                 <h6>Occupation</h6>
                             </Form.Label>
                             <Col className="ml-auto">
-                                <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user.occupation} style={{textAlign: 'right'}}/>
+                                <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user?this.props.user.occupation:"-"} style={{textAlign: 'right'}}/>
                             </Col>
                         </Form.Group>
                         <hr/>
@@ -109,7 +109,7 @@ class Profile extends React.Component {
                                 <h6>Location</h6>
                             </Form.Label>
                             <Col className="ml-auto">
-                                <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user.location_name} style={{textAlign: 'right'}}/>
+                                <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user?this.props.user.location_name:"-"} style={{textAlign: 'right'}}/>
                             </Col>
                         </Form.Group>
                         <hr/>
@@ -118,7 +118,7 @@ class Profile extends React.Component {
                                 <h6>Address</h6>
                             </Form.Label>
                             <Col className="ml-auto">
-                                <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user.address} style={{textAlign: 'right'}}/>
+                                <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user?this.props.user.address:"-"} style={{textAlign: 'right'}}/>
                             </Col>
                         </Form.Group>
                         <hr/>
@@ -127,7 +127,7 @@ class Profile extends React.Component {
                                 <h6>Postal Code</h6>
                             </Form.Label>
                             <Col className="ml-auto">
-                                <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user.postal_code} style={{textAlign: 'right'}}/>
+                                <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user?this.props.user.postal_code:"-"} style={{textAlign: 'right'}}/>
                             </Col>
                         </Form.Group>
                         <hr/>
@@ -136,7 +136,7 @@ class Profile extends React.Component {
                                 <h6>City</h6>
                             </Form.Label>
                             <Col className="ml-auto">
-                                <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user.city} style={{textAlign: 'right'}}/>
+                                <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user?this.props.user.city:"-"} style={{textAlign: 'right'}}/>
                             </Col>
                         </Form.Group>
                         <hr/>
@@ -145,7 +145,7 @@ class Profile extends React.Component {
                                 <h6>Province</h6>
                             </Form.Label>
                             <Col className="ml-auto">
-                                <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user.province} style={{textAlign: 'right'}}/>
+                                <Form.Control plaintext readOnly={!edit} defaultValue={this.props.user?this.props.user.province:"-"} style={{textAlign: 'right'}}/>
                             </Col>
                         </Form.Group>
                         <hr/>
