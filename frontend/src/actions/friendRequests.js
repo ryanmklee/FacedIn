@@ -59,10 +59,10 @@ export function getFriendRequests(userId) {
 export function acceptFriendRequest(friendId, userId) {
     return function (dispatch) {
         let config = {
-                data: {
+                // data: {
                     user_id: userId,
                     friend_id: friendId
-                }
+                // }
         };
         let url = "http://127.0.0.1:5000/api/user/friend_request";
         return axios.post(url, config)
