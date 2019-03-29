@@ -237,7 +237,7 @@ where flt.user_id = '{user_id}' and pc.city = '{city}'
 '''
 
 QUERY_FRIEND_CITY_COUNT = '''
-select pc.city, l.location_id, count(city)
+select pc.city, count(city)
 from user_data
 join locations l on user_data.location_id = l.location_id
 join postal_code pc on l.postal_code = pc.postal_code
@@ -245,7 +245,7 @@ where user_id in
       (select friend_id
        from friend_list_table
        where user_id = '{user_id}')
-group by pc.city, l.location_id;
+group by pc.city;
 
 '''
 
