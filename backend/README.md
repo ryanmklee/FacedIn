@@ -366,7 +366,20 @@ Decline friend request
     "status": 201
 }
 ```
-
+#### Join group
+###### POST: /api/groups/join
+```angularjs
+{
+    "group_id": 4,
+    "user_id": 1
+}
+```
+###### Successful Response
+```angularjs
+{
+    "status": 201
+}
+```
 #### Send group request
 ###### POST: /api/groups/send_request
 ```angular2html
@@ -909,7 +922,7 @@ Decline group request
     "event_id": {
         "event_id": 2
     },
-    "location_id": 3
+    "location_id": 3,
     "status": 200
 }
 ```

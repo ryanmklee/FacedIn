@@ -282,6 +282,19 @@ def query_group_requests(connection, user_id: int) -> list:
     return rows
 
 
+def self_invite_group(connection, group_id: int, user_id: int) -> None:
+    """
+    Self-invites user to a group
+    :param connection:
+    :param group_id:
+    :param user_id:
+    :return:
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(INSERT_GROUP_LIST_SQL.format(group_id=group_id, user_id=user_id))
+        connection.commit()
+
+
 def accept_group_request(connection, group_id: int, user_id: int) -> None:
     """
     Accepts a group request and adds to the group_list_table

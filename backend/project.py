@@ -290,15 +290,32 @@ def modify_group_request():
     """
     Accepts or declines group requests
     """
-    data = request.data
-    group_id = data['group_id']
-    user_id = data['user_id']
     with database.get_connection() as conn:
         if request.method == 'POST':
+            args = request.args
+            group_id = args['group_id']
+            user_id = args['user_id']
             database.accept_group_request(conn, group_id, user_id)
         else:
+            data = request.data
+            group_id = data['group_id']
+            user_id = data['user_id']
             database.decline_group_request(conn, group_id, user_id)
     return jsonify(status=status.HTTP_200_OK)
+
+
+@app.route('/api/groups/join', methods=['POST'])
+def join_group():
+    """
+    User joins a group
+    :return:
+    """
+    args = request.args
+    group_id = args['group_id']
+    user_id = args['user_id']
+    with database.get_connection() as conn:
+        database.self_invite_group(conn, group_id, user_id)
+    return jsonify(status=status.HTTP_201_CREATED)
 
 
 @app.route('/api/groups/all', methods=['GET'])
