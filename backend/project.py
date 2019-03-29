@@ -28,6 +28,7 @@ def create_user():
         with database.get_connection() as conn:
             if request.method == 'POST':
                 user_id = database.insert_user(conn, user, pwd)
+                database.null_user_data(conn, user_id['user_id'])
                 return jsonify(status=status.HTTP_201_CREATED, user_id=user_id)
             else:
                 user_id = args['user_id']

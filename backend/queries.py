@@ -13,6 +13,11 @@ INSERT INTO user_posts ("post_id", "user_id", "post", "time_posted")
   VALUES (DEFAULT, '{user_id}', '{post}', DEFAULT) returning post_id
 '''
 
+INSERT_NULL_USER_SQL = '''
+INSERT INTO "public"."user_data" ("user_id", "age", "sex", "name", "occupation", "location_id")
+ VALUES ('{user_id}', null, null, null, null, null)
+'''
+
 DELETE_POST_SQL = '''
 DELETE FROM user_posts WHERE post_id = '{post_id}' and user_id = '{user_id}'
 '''

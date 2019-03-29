@@ -107,6 +107,18 @@ def delete_post(connection, user_id: int, post_id: int) -> None:
         connection.commit()
 
 
+def null_user_data(connection, user_id: int) -> None:
+    """
+    Insert user data with null values
+    :param connection:
+    :param user_id:
+    :return:
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(INSERT_NULL_USER_SQL.format(user_id=user_id))
+        connection.commit()
+
+
 def insert_user_data(connection, user_id: int, age: int, sex: str, location_id: int, occupation: str, name: str) -> None:
     """
     Inserts user data to the user_data table
