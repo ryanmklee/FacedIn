@@ -28,6 +28,7 @@ def create_user():
         with database.get_connection() as conn:
             if request.method == 'POST':
                 user_id = database.insert_user(conn, user, pwd)
+                database.null_user_data(conn, user_id['user_id'])
                 return jsonify(status=status.HTTP_201_CREATED, user_id=user_id)
             else:
                 user_id = args['user_id']
@@ -173,16 +174,13 @@ def modify_friend_request():
     Accepts/Declines a friend request and moves the request to the friend list table
     :return:
     """
+    data = json.loads(request.data)
+    user_id = data['friend_id']
+    friend_id = data['user_id']
     with database.get_connection() as conn:
         if request.method == 'POST':
-            args = request.args
-            user_id = args['user_id']
-            friend_id = args['friend_id']
             database.accept_friend_request(conn, user_id, friend_id)
         else:
-            data = json.loads(request.data)
-            user_id = data['friend_id']
-            friend_id = data['user_id']
             database.decline_friend_request(conn, user_id, friend_id)
     return jsonify(status=status.HTTP_200_OK)
 
