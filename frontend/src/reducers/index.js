@@ -7,6 +7,7 @@ import home from "./home";
 import friendRequests from "./friendRequests";
 import groupPage from "./groupPage"
 import searchResult from "./searchResult"
+import features from "./features";
 export default combineReducers({
     login,
     createuser,
@@ -15,5 +16,6 @@ export default combineReducers({
     home,
     friendRequests,
     groupPage,
-    searchResult
+    searchResult,
+    features
 });

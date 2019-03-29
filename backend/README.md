@@ -366,7 +366,20 @@ Decline friend request
     "status": 201
 }
 ```
-
+#### Join group
+###### POST: /api/groups/join
+```angularjs
+{
+    "group_id": 4,
+    "user_id": 1
+}
+```
+###### Successful Response
+```angularjs
+{
+    "status": 201
+}
+```
 #### Send group request
 ###### POST: /api/groups/send_request
 ```angular2html
@@ -449,7 +462,138 @@ Decline group request
                 "user_id": 8
             },
             {
-                "comments": []
+                "comments": [
+                    {
+                        "age": 14,
+                        "comment_id": 4,
+                        "comment_text": "Taking the derivative of an image is so cool! You can use it do edge detection. If you use a sobel operator it does even more amazing things!",
+                        "gpost_id": 1,
+                        "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
+                        "time_posted": "Wed, 27 Mar 2019 06:09:44 GMT",
+                        "user_id": 8
+                    },
+                    {
+                        "age": 14,
+                        "comment_id": 5,
+                        "comment_text": "hry",
+                        "gpost_id": 1,
+                        "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
+                        "time_posted": "Thu, 28 Mar 2019 01:49:01 GMT",
+                        "user_id": 8
+                    },
+                    {
+                        "age": 14,
+                        "comment_id": 6,
+                        "comment_text": "wassup",
+                        "gpost_id": 1,
+                        "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
+                        "time_posted": "Thu, 28 Mar 2019 02:07:47 GMT",
+                        "user_id": 8
+                    },
+                    {
+                        "age": 14,
+                        "comment_id": 7,
+                        "comment_text": "nm",
+                        "gpost_id": 1,
+                        "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
+                        "time_posted": "Thu, 28 Mar 2019 02:08:26 GMT",
+                        "user_id": 8
+                    },
+                    {
+                        "age": 14,
+                        "comment_id": 8,
+                        "comment_text": "anotha one",
+                        "gpost_id": 1,
+                        "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
+                        "time_posted": "Thu, 28 Mar 2019 02:08:54 GMT",
+                        "user_id": 8
+                    },
+                    {
+                        "age": 14,
+                        "comment_id": 9,
+                        "comment_text": "again?",
+                        "gpost_id": 1,
+                        "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
+                        "time_posted": "Thu, 28 Mar 2019 02:09:19 GMT",
+                        "user_id": 8
+                    },
+                    {
+                        "age": 14,
+                        "comment_id": 10,
+                        "comment_text": "no",
+                        "gpost_id": 1,
+                        "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
+                        "time_posted": "Thu, 28 Mar 2019 02:10:05 GMT",
+                        "user_id": 8
+                    },
+                    {
+                        "age": 14,
+                        "comment_id": 12,
+                        "comment_text": "hey",
+                        "gpost_id": 1,
+                        "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
+                        "time_posted": "Thu, 28 Mar 2019 04:41:11 GMT",
+                        "user_id": 8
+                    },
+                    {
+                        "age": 14,
+                        "comment_id": 13,
+                        "comment_text": "hi",
+                        "gpost_id": 1,
+                        "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
+                        "time_posted": "Thu, 28 Mar 2019 18:43:49 GMT",
+                        "user_id": 8
+                    },
+                    {
+                        "age": 123,
+                        "comment_id": 15,
+                        "comment_text": "Wassup bro",
+                        "gpost_id": 1,
+                        "group_id": 4,
+                        "location_id": 77,
+                        "name": "Dr. Strangest",
+                        "occupation": "Auditor",
+                        "sex": "Male",
+                        "time_posted": "Thu, 28 Mar 2019 21:45:29 GMT",
+                        "user_id": 1
+                    }
+                ]
             }
         ],
         [
@@ -462,7 +606,21 @@ Decline group request
                 "user_id": 8
             },
             {
-                "comments": []
+                "comments": [
+                    {
+                        "age": 14,
+                        "comment_id": 11,
+                        "comment_text": "WOW IM FIRST",
+                        "gpost_id": 2,
+                        "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
+                        "time_posted": "Thu, 28 Mar 2019 02:11:45 GMT",
+                        "user_id": 8
+                    }
+                ]
             }
         ],
         [
@@ -490,26 +648,41 @@ Decline group request
             {
                 "comments": [
                     {
+                        "age": 14,
                         "comment_id": 1,
                         "comment_text": "I can't wait! Only a few more hours!",
                         "gpost_id": 4,
                         "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
                         "time_posted": "Wed, 27 Mar 2019 05:50:53 GMT",
                         "user_id": 8
                     },
                     {
+                        "age": 14,
                         "comment_id": 2,
                         "comment_text": "Almost time! I'm so excited to do that midterm!",
                         "gpost_id": 4,
                         "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
                         "time_posted": "Wed, 27 Mar 2019 05:55:20 GMT",
                         "user_id": 8
                     },
                     {
+                        "age": 14,
                         "comment_id": 3,
                         "comment_text": "That midterm was amazing! It was very fair and I totally believe that the TA wrote an amazing midterm!",
                         "gpost_id": 4,
                         "group_id": 4,
+                        "location_id": 2,
+                        "name": "Lucy MacDonald",
+                        "occupation": "Student",
+                        "sex": "Female",
                         "time_posted": "Wed, 27 Mar 2019 05:55:47 GMT",
                         "user_id": 8
                     }
@@ -619,6 +792,45 @@ Decline group request
             {
                 "comments": []
             }
+        ],
+        [
+            {
+                "gpost_id": 13,
+                "group_id": 4,
+                "group_post": "",
+                "name": "Lucy MacDonald",
+                "time_posted": "Wed, 27 Mar 2019 09:22:21 GMT",
+                "user_id": 8
+            },
+            {
+                "comments": []
+            }
+        ],
+        [
+            {
+                "gpost_id": 14,
+                "group_id": 4,
+                "group_post": "",
+                "name": "Lucy MacDonald",
+                "time_posted": "Wed, 27 Mar 2019 09:26:43 GMT",
+                "user_id": 8
+            },
+            {
+                "comments": []
+            }
+        ],
+        [
+            {
+                "gpost_id": 15,
+                "group_id": 4,
+                "group_post": "hi",
+                "name": "Lucy MacDonald",
+                "time_posted": "Wed, 27 Mar 2019 09:51:58 GMT",
+                "user_id": 8
+            },
+            {
+                "comments": []
+            }
         ]
     ],
     "status": 200
@@ -710,7 +922,7 @@ Decline group request
     "event_id": {
         "event_id": 2
     },
-    "location_id": 3
+    "location_id": 3,
     "status": 200
 }
 ```
@@ -800,15 +1012,32 @@ User attends an event
 ```angularjs
 {
     "count": {
-        "count": 1
+        "count": 2
     },
     "events": [
         {
+            "address": "2335 Engineering Road",
+            "city": "Vancouver",
             "event_id": 3,
             "event_name": "Tuesday Writing Session",
             "group_id": 4,
-            "location": "New Zealand",
+            "location_id": 2,
+            "location_name": "Plastic cone",
+            "postal_code": "V6T1Z4",
+            "province": "BC",
             "time": "Wed, 27 Mar 2019 02:03:28 GMT"
+        },
+        {
+            "address": "234 Computer Science Rd.",
+            "city": "Vancouver",
+            "event_id": 9,
+            "event_name": "Google Interview",
+            "group_id": 4,
+            "location_id": 3,
+            "location_name": "DMP 310",
+            "postal_code": "V2X1G5",
+            "province": "BC",
+            "time": "Thu, 28 Mar 2019 22:09:56 GMT"
         }
     ],
     "status": 200
@@ -828,6 +1057,27 @@ User attends an event
     "friends": [
         [
             {
+                "city": "Calgary",
+                "count": 1,
+                "location_id": 77
+            },
+            [
+                {
+                    "address": "420 Computer Science Rd.",
+                    "age": 19,
+                    "city": "Calgary",
+                    "location_name": "DMP 110",
+                    "name": "Dr. Strange",
+                    "occupation": "Starbucks Barista",
+                    "postal_code": "G2A1F4",
+                    "province": "AB",
+                    "sex": "Male",
+                    "user_id": 1
+                }
+            ]
+        ],
+        [
+            {
                 "city": "Vancouver",
                 "count": 2,
                 "location_id": 3
@@ -843,7 +1093,7 @@ User attends an event
                     "postal_code": "V2X1G5",
                     "province": "BC",
                     "sex": "Male",
-                    "user_id": 8
+                    "user_id": 3
                 },
                 {
                     "address": "234 Computer Science Rd.",
@@ -855,7 +1105,7 @@ User attends an event
                     "postal_code": "V2X1G5",
                     "province": "BC",
                     "sex": "Male",
-                    "user_id": 8
+                    "user_id": 5
                 }
             ]
         ]
@@ -911,4 +1161,46 @@ looks at group name, looks at event name and activity then pattern matches with 
     },
     "status": 200
 }
+```
+#### Query users in a group
+###### GET: /api/groups/users
+```angularjs
+{
+    "group_id": 8
+}
+```
+###### Successful Response
+```angularjs
+{
+    "status": 200,
+    "users": [
+        {
+            "address": "2335 Engineering Road",
+            "age": 14,
+            "city": "Vancouver",
+            "location_id": 2,
+            "location_name": "Plastic cone",
+            "name": "Lucy MacDonald",
+            "occupation": "Student",
+            "postal_code": "V6T1Z4",
+            "province": "BC",
+            "sex": "Female",
+            "user_id": 8
+        },
+        {
+            "address": "420 Computer Science Rd.",
+            "age": 19,
+            "city": "Calgary",
+            "location_id": 77,
+            "location_name": "DMP 110",
+            "name": "Dr. Strange",
+            "occupation": "Starbucks Barista",
+            "postal_code": "G2A1F4",
+            "province": "AB",
+            "sex": "Male",
+            "user_id": 1
+        }
+    ]
+}
+
 ```

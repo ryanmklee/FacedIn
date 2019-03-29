@@ -39,6 +39,9 @@ export default class Navigator extends Component {
             <Nav.Link>
                 <Link to={{pathname: "/profile", state:{userId: store.getState().login.user_id}}} style={{ color: 'white' }}>My Profile</Link>
             </Nav.Link>
+            <Nav.Link>
+                <Link to="/features" style={{ color: 'white' }}>Features</Link>
+            </Nav.Link>
           <RequestsButton/>
         </Nav>
         <Form inline>

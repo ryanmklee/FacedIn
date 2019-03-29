@@ -196,7 +196,7 @@ select * from groups where group_id = '{group_id}';
 '''
 
 COUNT_EVENTS_MONTHLY = '''
-select count(*)
+select count(distinct event_name)
 from events
 where group_id = '{group_id}'
   and EXTRACT(MONTH FROM time) = EXTRACT(MONTH from now())
@@ -206,6 +206,8 @@ where group_id = '{group_id}'
 QUERY_EVENTS_MONTHLY = '''
 select *
 from events
+join locations l on events.location_id = l.location_id
+join postal_code pc on l.postal_code = pc.postal_code
 where group_id = '{group_id}'
   and EXTRACT(MONTH FROM time) = EXTRACT(MONTH from now())
   and EXTRACT(YEAR from time) = EXTRACT(YEAR from now());
@@ -221,7 +223,7 @@ EXCEPT
 '''
 
 GROUP_FRIENDS_BY_CITY = '''
-select flt.user_id, age, sex, name, occupation, location_name, address, pc.postal_code, city, province
+select friend_id as "user_id", age, sex, name, occupation, location_name, address, pc.postal_code, city, province
        from friend_list_table flt
 join user_data ud on ud.user_id = flt.friend_id
 join locations l on ud.location_id = l.location_id
@@ -248,7 +250,10 @@ INSERT INTO group_post_comments ("comment_id", "gpost_id", "user_id", "group_id"
 '''
 
 QUERY_GROUP_POST_COMMENT_SQL = '''
-select * from group_post_comments where gpost_id = '{gpost_id}'
+select *
+from group_post_comments
+       join user_data u on group_post_comments.user_id = u.user_id
+where gpost_id = '{gpost_id}';
 '''
 
 QUERY_SEARCH_TERM_USERS = '''
@@ -275,4 +280,12 @@ from events
        join postal_code pc on l.postal_code = pc.postal_code
        join groups g on events.group_id = g.group_id
 where event_name ilike '{phrase}%';
+'''
+
+QUERY_USERS_IN_GROUP = '''
+select *
+from user_data
+join locations l on user_data.location_id = l.location_id
+join postal_code pc on l.postal_code = pc.postal_code
+where user_id in (select user_id from group_list_table where group_id = '{group_id}');
 '''

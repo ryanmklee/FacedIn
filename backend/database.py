@@ -3,10 +3,16 @@ import psycopg2.extras
 
 from backend.queries import *
 
-DBNAME = 'ywkauiiv'
-USER = 'ywkauiiv'
-PASSWORD = 'GaFtaBzCJqbozlewTl5ZvXv9etwAcoxF'
-HOST = 'isilo.db.elephantsql.com'
+# TODO: replace before submission
+# DBNAME = 'ywkauiiv'
+# USER = 'ywkauiiv'
+# PASSWORD = 'GaFtaBzCJqbozlewTl5ZvXv9etwAcoxF'
+# HOST = 'isilo.db.elephantsql.com'
+
+DBNAME = 'lxjvzzed'
+USER = 'lxjvzzed'
+PASSWORD = '8XaKBKymJa295Ej28nnXiYFnUlDWkApM'
+HOST = 'stampy.db.elephantsql.com'
 
 
 def get_connection():
@@ -274,6 +280,19 @@ def query_group_requests(connection, user_id: int) -> list:
         cursor.execute(QUERY_GROUP_REQUESTS_SQL.format(user_id=user_id))
         rows = cursor.fetchall()
     return rows
+
+
+def self_invite_group(connection, group_id: int, user_id: int) -> None:
+    """
+    Self-invites user to a group
+    :param connection:
+    :param group_id:
+    :param user_id:
+    :return:
+    """
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(INSERT_GROUP_LIST_SQL.format(group_id=group_id, user_id=user_id))
+        connection.commit()
 
 
 def accept_group_request(connection, group_id: int, user_id: int) -> None:
@@ -616,3 +635,10 @@ def update_user_data(connection, user_id, age, sex, location_id, occupation, nam
         cursor.execute(UPDATE_USER_DATA_SQL.format(user_id=user_id, age=age, sex=sex, location_id=location_id,
                                                    occupation=occupation, name=name))
         connection.commit()
+
+
+def query_users_in_group(connection, group_id: int) -> list:
+    with connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        cursor.execute(QUERY_USERS_IN_GROUP.format(group_id=group_id))
+        rows = cursor.fetchall()
+    return rows

@@ -12,7 +12,7 @@ export default class User extends Component {
     return (
       <Row>
         <Col md="auto">
-          <ProfilePicture userId={this.props.user.user_id}/>
+          <ProfilePicture userId={this.props.user.user_id ? this.props.user.user_id:this.props.user.friend_id}/>
         </Col>
         <Col>
           <h5 className="mt-2">{this.props.user.name}</h5>

@@ -17,6 +17,7 @@ import Profile from "./components/Profile";
 import Group from "./components/IndividualGroupPage";
 import Event from "./components/Event"
 import SearchResult from './components/SearchResult';
+import Features from "./components/Features";
 
 class App extends Component {
     render() {
@@ -34,6 +35,7 @@ class App extends Component {
                     <Route path = "/home" component={Home}/>
                     <Route path = "/search-result" component={SearchResult}/>
                     <Route path = "/ind-group-page" component={Group}/>
+                    <Route path = "/features" component={Features}/>
                     <Route component={Error}/>
                 </Switch>
                 </div>

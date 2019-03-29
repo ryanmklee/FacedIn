@@ -13,7 +13,7 @@ export default class Comment extends Component {
       <Container>
         <Row className="mt-2 flex-nowrap">
           <Col md="auto" className="no-padding">
-            <ProfilePicture userId={this.props.data.commentData.post.user_id} />
+            <ProfilePicture userId={this.props.data.commentData.comment.user_id} />
           </Col>
           <Col>
             <Row>

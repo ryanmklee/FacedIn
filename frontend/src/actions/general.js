@@ -129,3 +129,15 @@ export function createGroup(userId, activity, groupName) {
     }
 }
 
+export function eventAttend(eventId, userId) {
+    return function (dispatch) {
+        let config = {
+            params: {
+                event_id: eventId,
+                user_id: userId
+            }
+        };
+        return axiosPostRequestHelper(dispatch,"http://127.0.0.1:5000/api/groups/event/attend", config, tooLazyToMakeAnActualActionReducer, tooLazyToMakeAnActualActionReducer)
+    }
+}
+

@@ -90,14 +90,16 @@ def query_user():
         if request.method == 'POST':
             location_id = create_location(args)
             with database.get_connection() as conn:
-                database.insert_user_data(conn, user_id, age=args['age'], sex=args['sex'], location_id=location_id,
-                                          occupation=args['occupation'], name=args['name'])
+                database.insert_user_data(conn, user_id, age=args['age'], sex=pad_single_quote(args['sex']), location_id=location_id,
+                                          occupation=pad_single_quote(args['occupation']),
+                                          name=pad_single_quote(args['name']))
             return jsonify(status=status.HTTP_201_CREATED)
         if request.method == 'PUT':
             location_id = create_location(args)
             with database.get_connection() as conn:
-                database.update_user_data(conn, user_id, age=args['age'], sex=args['sex'], location_id=location_id,
-                                          occupation=args['occupation'], name=args['name'])
+                database.update_user_data(conn, user_id, age=args['age'], sex=pad_single_quote(args['sex']), location_id=location_id,
+                                          occupation=pad_single_quote(args['occupation']),
+                                          name=pad_single_quote(args['name']))
             return jsonify(status=status.HTTP_200_OK, message='Updated {}'.format(user_id))
     return jsonify(status=status.HTTP_400_BAD_REQUEST, error_message='user_id cannot be -1')
 
@@ -209,8 +211,8 @@ def create_group():
     """
     args = request.args
     user_id = args['user_id']
-    activity = args['activity']
-    group_name = args['group_name']
+    activity = pad_single_quote(args['activity'])
+    group_name = pad_single_quote(args['group_name'])
     with database.get_connection() as conn:
         group_id = database.insert_group(conn, user_id, activity, group_name)
     return jsonify(status=status.HTTP_201_CREATED, group_id=group_id)
@@ -288,15 +290,32 @@ def modify_group_request():
     """
     Accepts or declines group requests
     """
-    data = request.data
-    group_id = data['group_id']
-    user_id = data['user_id']
     with database.get_connection() as conn:
         if request.method == 'POST':
+            args = request.args
+            group_id = args['group_id']
+            user_id = args['user_id']
             database.accept_group_request(conn, group_id, user_id)
         else:
+            data = request.data
+            group_id = data['group_id']
+            user_id = data['user_id']
             database.decline_group_request(conn, group_id, user_id)
     return jsonify(status=status.HTTP_200_OK)
+
+
+@app.route('/api/groups/join', methods=['POST'])
+def join_group():
+    """
+    User joins a group
+    :return:
+    """
+    args = request.args
+    group_id = args['group_id']
+    user_id = args['user_id']
+    with database.get_connection() as conn:
+        database.self_invite_group(conn, group_id, user_id)
+    return jsonify(status=status.HTTP_201_CREATED)
 
 
 @app.route('/api/groups/all', methods=['GET'])
@@ -328,7 +347,7 @@ def create_event():
     args = request.args
     location_id = create_location(args)
     group_id = args['group_id']
-    event_name = args['event_name']
+    event_name = pad_single_quote(args['event_name'])
     timestamp = args['timestamp']
     with database.get_connection() as conn:
         event_id = database.insert_event(conn, group_id, event_name, location_id, timestamp)
@@ -376,6 +395,19 @@ def most_joined_groups():
     return jsonify(status=status.HTTP_200_OK, users=users)
 
 
+@app.route('/api/groups/users', methods=['GET'])
+def query_users_group():
+    """
+    Returns a list of users in a group
+    :return:
+    """
+    args = request.args
+    group_id = args['group_id']
+    with database.get_connection() as conn:
+        users = database.query_users_in_group(conn, group_id)
+    return jsonify(status=status.HTTP_200_OK, users=users)
+
+
 @app.route('/api/groups/monthly_events', methods=['GET'])
 def monthly_events():
     """
@@ -409,11 +441,11 @@ def query_search_phrase():
 
 
 def create_location(args):
-    location_name = args['location_name']
-    address = args['address']
-    postal_code = args['postal_code']
-    province = args['province']
-    city = args['city']
+    location_name = pad_single_quote(args['location_name'])
+    address = pad_single_quote(args['address'])
+    postal_code = pad_single_quote(args['postal_code'])
+    province = pad_single_quote(args['province'])
+    city = pad_single_quote(args['city'])
     with database.get_connection() as conn:
         database.create_update_postal_code(conn, postal_code, city, province)
         location_id = database.create_location(conn, location_name, address, postal_code)

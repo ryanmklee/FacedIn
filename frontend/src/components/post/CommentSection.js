@@ -15,7 +15,6 @@ export default class CommentSection extends Component {
                             <ListGroup.Item>
                                 <Comment data={{
                                     commentData: {
-                                        post: this.props.post.post,
                                         comment: comment,
                                         type: this.props.type
                                     }

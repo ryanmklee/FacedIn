@@ -5,8 +5,11 @@ import Col from 'react-bootstrap/Col';
 
 import formatDateString from '../utils/date';
 import connect from "react-redux/es/connect/connect";
+import Button from "react-bootstrap/es/Button";
+import {eventAttend} from "../actions/general";
+import store from "../store/index"
 
-class Event extends Component {
+export default class Event extends Component {
   constructor(props) {
     super(props);
     // this.date = formatDateString(this.props.event.time);
@@ -28,13 +31,11 @@ class Event extends Component {
             this.props.event.address + " " + this.props.event.city + ", " + this.props.event.province}
             </Row>
           </Col>
+          {this.props.attendable &&<Button onClick={() => {
+            store.dispatch(eventAttend(this.props.event.event_id, store.getState().login.user_id))
+          }}>Attend</Button>}
         </Row>
       </Container>
     );
   }
 }
-function mapStateToProps(state){
-  return {
-  }
-}
-export default connect(mapStateToProps)(Event)
