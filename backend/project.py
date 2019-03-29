@@ -175,8 +175,8 @@ def modify_friend_request():
     :return:
     """
     data = json.loads(request.data)
-    user_id = data['friend_id']
-    friend_id = data['user_id']
+    user_id = data['user_id']
+    friend_id = data['friend_id']
     with database.get_connection() as conn:
         if request.method == 'POST':
             database.accept_friend_request(conn, user_id, friend_id)
