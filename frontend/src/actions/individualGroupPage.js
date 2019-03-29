@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {
-    GROUP_MEMBERS_SUCCESS,
+    GROUP_MEMBERS_SUCCESS, JOIN_GROUP_NO_MATTER,
     SET_COMMENT_GROUP_POST_ERROR,
     SET_COMMENT_GROUP_POST_SUCCESS,
     SET_GET_MONTHLY_EVENTS_ERROR,
@@ -113,6 +113,24 @@ export function setGetGroupMembersSuccess(response) {
         type: GROUP_MEMBERS_SUCCESS,
         payload: response
 
+    }
+}
+
+export function setJoinGroupSuccess () {
+    return {
+        type: JOIN_GROUP_NO_MATTER
+    }
+}
+
+export function joinGroup(groupId, userId) {
+    return function (dispatch) {
+        let config = {
+            params: {
+                group_id: groupId,
+                user_id: userId
+            }
+        };
+        return axiosPostRequestHelper(dispatch, "http://127.0.0.1:5000/api/groups/join", config, setJoinGroupSuccess, tooLazyToMakeAnActualActionReducer);
     }
 }
 

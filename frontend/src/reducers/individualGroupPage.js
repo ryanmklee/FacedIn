@@ -1,5 +1,5 @@
 import {
-    GROUP_MEMBERS_SUCCESS,
+    GROUP_MEMBERS_SUCCESS, JOIN_GROUP_NO_MATTER,
     SET_ACCEPT_GROUP_REQ_ERROR,
     SET_ACCEPT_GROUP_REQ_SUCCESS, SET_GET_MONTHLY_EVENTS_SUCCESS,
     SET_JOIN_GROUP_SUCCESS,
@@ -63,14 +63,7 @@ export default (state = initialState, action) => {
                 ...state,
                 acceptedToGroup: true
             };
-        case SET_SEND_GROUP_REQ_ERROR:
-            return {
-                ...state,
-                acceptedToGroup: false
-            };
-        case SET_ACCEPT_GROUP_REQ_SUCCESS:
-            return state;
-        case SET_ACCEPT_GROUP_REQ_ERROR:
+        case JOIN_GROUP_NO_MATTER:
             return {
                 ...state,
                 acceptedToGroup: false

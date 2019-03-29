@@ -17,7 +17,7 @@ import {
     createEventForGroup, getGroupMembers, getGroupMonthlyEvent,
     getIGroupEvents,
     getIGroupInformation,
-    getIGroupPosts,
+    getIGroupPosts, joinGroup,
     postToGroup
 } from "../actions/individualGroupPage";
 import {
@@ -60,8 +60,7 @@ class IndividualGroupPage extends React.Component {
                         <h2>{this.props.groupName}</h2>
                         <p>{this.props.groupDesc}</p>
                         {(!this.props.acceptedToGroup && !userInThisGroup) &&<Button onClick={() => {
-                            let tempFriendId = 7;
-                            this.props.joinGroup(this.props.userId, this.props.groupMembers[0] ? this.props.groupMembers[0].user_id:tempFriendId, this.props.location.state.groupId)
+                            this.props.joinGroup(this.props.userId, this.props.location.state.groupId)
                         }}>Join Group</Button>}
                     </Jumbotron>
                     <Row>
@@ -171,10 +170,8 @@ const mapDispatchToProps = (dispatch) => ({
     createEvent : (groupId, eventName, locationName, address, postalCode, city, province, timestamp) => {
         dispatch(createEventForGroup(groupId, eventName, locationName, address, postalCode, city, province, timestamp))
     },
-    joinGroup: (userId, friendId, groupId) => {
-        dispatch(sendGroupRequest(userId, friendId, groupId)).then(() => {
-            dispatch(acceptGroupRequest(friendId, groupId))
-        })
+    joinGroup: (userId, groupId) => {
+        dispatch(joinGroup(groupId, userId))
     }
 
 });
