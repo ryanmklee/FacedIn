@@ -7,7 +7,7 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 
 import {PASSWORD_CREATE_INPUT, USERNAME_CREATE_INPUT} from "../constants/actionTypes";
-import {createUser} from "../actions/createuser";
+import {createUser, resetCreateScreen} from "../actions/createuser";
 
 
 class CreateUser extends React.Component {
@@ -21,6 +21,7 @@ class CreateUser extends React.Component {
 
     render() {
         if (this.props.createdUser) {
+            this.props.resetScreen()
             return <Redirect push to={"/"}/>
         }
         return (
@@ -45,6 +46,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     submitUserClick: (username, password) => {
         dispatch(createUser(username, password))
+    },
+    resetScreen: () => {
+        resetCreateScreen()
     }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(CreateUser)

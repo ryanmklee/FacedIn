@@ -1,15 +1,14 @@
 import axios from "axios";
-import {setIGroupRetrievePostsError, setIGroupRetrievePostsSuccess} from "./individualGroupPage";
 import {
     SET_ACCEPT_GROUP_REQ_ERROR,
     SET_ACCEPT_GROUP_REQ_SUCCESS,
-    SET_CREATE_USER_ERROR,
     SET_POST_COMMENT_ERROR,
-    SET_POST_COMMENT_SUCCESS, SET_SEND_GROUP_REQ_ERROR,
-    SET_SEND_GROUP_REQ_SUCCESS, TOO_LAZY_TO_MAKE_ACTIONS
+    SET_POST_COMMENT_SUCCESS,
+    SET_SEND_GROUP_REQ_ERROR,
+    SET_SEND_GROUP_REQ_SUCCESS,
+    TOO_LAZY_TO_MAKE_ACTIONS
 } from "../constants/actionTypes";
 import {axiosPostRequestHelper} from "./webcallUtil";
-import {setDeclineFRError, setDeclineFRSuccess} from "./friendRequests";
 
 /**
   * these actions are used in weird places...

@@ -1,11 +1,12 @@
 import {
     SET_ACCEPT_FRIEND_REQUEST_ERROR,
-    SET_ACCEPT_FRIEND_REQUEST_SUCCESS, SET_DECLINE_FRIEND_REQUEST_ERROR, SET_DECLINE_FRIEND_REQUEST_SUCCESS,
+    SET_ACCEPT_FRIEND_REQUEST_SUCCESS,
+    SET_DECLINE_FRIEND_REQUEST_ERROR,
+    SET_DECLINE_FRIEND_REQUEST_SUCCESS,
     SET_VIEW_FRIEND_REQUESTS_ERROR,
     SET_VIEW_FRIEND_REQUESTS_SUCCESS
 } from "../constants/actionTypes";
-import {axiosDeleteRequestHelper, axiosGetRequestHelper, axiosPostRequestHelper} from "./webcallUtil";
-import {setAcceptGroupRequestErrpr, setAcceptGroupRequestSuccess} from "./general";
+import {axiosGetRequestHelper} from "./webcallUtil";
 import axios from "axios";
 
 export function setViewFriendRequestsSuccess (response) {
@@ -59,10 +60,8 @@ export function getFriendRequests(userId) {
 export function acceptFriendRequest(friendId, userId) {
     return function (dispatch) {
         let config = {
-                // data: {
-                    user_id: userId,
-                    friend_id: friendId
-                // }
+            user_id: userId,
+            friend_id: friendId
         };
         let url = "http://127.0.0.1:5000/api/user/friend_request";
         return axios.post(url, config)

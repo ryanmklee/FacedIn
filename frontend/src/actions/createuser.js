@@ -3,6 +3,7 @@ import axios from 'axios'
 import {SET_CREATE_USER_SUCCESS} from "../constants/actionTypes";
 import {SET_CREATE_USER_ERROR} from "../constants/actionTypes";
 import {axiosPostRequestHelper} from "./webcallUtil";
+import {RESET_CREATE_SCREEN} from "../constants/actionTypes";
 
 
 export function setCreateUserSuccess() {
@@ -14,6 +15,12 @@ export function setCreateUserSuccess() {
 export function setCreateUserError() {
     return {
         type: SET_CREATE_USER_ERROR
+    }
+}
+
+export function resetCreateScreen () {
+    return {
+        type: RESET_CREATE_SCREEN
     }
 }
 
