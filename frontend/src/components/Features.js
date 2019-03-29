@@ -43,7 +43,7 @@ class Features extends React.Component {
                         {
                             this.props.friendLocations.map((location) =>
                                 <ListGroup.Item>
-                                    <h2>{location[0].city}</h2>
+                                    <h2>{location[0].city + ": " + location[0].count}</h2>
                                     {
                                         location[1].map((user) =>
                                             <User user={user}/>
