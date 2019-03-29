@@ -319,6 +319,7 @@ INSERT INTO public.group_list_table (group_id, user_id) VALUES (3, 8);
 INSERT INTO public.group_list_table (group_id, user_id) VALUES (5, 8);
 INSERT INTO public.group_list_table (group_id, user_id) VALUES (6, 8);
 INSERT INTO public.group_list_table (group_id, user_id) VALUES (7, 1);
+INSERT INTO public.group_list_table (group_id, user_id) VALUES (7, 8);
 
 INSERT INTO public.group_posts (gpost_id, group_id, user_id, group_post, time_posted) VALUES (1, 4, 8, 'I''m so excited to go see everyone at the writing session!', '2019-03-26 21:29:00.225772');
 INSERT INTO public.group_posts (gpost_id, group_id, user_id, group_post, time_posted) VALUES (2, 4, 8, 'I''m so excited to go see everyone at the writing session!', '2019-03-26 21:32:26.378898');
