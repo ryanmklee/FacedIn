@@ -1,4 +1,5 @@
 import {
+    GROUP_MEMBERS_SUCCESS,
     SET_ACCEPT_GROUP_REQ_ERROR,
     SET_ACCEPT_GROUP_REQ_SUCCESS, SET_GET_MONTHLY_EVENTS_SUCCESS,
     SET_JOIN_GROUP_SUCCESS,
@@ -20,6 +21,7 @@ const initialState = {
     events:[],
     monthlyEvents: [],
     monthlyEventsCount: 0,
+    groupMembers: [],
     groupName: "",
     groupDesc: "",
     acceptedToGroup: false,
@@ -78,6 +80,11 @@ export default (state = initialState, action) => {
                 ...state,
                 monthlyEvents: action.payload.data.events,
                 monthlyEventsCount: action.payload.data.count.count
+            };
+        case GROUP_MEMBERS_SUCCESS:
+            return {
+                ...state,
+                groupMembers: action.payload.data.users
             };
         default:
             return state

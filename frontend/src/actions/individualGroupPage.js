@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {
+    GROUP_MEMBERS_SUCCESS,
     SET_COMMENT_GROUP_POST_ERROR,
     SET_COMMENT_GROUP_POST_SUCCESS,
     SET_GET_MONTHLY_EVENTS_ERROR,
@@ -16,7 +17,7 @@ import {SET_RETRIEVE_GROUP_INFO_ERROR} from "../constants/actionTypes";
 import {SET_CREATE_EVENT_SUCCESS} from "../constants/actionTypes";
 import {SET_CREATE_EVENT_ERROR} from "../constants/actionTypes";
 import {axiosGetRequestHelper, axiosPostRequestHelper} from "./webcallUtil";
-import {setPostCommentError, setPostCommentSuccess} from "./general";
+import {setPostCommentError, setPostCommentSuccess, tooLazyToMakeAnActualActionReducer} from "./general";
 
 
 export function setIGroupRetrievePostsSuccess(response) {
@@ -104,6 +105,23 @@ export function setCommentGPostSuccess () {
 export function setCommentGPostError () {
     return {
         type: SET_COMMENT_GROUP_POST_ERROR
+    }
+}
+
+export function setGetGroupMembersSuccess(response) {
+    return {
+        type: GROUP_MEMBERS_SUCCESS,
+        payload: response
+
+    }
+}
+
+export function getGroupMembers(groupId) {
+    return function (dispatch) {
+        let config = {
+            params: {group_id: groupId}
+        };
+        return axiosGetRequestHelper(dispatch, "http://127.0.0.1:5000/api/groups/users", config, setGetGroupMembersSuccess, tooLazyToMakeAnActualActionReducer)
     }
 }
 

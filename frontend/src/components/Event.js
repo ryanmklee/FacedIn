@@ -31,9 +31,9 @@ export default class Event extends Component {
             this.props.event.address + " " + this.props.event.city + ", " + this.props.event.province}
             </Row>
           </Col>
-          <Button onClick={() => {
+          {this.props.attendable &&<Button onClick={() => {
             store.dispatch(eventAttend(this.props.event.event_id, store.getState().login.user_id))
-          }}>Attend</Button>
+          }}>Attend</Button>}
         </Row>
       </Container>
     );

@@ -14,7 +14,7 @@ import connect from "react-redux/es/connect/connect";
 import {tryLogin} from "../actions/login";
 import store from "../store";
 import {
-    createEventForGroup, getGroupMonthlyEvent,
+    createEventForGroup, getGroupMembers, getGroupMonthlyEvent,
     getIGroupEvents,
     getIGroupInformation,
     getIGroupPosts,
@@ -99,14 +99,24 @@ class IndividualGroupPage extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getGroupPosts(this.props.location.state.groupId);
-        this.props.getGroupEvents(this.props.location.state.groupId);
-        this.props.getMonthlyGroupEvents(this.props.location.state.groupId)
+        let groupId = this.props.location.state.groupId;
+        this.props.getGroupMembers(groupId);
+        this.props.getGroupPosts(groupId);
+        setTimeout(function(){
+            this.props.getGroupEvents(groupId);
+            this.props.getMonthlyGroupEvents(groupId)
+        }.bind(this),1000);
+
 
     }
 
     render() {
-        console.log(this.props.monthlyEvents)
+        let userInThisGroup = false;
+        console.log(this.props.userId)
+        console.log(this.props.groupMembers)
+        if (this.props.groupMembers.some(e => e.user_id === this.props.userId)) {
+            userInThisGroup = true
+        }
         return (
             <div>
                 <Navigator/>
@@ -114,18 +124,20 @@ class IndividualGroupPage extends React.Component {
                     <Jumbotron className="groupTitle">
                         <h2>{this.props.groupName}</h2>
                         <p>{this.props.groupDesc}</p>
-                        {!this.props.acceptedToGroup &&<Button onClick={() => {
+                        {(!this.props.acceptedToGroup && !userInThisGroup) &&<Button onClick={() => {
                             let tempFriendId = 7;
-                            this.props.joinGroup(this.props.userId, tempFriendId, this.props.location.state.groupId)
+                            this.props.joinGroup(this.props.userId, this.props.groupMembers[0] ? this.props.groupMembers[0].user_id:tempFriendId, this.props.location.state.groupId)
                         }}>Join Group</Button>}
                     </Jumbotron>
                     <Row>
                         <Col><h4>Group posts</h4></Col>
+                        {userInThisGroup &&<Row>
                         <input id={WRITE_GROUP_POST_INPUT} type="text" placeholder="Write a post..."/>
                         <Col md="auto"><Button variant="primary" onClick={() => {
                             let postText = document.getElementById(WRITE_GROUP_POST_INPUT).value;
                             this.props.createPost(this.props.location.state.groupId, this.props.userId, postText)
                         }}>Add Post</Button></Col>
+                        </Row>}
                     </Row>
                     <hr/>
                     <ListGroup className="mb-3">
@@ -162,13 +174,13 @@ class IndividualGroupPage extends React.Component {
 
                     <hr/>
                     <Row>
-                        <h2>{"Events This Month " + this.props.monthlyEventsCount}</h2>
+                        <h2>{"Events This Month: " + this.props.monthlyEventsCount}</h2>
                     </Row>
                     <ListGroup>
                         {
                             this.props.monthlyEvents.map((event) =>
                                 <ListGroup.Item>
-                                    <Event event={event}/>
+                                    <Event event={event} attendable={userInThisGroup}/>
                                 </ListGroup.Item>
                             )
                         }
@@ -178,7 +190,7 @@ class IndividualGroupPage extends React.Component {
                         {
                             this.props.events.map((event) =>
                                 <ListGroup.Item>
-                                    <Event event={event}/>
+                                    <Event event={event} attendable={userInThisGroup}/>
                                 </ListGroup.Item>
                             )
                         }
@@ -195,6 +207,7 @@ function mapStateToProps(state){
         events: state.individualGroupPage.events,
         monthlyEvents: state.individualGroupPage.monthlyEvents,
         monthlyEventsCount: state.individualGroupPage.monthlyEventsCount,
+        groupMembers: state.individualGroupPage.groupMembers,
         groupName: state.individualGroupPage.groupName,
         groupDesc: state.individualGroupPage.groupDesc,
         acceptedToGroup: state.individualGroupPage.acceptedToGroup
@@ -213,6 +226,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getMonthlyGroupEvents: (groupId) => {
         dispatch(getGroupMonthlyEvent(groupId))
+    },
+    getGroupMembers: (groupId) => {
+        dispatch(getGroupMembers(groupId))
     },
     createPost: (groupId, userId, postText) => {
         dispatch(postToGroup(groupId, userId, postText))
