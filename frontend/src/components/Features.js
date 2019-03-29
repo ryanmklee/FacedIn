@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux"
 
 import Navigator from "./Navigator";
-import store from '../store/index'
+import {store} from '../store/index'
 import {getFriendLocations, getMostJoined} from "../actions/features";
 import ListGroup from "react-bootstrap/ListGroup";
 import User from "./User";

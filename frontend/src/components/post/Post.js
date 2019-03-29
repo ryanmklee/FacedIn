@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import CommentSection from './CommentSection';
 import ProfilePicture from '../ProfilePicture';
-import store from '../../store/index'
+import {store} from '../../store/index'
 
 import './Post.css';
 import {REGULAR_POST_TYPE} from "../../constants/actionTypes";

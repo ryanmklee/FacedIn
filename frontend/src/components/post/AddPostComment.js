@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
-import store from '../../store/index'
+import {store} from '../../store/index'
 
 import {postCommentOnGroupPost} from "../../actions/individualGroupPage";
 import {postCommentOnPost} from "../../actions/general";

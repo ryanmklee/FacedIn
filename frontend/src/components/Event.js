@@ -7,7 +7,7 @@ import formatDateString from '../utils/date';
 import connect from "react-redux/es/connect/connect";
 import Button from "react-bootstrap/es/Button";
 import {eventAttend} from "../actions/general";
-import store from "../store/index"
+import {store} from "../store/index"
 
 export default class Event extends Component {
   constructor(props) {

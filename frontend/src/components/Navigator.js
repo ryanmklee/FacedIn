@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 
 import {setLogout} from "../actions/login";
-import store from "../store/index";
+import {store} from "../store/index";
 import RequestsButton from './request/RequestsButton';
 import {Link, NavLink} from "react-router-dom";
 import {EDIT_NAME, SEARCH_BAR_INPUT} from "../constants/actionTypes";

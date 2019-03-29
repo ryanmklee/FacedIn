@@ -11,8 +11,6 @@ import Post from './post/Post';
 
 import './Group.css';
 import connect from "react-redux/es/connect/connect";
-import {tryLogin} from "../actions/login";
-import store from "../store";
 import {
     createEventForGroup, getGroupMembers, getGroupMonthlyEvent,
     getIGroupEvents,

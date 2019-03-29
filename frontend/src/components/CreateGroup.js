@@ -4,10 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 
 import {connect} from "react-redux"
-import constant, {PASSWORD_INPUT, USERNAME_INPUT} from "../constants/actionTypes";
-import store from "../store/index"
-import axios from 'axios'
-import {tryLogin} from "../actions/login";
+import {store} from "../store/index"
 
 import Navigator from './Navigator';
 import {createGroup} from "../actions/general";

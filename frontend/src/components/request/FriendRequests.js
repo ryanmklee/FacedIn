@@ -11,7 +11,7 @@ import {setLogout} from "../../actions/login";
 import {getUserPosts} from "../../actions/home";
 import connect from "react-redux/es/connect/connect";
 import {getFriendRequests} from "../../actions/friendRequests";
-import store from "../../store";
+import {store} from "../../store";
 
 class FriendRequests extends Component {
 
